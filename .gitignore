@@ -1,6 +1,13 @@
-*.class
+*.ipr
+*.iws
+*.iml
+.clover
+activemq-data
+*.hsp
+atlassian-ide-plugin*.xml
 
-# Package Files #
-*.jar
-*.war
-*.ear
+.idea
+
+/build
+/*/build
+.gradle
