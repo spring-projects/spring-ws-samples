@@ -1,0 +1,21 @@
+ext.springVersion =       '3.2.4.RELEASE'
+ext.springWsVersion =  	  '2.1.4.RELEASE'
+ext.tomcatVersion =       '7.0.42'
+
+apply plugin: 'war'
+apply plugin: 'tomcat'
+
+tomcatRun {
+	contextPath = 'echo-server'
+}
+
+dependencies {
+	compile("org.springframework.ws:spring-ws-core:$springWsVersion")
+	runtime("log4j:log4j:1.2.16")
+	
+	tomcat("org.apache.tomcat.embed:tomcat-embed-core:$tomcatVersion",
+		   "org.apache.tomcat.embed:tomcat-embed-logging-juli:$tomcatVersion")
+	tomcat("org.apache.tomcat.embed:tomcat-embed-jasper:$tomcatVersion") {
+		exclude group: 'org.eclipse.jdt.core.compiler', module: 'ecj'
+	}
+}
