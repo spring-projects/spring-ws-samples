@@ -11,6 +11,7 @@ Services]. See the README within each sample project for more information and
 additional instructions.
 
 - [echo](./echo) - a simple sample that shows a bare-bones Echo service
+- [mtom](./mtom) - shows how to use MTOM and JAXB2 marshalling
 - [tutorial](./tutorial) - contains the code from the Spring-WS tutorial
 
 ## Running the Server
