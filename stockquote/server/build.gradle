@@ -1,0 +1,60 @@
+configurations {
+	jaxb
+}
+
+ext.springVersion =       '3.2.4.RELEASE'
+ext.springWsVersion =  	  '2.1.4.RELEASE'
+
+task genJaxb {
+	ext.sourcesDir = "${buildDir}/generated-sources/jaxb"
+	ext.classesDir = "${buildDir}/classes/jaxb"
+	ext.schema = "${projectDir}/src/main/resources/org/springframework/ws/samples/stockquote/ws/stockquote.wsdl"
+
+	inputs.files schema
+	outputs.dir classesDir
+
+	doLast() {
+		project.ant {
+			taskdef name: "xjc", classname: "com.sun.tools.xjc.XJCTask",
+					classpath: configurations.jaxb.asPath
+			mkdir(dir: sourcesDir)
+			mkdir(dir: classesDir)
+
+			xjc(destdir: sourcesDir, schema: schema,
+					package: "org.springframework.ws.samples.stockquote.schema") {
+				arg(value: "-wsdl")
+				produces(dir: sourcesDir, includes: "**/*.java")
+			}
+
+			javac(destdir: classesDir, source: 1.6, target: 1.6, debug: true,
+					debugLevel: "lines,vars,source",
+					classpath: configurations.jaxb.asPath) {
+				src(path: sourcesDir)
+				include(name: "**/*.java")
+				include(name: "*.java")
+			}
+
+			copy(todir: classesDir) {
+				fileset(dir: sourcesDir, erroronmissingdir: false) {
+					exclude(name: "**/*.java")
+				}
+			}
+		}
+	}
+}
+
+task runServer(dependsOn: 'classes', type:JavaExec) {
+	main = "org.springframework.ws.samples.stockquote.Driver"
+	standardInput = System.in
+	classpath = sourceSets.main.runtimeClasspath
+}
+
+dependencies {
+	compile("org.springframework.ws:spring-ws-core:$springWsVersion")
+	compile("org.springframework.ws:spring-ws-support:$springWsVersion")
+	compile(files(genJaxb.classesDir).builtBy(genJaxb))
+	
+	runtime("log4j:log4j:1.2.16")
+
+	jaxb "com.sun.xml.bind:jaxb-xjc:2.1.7"	
+}

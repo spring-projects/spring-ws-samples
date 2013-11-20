@@ -1,4 +1,4 @@
-# Spring Web Service Tutorial
+# Echo Sample
 
 This sample shows a bare-bones echoing service. Incoming messages are handled
 via DOM, and a simple 'business logic' service is used to obtain the result.

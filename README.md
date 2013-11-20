@@ -12,12 +12,13 @@ additional instructions.
 
 - [echo](./echo) - a simple sample that shows a bare-bones Echo service
 - [mtom](./mtom) - shows how to use MTOM and JAXB2 marshalling
+- [stockquote](./stockquote) - shows how to use WS-Addressing and the Java 6 HTTP Server
 - [tutorial](./tutorial) - contains the code from the Spring-WS tutorial
 
 ## Running the Server
 
 Most of the sample apps can be built and run using the following commands from
-within the sample's folder.
+within the ``server`` folder.
 
 	```sh
 	$ ./gradlew tomcatRun
