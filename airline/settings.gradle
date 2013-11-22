@@ -1,0 +1,2 @@
+
+include "server", "client:axis1", "client:jax-ws", "client:jms", "client:saaj", "client:spring-ws"

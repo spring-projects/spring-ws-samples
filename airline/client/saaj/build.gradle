@@ -1,0 +1,10 @@
+dependencies {
+    compile("com.sun.xml.wss:xws-security:3.0") {
+        exclude group: 'javax.xml.crypto', module: 'xmldsig'
+    }
+}
+
+task runClient(dependsOn: 'classes', type:JavaExec) {
+	main = "org.springframework.ws.samples.airline.client.saaj.Driver"
+	classpath = sourceSets.main.runtimeClasspath
+}

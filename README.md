@@ -10,6 +10,8 @@ The following sample applications demonstrate the capabilities of [Spring Web
 Services]. See the README within each sample project for more information and
 additional instructions.
 
+- [airline](./airline) - a complete airline sample that shows both Web Service and 
+	O/X Mapping functionality in a complete application
 - [echo](./echo) - a simple sample that shows a bare-bones Echo service
 - [mtom](./mtom) - shows how to use MTOM and JAXB2 marshalling
 - [stockquote](./stockquote) - shows how to use WS-Addressing and the Java 6 HTTP Server
