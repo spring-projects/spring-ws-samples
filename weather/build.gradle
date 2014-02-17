@@ -1,0 +1,65 @@
+configurations {
+	jaxb
+}
+
+ext.springVersion =       '3.2.4.RELEASE'
+ext.springWsVersion =  	  '2.1.4.RELEASE'
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+repositories {
+    maven { url 'http://repo.spring.io/libs-release' }
+}
+
+task genJaxb {
+	ext.sourcesDir = "${buildDir}/generated-sources/jaxb"
+	ext.classesDir = "${buildDir}/classes/jaxb"
+	ext.schema = "http://wsf.cdyne.com/WeatherWS/Weather.asmx?wsdl"
+
+	outputs.dir classesDir
+
+	doLast() {
+		project.ant {
+			taskdef name: "xjc", classname: "com.sun.tools.xjc.XJCTask",
+					classpath: configurations.jaxb.asPath
+			mkdir(dir: sourcesDir)
+			mkdir(dir: classesDir)
+
+			xjc(destdir: sourcesDir, schema: schema,
+					package: "org.springframework.ws.samples.weather") {
+				arg(value: "-wsdl")
+				produces(dir: sourcesDir, includes: "**/*.java")
+			}
+
+			javac(destdir: classesDir, source: 1.6, target: 1.6, debug: true,
+					debugLevel: "lines,vars,source",
+					classpath: configurations.jaxb.asPath) {
+				src(path: sourcesDir)
+				include(name: "**/*.java")
+				include(name: "*.java")
+			}
+
+			copy(todir: classesDir) {
+				fileset(dir: sourcesDir, erroronmissingdir: false) {
+					exclude(name: "**/*.java")
+				}
+			}
+		}
+	}
+}
+
+dependencies {
+	compile("org.springframework.ws:spring-ws-core:$springWsVersion")
+	compile(files(genJaxb.classesDir).builtBy(genJaxb))
+	
+	runtime("log4j:log4j:1.2.16")
+
+	jaxb "com.sun.xml.bind:jaxb-xjc:2.1.7"	
+}
+
+task runClient(dependsOn: 'classes', type:JavaExec) {
+	main = "org.springframework.ws.samples.weather.WeatherClient"
+	classpath = sourceSets.main.runtimeClasspath
+}

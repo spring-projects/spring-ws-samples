@@ -16,6 +16,7 @@ additional instructions.
 - [mtom](./mtom) - shows how to use MTOM and JAXB2 marshalling
 - [stockquote](./stockquote) - shows how to use WS-Addressing and the Java 6 HTTP Server
 - [tutorial](./tutorial) - contains the code from the Spring-WS tutorial
+- [weather](./weather) - shows how to connect to a public SOAP service
 
 ## Running the Server
 
