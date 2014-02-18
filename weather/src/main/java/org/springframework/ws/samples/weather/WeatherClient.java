@@ -19,7 +19,7 @@ package org.springframework.ws.samples.weather;
 import java.text.SimpleDateFormat;
 
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.soap.client.core.SoapActionCallback;
 
@@ -69,9 +69,8 @@ public class WeatherClient extends WebServiceGatewaySupport {
 
 	public static void main(String[] args) {
 		ApplicationContext context =
-				new ClassPathXmlApplicationContext("applicationContext.xml",
-						WeatherClient.class);
-		WeatherClient client = context.getBean("weatherClient", WeatherClient.class);
+				new AnnotationConfigApplicationContext(WeatherConfiguration.class);
+		WeatherClient client = context.getBean(WeatherClient.class);
 
 		String zipCode = "94304";
 		if (args.length > 0) {
