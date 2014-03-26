@@ -1,3 +1,5 @@
+ext.springWsVersion =  	  '2.2.0.BUILD-SNAPSHOT'
+
 subprojects {
 	apply plugin: 'java'
 	apply plugin: 'eclipse'
@@ -5,6 +7,7 @@ subprojects {
 
     repositories {
 		maven { url 'http://repo.spring.io/libs-release' }
+		maven { url 'http://repo.spring.io/libs-snapshot' }
     }
 
     dependencies {
@@ -12,8 +15,4 @@ subprojects {
 		testCompile("org.easymock:easymock:3.1")
     }
 
-}
-
-task wrapper(type: Wrapper) {
-	gradleVersion = '1.8'
 }

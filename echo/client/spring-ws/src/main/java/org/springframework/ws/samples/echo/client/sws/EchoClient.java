@@ -21,6 +21,7 @@ import javax.xml.transform.Source;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.xml.transform.ResourceSource;
@@ -44,9 +45,11 @@ public class EchoClient extends WebServiceGatewaySupport {
     }
 
     public static void main(String[] args) throws IOException {
-        ApplicationContext applicationContext =
-                new ClassPathXmlApplicationContext("applicationContext.xml", EchoClient.class);
-        EchoClient echoClient = (EchoClient) applicationContext.getBean("echoClient");
+	    EchoClient echoClient = new EchoClient();
+	    echoClient.setDefaultUri("http://localhost:8080/echo-server/services");
+	    echoClient.setRequest(new ClassPathResource(
+			    "org/springframework/ws/samples/echo/client/sws/echoRequest.xml"));
+
         echoClient.echo();
     }
 
