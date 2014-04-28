@@ -31,11 +31,13 @@ public class StubImageRepository implements ImageRepository {
 
     private Map<String, Image> images = new HashMap<String, Image>();
 
+    @Override
     public Image readImage(String name) throws IOException {
         logger.info("Loading image " + name);
         return images.get(name);
     }
 
+    @Override
     public void storeImage(String name, Image image) throws IOException {
         logger.info("Storing image " + name + " [" + image.getWidth(null) + "x" + image.getHeight(null) + "]");
         images.put(name, image);

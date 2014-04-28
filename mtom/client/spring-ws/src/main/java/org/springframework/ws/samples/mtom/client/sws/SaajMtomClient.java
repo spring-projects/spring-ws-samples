@@ -27,7 +27,7 @@ import org.springframework.ws.soap.client.SoapFaultClientException;
 import org.springframework.ws.soap.saaj.SaajSoapMessageFactory;
 
 /**
- * Simple client that demonstartes MTOM by invoking <code>StoreImage</code> and <code>LoadImage</code> using a
+ * Simple client that demonstrates MTOM by invoking {@code StoreImage} and {@code LoadImage} using a
  * WebServiceTemplate and SAAJ.
  *
  * @author Tareq Abed Rabbo
@@ -66,6 +66,7 @@ public class SaajMtomClient extends WebServiceGatewaySupport {
         stopWatch.stop();
     }
 
+    @SuppressWarnings("unchecked")
     private void load(String path) {
         JAXBElement<String> loadImageRequest = objectFactory.createLoadImageRequest(StringUtils.getFilename(path));
 

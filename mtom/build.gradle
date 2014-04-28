@@ -1,3 +1,7 @@
+ext.springWsVersion = '2.2.0.BUILD-SNAPSHOT'
+ext.springVersion = '4.0.3.RELEASE'
+
+
 subprojects {
 	apply plugin: 'java'
 	apply plugin: 'eclipse'
@@ -5,6 +9,7 @@ subprojects {
 
     repositories {
 		maven { url 'http://repo.spring.io/libs-release' }
+		maven { url 'http://repo.spring.io/libs-snapshot' }
     }
 
     dependencies {

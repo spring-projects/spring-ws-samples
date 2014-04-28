@@ -2,12 +2,10 @@ configurations {
 	jaxb
 }
 
-ext.springWsVersion =  	  '2.1.4.RELEASE'
-
 task genJaxb {
 	ext.sourcesDir = "${buildDir}/generated-sources/jaxb"
 	ext.classesDir = "${buildDir}/classes/jaxb"
-	ext.schema = "${projectDir}/../../server/src/main/webapp/WEB-INF/schema.xsd"
+	ext.schema = "${projectDir}/../../server/src/main/resources/schema.xsd"
 
 	inputs.files schema
 	outputs.dir classesDir
@@ -43,6 +41,7 @@ task genJaxb {
 
 dependencies {
 	compile("org.springframework.ws:spring-ws-core:$springWsVersion")
+    compile("org.springframework:spring-context:$springVersion")
     compile("org.apache.ws.commons.axiom:axiom-api:1.2.14")
 	compile(files(genJaxb.classesDir).builtBy(genJaxb))
 

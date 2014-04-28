@@ -12,8 +12,6 @@ buildscript {
 	}
 }
 
-ext.springVersion =       '3.2.4.RELEASE'
-ext.springWsVersion =  	  '2.1.4.RELEASE'
 ext.tomcatVersion =       '7.0.42'
 
 
@@ -64,10 +62,12 @@ tomcatRun {
 
 dependencies {
 	compile("org.springframework.ws:spring-ws-core:$springWsVersion")
+    compile("org.springframework:spring-context:$springVersion")
 	compile(files(genJaxb.classesDir).builtBy(genJaxb))
 
 	runtime("log4j:log4j:1.2.16")
-	
+    runtime("wsdl4j:wsdl4j:1.6.1")
+
 	jaxb "com.sun.xml.bind:jaxb-xjc:2.1.7"	
 
 	tomcat("org.apache.tomcat.embed:tomcat-embed-core:$tomcatVersion",

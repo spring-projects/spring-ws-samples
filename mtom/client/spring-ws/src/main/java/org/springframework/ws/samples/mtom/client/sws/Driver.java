@@ -17,7 +17,7 @@
 package org.springframework.ws.samples.mtom.client.sws;
 
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Driver {
 
@@ -27,7 +27,7 @@ public class Driver {
             fileName = args[0];
         }
         ApplicationContext applicationContext =
-                new ClassPathXmlApplicationContext("applicationContext.xml", Driver.class);
+                new AnnotationConfigApplicationContext(MtomClientConfig.class);
 
         SaajMtomClient saajClient = applicationContext.getBean("saajClient", SaajMtomClient.class);
         saajClient.doIt(fileName);
