@@ -25,12 +25,13 @@ import org.springframework.ws.samples.stockquote.schema.StockQuote;
 import org.springframework.ws.samples.stockquote.schema.StockQuoteRequest;
 import org.springframework.ws.samples.stockquote.schema.StockQuoteResponse;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
+import org.springframework.ws.server.endpoint.annotation.RequestPayload;
+import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import org.springframework.ws.soap.addressing.server.annotation.Action;
 import org.springframework.ws.soap.addressing.server.annotation.Address;
 
 @Endpoint
-@Address("http://localhost:8080/StockService")
-// optional
+@Address("http://localhost:8080/StockService") // optional
 public class StockService {
 
     private DatatypeFactory datatypeFactory;
@@ -41,7 +42,8 @@ public class StockService {
 
     @Action(value = "http://www.springframework.org/spring-ws/samples/stockquote/StockService/GetQuote",
             output = "http://www.springframework.org/spring-ws/samples/stockquote/StockService/Quotes")
-    public StockQuoteResponse getStockQuotes(StockQuoteRequest request) {
+    @ResponsePayload
+    public StockQuoteResponse getStockQuotes(@RequestPayload StockQuoteRequest request) {
         StockQuoteResponse response = new StockQuoteResponse();
 
         XMLGregorianCalendar now = datatypeFactory.newXMLGregorianCalendar(new GregorianCalendar());

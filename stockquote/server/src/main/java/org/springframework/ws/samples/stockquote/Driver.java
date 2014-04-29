@@ -17,18 +17,32 @@
 package org.springframework.ws.samples.stockquote;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import com.sun.net.httpserver.HttpServer;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.ws.samples.stockquote.ws.StockServiceConfiguration;
+import org.springframework.ws.transport.http.WebServiceMessageReceiverHttpHandler;
+import org.springframework.ws.transport.http.WsdlDefinitionHttpHandler;
 
 public class Driver {
 
     public static void main(String[] args) throws IOException {
-        ClassPathXmlApplicationContext applicationContext =
-                new ClassPathXmlApplicationContext("applicationContext.xml", Driver.class);
+	    AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(
+			    StockServiceConfiguration.class);
+
+	    HttpServer httpServer = HttpServer.create(new InetSocketAddress(8080), -1);
+	    httpServer.createContext("/StockService", applicationContext.getBean(
+			    WebServiceMessageReceiverHttpHandler.class));
+	    httpServer.createContext("/StockService.wsdl", applicationContext.getBean(
+			    WsdlDefinitionHttpHandler.class));
+
+	    httpServer.start();
         System.out.println();
         System.out.println("Press [Enter] to shut down...");
         System.in.read();
-        applicationContext.close();
+	    httpServer.stop(0);
     }
 
 }

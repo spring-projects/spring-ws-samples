@@ -20,8 +20,7 @@ import java.io.IOException;
 import java.net.URI;
 import javax.xml.transform.Source;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.soap.addressing.client.ActionCallback;
@@ -51,10 +50,12 @@ public class StockClient extends WebServiceGatewaySupport {
         System.out.println();
     }
 
-    public static void main(String[] args) throws IOException {
-        ApplicationContext applicationContext =
-                new ClassPathXmlApplicationContext("applicationContext.xml", StockClient.class);
-        StockClient stockClient = (StockClient) applicationContext.getBean("stockClient");
+    public static void main(String[] args) throws Exception {
+	    StockClient stockClient = new StockClient();
+	    stockClient.setDefaultUri("http://localhost:8080/StockService");
+	    stockClient.setRequest(new ClassPathResource("/org/springframework/ws/samples/stockquote/client/sws/quotesRequest.xml"));
+	    stockClient.setAction(new URI("http://www.springframework.org/spring-ws/samples/stockquote/StockService/GetQuote"));
+
         stockClient.quotes();
     }
 

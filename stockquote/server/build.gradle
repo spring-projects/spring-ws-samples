@@ -2,9 +2,6 @@ configurations {
 	jaxb
 }
 
-ext.springVersion =       '3.2.4.RELEASE'
-ext.springWsVersion =  	  '2.1.4.RELEASE'
-
 task genJaxb {
 	ext.sourcesDir = "${buildDir}/generated-sources/jaxb"
 	ext.classesDir = "${buildDir}/classes/jaxb"
