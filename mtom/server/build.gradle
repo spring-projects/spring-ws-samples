@@ -21,7 +21,7 @@ apply plugin: 'tomcat'
 task genJaxb {
 	ext.sourcesDir = "${buildDir}/generated-sources/jaxb"
 	ext.classesDir = "${buildDir}/classes/jaxb"
-	ext.schema = "${projectDir}/src/main/webapp/WEB-INF/schema.xsd"
+	ext.schema = "${projectDir}/src/main/resources/schema.xsd"
 
 	inputs.files schema
 	outputs.dir classesDir
