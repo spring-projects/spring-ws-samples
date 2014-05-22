@@ -1,5 +1,5 @@
-ext.springWsVersion = '2.2.0.BUILD-SNAPSHOT'
-ext.springVersion = '4.0.3.RELEASE'
+ext.springWsVersion = '2.2.0.RELEASE'
+ext.springVersion = '4.0.5.RELEASE'
 
 
 subprojects {
@@ -9,7 +9,6 @@ subprojects {
 
     repositories {
 		maven { url 'http://repo.spring.io/libs-release' }
-		maven { url 'http://repo.spring.io/libs-snapshot' }
     }
 
     dependencies {
