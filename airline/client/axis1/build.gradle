@@ -21,11 +21,11 @@ task axis {
 			mkdir(dir: classesDir)
 
 			axis(output: sourcesDir, url: wsdl) {
-				mapping(namespace: "http://www.springframework.org/spring-ws/samples/airline/definitions", 
+				mapping(namespace: "https://www.springframework.org/spring-ws/samples/airline/definitions", 
 					package: "org.springframework.ws.samples.airline.client.axis1")
-				mapping(namespace: "http://www.springframework.org/spring-ws/samples/airline/schemas/messages", 
+				mapping(namespace: "https://www.springframework.org/spring-ws/samples/airline/schemas/messages", 
 					package: "org.springframework.ws.samples.airline.client.axis1")
-				mapping(namespace: "http://www.springframework.org/spring-ws/samples/airline/schemas/types", 
+				mapping(namespace: "https://www.springframework.org/spring-ws/samples/airline/schemas/types", 
 					package: "org.springframework.ws.samples.airline.client.axis1")
 			}
 

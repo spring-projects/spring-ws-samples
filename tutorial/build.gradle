@@ -38,8 +38,8 @@ dependencies {
 }
 
 repositories {
-	maven { url 'http://repo.spring.io/libs-release' }
-    maven { url 'http://repo.spring.io/libs-snapshot' }
+	maven { url 'https://repo.spring.io/libs-release' }
+    maven { url 'https://repo.spring.io/libs-snapshot' }
 }
 
 task wrapper(type: Wrapper) {
