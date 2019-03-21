@@ -6,7 +6,7 @@ subprojects {
 	apply plugin: 'idea'
 
     repositories {
-		maven { url 'http://repo.spring.io/libs-release' }
+		maven { url 'https://repo.spring.io/libs-release' }
     }
 
     dependencies {
