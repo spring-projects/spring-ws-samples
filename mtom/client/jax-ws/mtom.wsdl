@@ -4,7 +4,7 @@
                                                                         xmlns:tns="http://www.springframework.org/spring-ws/samples/mtom"
                                                                         targetNamespace="http://www.springframework.org/spring-ws/samples/mtom">
   <wsdl:types>
-    <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+    <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xmime="https://www.w3.org/2005/05/xmlmime"
             elementFormDefault="qualified" targetNamespace="http://www.springframework.org/spring-ws/samples/mtom"
             xmlns:tns="http://www.springframework.org/spring-ws/samples/mtom">
 
@@ -48,7 +48,7 @@
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="ImageRepositorySoap11" type="tns:ImageRepository">
-    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http/"/>
     <wsdl:operation name="StoreImage">
       <soap:operation soapAction=""/>
       <wsdl:input name="StoreImageRequest">

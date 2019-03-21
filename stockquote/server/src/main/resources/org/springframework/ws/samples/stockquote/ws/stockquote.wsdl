@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
                   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-                  xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+                  xmlns:wsaw="https://www.w3.org/2006/05/addressing/wsdl"
                   xmlns:tns="http://www.springframework.org/spring-ws/samples/stockquote"
                   targetNamespace="http://www.springframework.org/spring-ws/samples/stockquote">
     <wsdl:types>
@@ -53,7 +53,7 @@
         </wsdl:operation>
     </wsdl:portType>
     <wsdl:binding name="StockSoap11" type="tns:Stock">
-        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http/"/>
         <wsaw:UsingAddressing wsdl:required="true"/>
         <wsdl:operation name="StockQuote">
             <soap:operation soapAction=""/>
