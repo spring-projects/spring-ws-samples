@@ -35,7 +35,7 @@ public class WeatherClient extends WebServiceGatewaySupport {
 		GetCityForecastByZIPResponse response =
 				(GetCityForecastByZIPResponse) getWebServiceTemplate()
 						.marshalSendAndReceive(request, new SoapActionCallback(
-								"http://ws.cdyne.com/WeatherWS/GetCityForecastByZIP"));
+								"https://ws.cdyne.com/WeatherWS/GetCityForecastByZIP"));
 
 		return response;
 	}

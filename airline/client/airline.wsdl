@@ -48,7 +48,7 @@
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="AirlineSoap11" type="tns:Airline">
-    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http/"/>
     <wsdl:operation name="BookFlight">
       <soap:operation soapAction=""/>
       <wsdl:input name="BookFlightRequest">

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.springframework.org/spring-ws/samples/mtom"
         xmlns:tns="http://www.springframework.org/spring-ws/samples/mtom"
-        xmlns:xmime="http://www.w3.org/2005/05/xmlmime" elementFormDefault="qualified">
+        xmlns:xmime="https://www.w3.org/2005/05/xmlmime" elementFormDefault="qualified">
 
     <element name="StoreImageRequest" type="tns:Image"/>
 
