@@ -16,6 +16,8 @@
 package org.springframework.ws.samples.airline.domain;
 
 import java.io.Serializable;
+import java.time.ZonedDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -27,153 +29,131 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.apache.openjpa.persistence.Persistent;
-import org.joda.time.DateTime;
+import org.springframework.data.annotation.Persistent;
 
 @Entity
 @Table(name = "FLIGHT")
 public class Flight implements Serializable {
 
-    @Id
-    @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id @Column(name = "ID") @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
 
-    @Column(name = "NUMBER")
-    private String number;
+	@Column(name = "NUMBER") private String number;
 
-    @Column(name = "DEPARTURE_TIME")
-    @Persistent
-    private DateTime departureTime;
+	@Column(name = "DEPARTURE_TIME") @Persistent private ZonedDateTime departureTime;
 
-    @ManyToOne
-    @JoinColumn(name = "FROM_AIRPORT_CODE", nullable = false)
-    private Airport from;
+	@ManyToOne @JoinColumn(name = "FROM_AIRPORT_CODE", nullable = false) private Airport from;
 
-    @Column(name = "ARRIVAL_TIME")
-    @Persistent
-    private DateTime arrivalTime;
+	@Column(name = "ARRIVAL_TIME") @Persistent private ZonedDateTime arrivalTime;
 
-    @ManyToOne
-    @JoinColumn(name = "TO_AIRPORT_CODE", nullable = false)
-    private Airport to;
+	@ManyToOne @JoinColumn(name = "TO_AIRPORT_CODE", nullable = false) private Airport to;
 
-    @Column(name = "SERVICE_CLASS")
-    @Enumerated(EnumType.STRING)
-    private ServiceClass serviceClass;
+	@Column(name = "SERVICE_CLASS") @Enumerated(EnumType.STRING) private ServiceClass serviceClass;
 
-    @Column(name = "SEATS_AVAILABLE")
-    private int seatsAvailable;
+	@Column(name = "SEATS_AVAILABLE") private int seatsAvailable;
 
-    @Column(name = "MILES")
-    private int miles;
+	@Column(name = "MILES") private int miles;
 
-    public Flight() {
-    }
+	public Flight() {}
 
-    public Flight(Long id) {
-        this.id = id;
-    }
+	public Flight(Long id) {
+		this.id = id;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public DateTime getArrivalTime() {
-        return arrivalTime;
-    }
+	public ZonedDateTime getArrivalTime() {
+		return arrivalTime;
+	}
 
-    public void setArrivalTime(DateTime arrivalTime) {
-        this.arrivalTime = arrivalTime;
-    }
+	public void setArrivalTime(ZonedDateTime arrivalTime) {
+		this.arrivalTime = arrivalTime;
+	}
 
-    public DateTime getDepartureTime() {
-        return departureTime;
-    }
+	public ZonedDateTime getDepartureTime() {
+		return departureTime;
+	}
 
-    public void setDepartureTime(DateTime departureTime) {
-        this.departureTime = departureTime;
-    }
+	public void setDepartureTime(ZonedDateTime departureTime) {
+		this.departureTime = departureTime;
+	}
 
-    public Airport getFrom() {
-        return from;
-    }
+	public Airport getFrom() {
+		return from;
+	}
 
-    public void setFrom(Airport from) {
-        this.from = from;
-    }
+	public void setFrom(Airport from) {
+		this.from = from;
+	}
 
-    public int getMiles() {
-        return miles;
-    }
+	public int getMiles() {
+		return miles;
+	}
 
-    public void setMiles(int miles) {
-        this.miles = miles;
-    }
+	public void setMiles(int miles) {
+		this.miles = miles;
+	}
 
-    public String getNumber() {
-        return number;
-    }
+	public String getNumber() {
+		return number;
+	}
 
-    public void setNumber(String number) {
-        this.number = number;
-    }
+	public void setNumber(String number) {
+		this.number = number;
+	}
 
-    public int getSeatsAvailable() {
-        return seatsAvailable;
-    }
+	public int getSeatsAvailable() {
+		return seatsAvailable;
+	}
 
-    public void setSeatsAvailable(int seatsAvailable) {
-        this.seatsAvailable = seatsAvailable;
-    }
+	public void setSeatsAvailable(int seatsAvailable) {
+		this.seatsAvailable = seatsAvailable;
+	}
 
-    public ServiceClass getServiceClass() {
-        return serviceClass;
-    }
+	public ServiceClass getServiceClass() {
+		return serviceClass;
+	}
 
-    public void setServiceClass(ServiceClass serviceClass) {
-        this.serviceClass = serviceClass;
-    }
+	public void setServiceClass(ServiceClass serviceClass) {
+		this.serviceClass = serviceClass;
+	}
 
-    public Airport getTo() {
-        return to;
-    }
+	public Airport getTo() {
+		return to;
+	}
 
-    public void setTo(Airport to) {
-        this.to = to;
-    }
+	public void setTo(Airport to) {
+		this.to = to;
+	}
 
-    public void substractSeats(int count) {
-        seatsAvailable -= count;
-    }
+	public void substractSeats(int count) {
+		seatsAvailable -= count;
+	}
 
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
 
-        final Flight flight = (Flight) o;
+		final Flight flight = (Flight) o;
 
-        if (!departureTime.equals(flight.departureTime)) {
-            return false;
-        }
-        return number.equals(flight.number);
-    }
+		if (!departureTime.equals(flight.departureTime)) {
+			return false;
+		}
+		return number.equals(flight.number);
+	}
 
-    public int hashCode() {
-        int result = number.hashCode();
-        result = 29 * result + departureTime.hashCode();
-        return result;
-    }
+	public int hashCode() {
+		int result = number.hashCode();
+		result = 29 * result + departureTime.hashCode();
+		return result;
+	}
 
-    public String toString() {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(getNumber());
-        buffer.append(' ');
-        buffer.append(getDepartureTime().toString());
-        return buffer.toString();
-    }
+	public String toString() {
+		return getNumber() + " " + getDepartureTime();
+	}
 }

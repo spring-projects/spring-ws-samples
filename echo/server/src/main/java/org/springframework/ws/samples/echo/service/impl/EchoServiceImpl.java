@@ -28,7 +28,7 @@ import org.springframework.ws.samples.echo.service.EchoService;
 @Service
 public class EchoServiceImpl implements EchoService {
 
-    public String echo(String s) {
-        return s;
-    }
+	public String echo(String message) {
+		return message;
+	}
 }

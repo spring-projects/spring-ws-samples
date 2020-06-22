@@ -1,4 +1,0 @@
-task runClient(dependsOn: 'classes', type:JavaExec) {
-	main = "org.springframework.ws.samples.echo.client.saaj.EchoClient"
-	classpath = sourceSets.main.runtimeClasspath
-}

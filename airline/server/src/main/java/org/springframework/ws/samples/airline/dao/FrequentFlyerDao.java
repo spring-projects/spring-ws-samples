@@ -17,10 +17,19 @@
 package org.springframework.ws.samples.airline.dao;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.ws.samples.airline.domain.FrequentFlyer;
 
-public interface FrequentFlyerDao {
+public interface FrequentFlyerDao extends CrudRepository<FrequentFlyer, Long> {
 
-    FrequentFlyer get(String username) throws DataAccessException;
+	/**
+	 * @deprecated Migrate to {@link #findByUsername(String)}.
+	 */
+	@Deprecated
+	default FrequentFlyer get(String username) throws DataAccessException {
+		return findByUsername(username);
+	}
+
+	FrequentFlyer findByUsername(String username);
 
 }

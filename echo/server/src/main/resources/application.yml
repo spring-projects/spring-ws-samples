@@ -1,0 +1,9 @@
+logging:
+  level:
+    org.springframework:
+      ws: TRACE
+      web: TRACE
+      xml: DEBUG
+spring:
+  webservices:
+    path: /echo-server

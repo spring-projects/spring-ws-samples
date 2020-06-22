@@ -1,0 +1,6 @@
+logging:
+  level:
+    org.springframework:
+      ws: TRACE
+      web: TRACE
+      xml: DEBUG

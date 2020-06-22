@@ -16,7 +16,6 @@
 
 package org.springframework.ws.samples.airline.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -36,51 +35,48 @@ import org.springframework.ws.samples.airline.service.NoSuchFrequentFlyerExcepti
  */
 public class SpringFrequentFlyerSecurityService implements FrequentFlyerSecurityService, UserDetailsService {
 
-    private FrequentFlyerDao frequentFlyerDao;
+	private FrequentFlyerDao frequentFlyerDao;
 
-    @Autowired
-    public SpringFrequentFlyerSecurityService(FrequentFlyerDao frequentFlyerDao) {
-        this.frequentFlyerDao = frequentFlyerDao;
-    }
+	public SpringFrequentFlyerSecurityService(FrequentFlyerDao frequentFlyerDao) {
+		this.frequentFlyerDao = frequentFlyerDao;
+	}
 
-    @Transactional
-    public FrequentFlyer getCurrentlyAuthenticatedFrequentFlyer() {
-        SecurityContext context = SecurityContextHolder.getContext();
-        Authentication authentication = context.getAuthentication();
-        if (authentication != null) {
-            if (authentication.getPrincipal() instanceof FrequentFlyerDetails) {
-                FrequentFlyerDetails details = (FrequentFlyerDetails) authentication.getPrincipal();
-                return details.getFrequentFlyer();
-            }
-            else {
-                return (FrequentFlyer) authentication.getPrincipal();
-            }
-        }
-        else {
-            return null;
-        }
-    }
+	@Transactional
+	public FrequentFlyer getCurrentlyAuthenticatedFrequentFlyer() {
 
-    @Transactional
-    public FrequentFlyer getFrequentFlyer(String username) throws NoSuchFrequentFlyerException {
-        FrequentFlyer frequentFlyer = frequentFlyerDao.get(username);
-        if (frequentFlyer != null) {
-            return frequentFlyer;
-        }
-        else {
-            throw new NoSuchFrequentFlyerException(username);
-        }
-    }
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		if (authentication != null) {
+			if (authentication.getPrincipal() instanceof FrequentFlyerDetails) {
+				FrequentFlyerDetails details = (FrequentFlyerDetails) authentication.getPrincipal();
+				return details.getFrequentFlyer();
+			} else {
+				return (FrequentFlyer) authentication.getPrincipal();
+			}
+		} else {
+			return null;
+		}
+	}
 
-    @Transactional
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
-        FrequentFlyer frequentFlyer = frequentFlyerDao.get(username);
-        if (frequentFlyer != null) {
-            return new FrequentFlyerDetails(frequentFlyer);
-        }
-        else {
-            throw new UsernameNotFoundException("Frequent flyer '" + username + "' not found");
-        }
-    }
+	@Transactional
+	public FrequentFlyer getFrequentFlyer(String username) throws NoSuchFrequentFlyerException {
 
+		FrequentFlyer frequentFlyer = frequentFlyerDao.get(username);
+		if (frequentFlyer != null) {
+			return frequentFlyer;
+		} else {
+			throw new NoSuchFrequentFlyerException(username);
+		}
+	}
+
+	@Transactional
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
+
+		FrequentFlyer frequentFlyer = frequentFlyerDao.get(username);
+		if (frequentFlyer != null) {
+			return new FrequentFlyerDetails(frequentFlyer);
+		} else {
+			throw new UsernameNotFoundException("Frequent flyer '" + username + "' not found");
+		}
+	}
 }

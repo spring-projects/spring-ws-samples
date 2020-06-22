@@ -15,11 +15,10 @@
  */
 package org.springframework.ws.samples.airline.service;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
-import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
-
 import org.springframework.ws.samples.airline.domain.Flight;
 import org.springframework.ws.samples.airline.domain.FrequentFlyer;
 import org.springframework.ws.samples.airline.domain.Passenger;
@@ -52,9 +51,9 @@ public interface AirlineService {
      * @return a list of flights
      */
     List<Flight> getFlights(String fromAirportCode,
-                            String toAirportCode,
-                            LocalDate departureDate,
-                            ServiceClass serviceClass);
+							String toAirportCode,
+							LocalDate departureDate,
+							ServiceClass serviceClass);
 
     /**
      * Books a single flight for a number of passengers. Passengers can be either specified by name or by frequent flyer
@@ -69,10 +68,10 @@ public interface AirlineService {
      *                                      exist
      * @throws NoSeatAvailableException     if not enough seats are available for the flight
      * @throws NoSuchFrequentFlyerException if a specified {@link FrequentFlyer} cannot be found
-     * @see org.springframework.ws.samples.airline.domain.Passenger
-     * @see org.springframework.ws.samples.airline.domain.FrequentFlyer
+     * @see Passenger
+     * @see FrequentFlyer
      */
-    Ticket bookFlight(String flightNumber, DateTime departureTime, List<Passenger> passengers)
+    Ticket bookFlight(String flightNumber, ZonedDateTime departureTime, List<Passenger> passengers)
             throws NoSuchFlightException, NoSeatAvailableException, NoSuchFrequentFlyerException;
 
     /**

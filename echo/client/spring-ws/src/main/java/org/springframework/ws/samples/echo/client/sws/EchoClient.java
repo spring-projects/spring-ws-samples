@@ -17,40 +17,34 @@
 package org.springframework.ws.samples.echo.client.sws;
 
 import java.io.IOException;
+
 import javax.xml.transform.Source;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.core.io.ClassPathResource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Service;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.xml.transform.ResourceSource;
 import org.springframework.xml.transform.StringResult;
 
+@Service
 public class EchoClient extends WebServiceGatewaySupport {
 
-    private Resource request;
+	private static final Logger logger = LoggerFactory.getLogger(EchoClient.class);
 
-    public void setRequest(Resource request) {
-        this.request = request;
-    }
+	private Resource request;
 
-    public void echo() throws IOException {
-        Source requestSource = new ResourceSource(request);
-        StringResult result = new StringResult();
-        getWebServiceTemplate().sendSourceAndReceiveToResult(requestSource, result);
-        System.out.println();
-        System.out.println(result);
-        System.out.println();
-    }
+	public void setRequest(Resource request) {
+		this.request = request;
+	}
 
-    public static void main(String[] args) throws IOException {
-	    EchoClient echoClient = new EchoClient();
-	    echoClient.setDefaultUri("http://localhost:8080/echo-server/services");
-	    echoClient.setRequest(new ClassPathResource(
-			    "org/springframework/ws/samples/echo/client/sws/echoRequest.xml"));
+	public void echo() throws IOException {
 
-        echoClient.echo();
-    }
+		Source requestSource = new ResourceSource(request);
+		StringResult result = new StringResult();
+		getWebServiceTemplate().sendSourceAndReceiveToResult(requestSource, result);
 
+		logger.info(result.toString());
+	}
 }

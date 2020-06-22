@@ -1,9 +1,0 @@
-dependencies {
-	compile("org.springframework.ws:spring-ws-core:$springWsVersion")
-	runtime("log4j:log4j:1.2.16")
-}
-
-task runClient(dependsOn: 'classes', type:JavaExec) {
-	main = "org.springframework.ws.samples.stockquote.client.sws.StockClient"
-	classpath = sourceSets.main.runtimeClasspath
-}

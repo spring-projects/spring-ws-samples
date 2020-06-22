@@ -1,0 +1,12 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>No Such Flight</title></head>
+<body>
+
+<p th:text="${ex}"></p>
+
+<h2>No such flight: <span th:text="${ex.message}"/></h2>
+<a th:href="@{/flights}">Flights</a>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:sch="http://www.springframework.org/spring-ws/samples/mtom"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tns="http://www.springframework.org/spring-ws/samples/mtom"
+                  targetNamespace="http://www.springframework.org/spring-ws/samples/mtom">
+	<wsdl:types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+		        attributeFormDefault="unqualified" elementFormDefault="qualified"
+		        targetNamespace="http://www.springframework.org/spring-ws/samples/mtom">
+			<element name="StoreContentRequest">
+				<complexType>
+					<sequence>
+						<element name="Name" type="string"/>
+						<element name="Content" type="base64Binary"
+						         xmime:expectedContentTypes="application/octet-stream"/>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="StoreContentResponse">
+				<complexType>
+					<sequence>
+						<element name="Message" type="string"/>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="LoadContentRequest">
+				<complexType>
+					<sequence>
+						<element name="Name" type="string"/>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="LoadContentResponse">
+				<complexType>
+					<sequence>
+						<element name="Name" type="string"/>
+						<element name="Content" type="base64Binary"
+						         xmime:expectedContentTypes="application/octet-stream"/>
+					</sequence>
+				</complexType>
+			</element>
+		</schema>
+	</wsdl:types>
+	<wsdl:message name="StoreContentResponse">
+		<wsdl:part element="tns:StoreContentResponse" name="StoreContentResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="StoreContentRequest">
+		<wsdl:part element="tns:StoreContentRequest" name="StoreContentRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="LoadContentResponse">
+		<wsdl:part element="tns:LoadContentResponse" name="LoadContentResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="LoadContentRequest">
+		<wsdl:part element="tns:LoadContentRequest" name="LoadContentRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="contentStoreHttpPort">
+		<wsdl:operation name="StoreContent">
+			<wsdl:input message="tns:StoreContentRequest" name="StoreContentRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:StoreContentResponse" name="StoreContentResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="LoadContent">
+			<wsdl:input message="tns:LoadContentRequest" name="LoadContentRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:LoadContentResponse" name="LoadContentResponse">
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="contentStoreHttpPortSoap11" type="tns:contentStoreHttpPort">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="StoreContent">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="StoreContentRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="StoreContentResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="LoadContent">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="LoadContentRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="LoadContentResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="contentStoreHttpPortService">
+		<wsdl:port binding="tns:contentStoreHttpPortSoap11" name="contentStoreHttpPortSoap11">
+			<soap:address location="http://localhost:9080/spring-ws-mtom-example/service/contentStore"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

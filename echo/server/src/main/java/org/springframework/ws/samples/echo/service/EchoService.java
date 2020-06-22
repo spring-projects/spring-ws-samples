@@ -24,10 +24,10 @@ package org.springframework.ws.samples.echo.service;
  */
 public interface EchoService {
 
-    /**
-     * Returns the given string.
-     *
-     * @return <code>s</code>
-     */
-    String echo(String s);
+	/**
+	 * Returns the given string.
+	 *
+	 * @return <code>message</code>
+	 */
+	String echo(String message);
 }

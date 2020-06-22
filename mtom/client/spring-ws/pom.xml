@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.springframework.ws</groupId>
+		<artifactId>spring-ws-samples</artifactId>
+		<version>1.0.0.BUILD-SNAPSHOT</version>
+		<relativePath>../../../</relativePath> <!-- lookup parent from repository -->
+	</parent>
+
+	<groupId>org.springframework.ws</groupId>
+	<artifactId>mtom-client-spring-ws</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Spring Web Services Samples - MTOM - Client - Spring WS</name>
+	<description>Demo project for Spring Web Services</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web-services</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxb2-maven-plugin</artifactId>
+				<version>2.5.0</version>
+				<executions>
+					<execution>
+						<id>xjc</id>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<sourceType>WSDL</sourceType>
+					<sources>${project.basedir}/../../server/src/main/resources/contentStore.wsdl</sources>
+					<packageName>org.springframework.ws.samples.mtom.client.sws</packageName>
+					<target>2.1</target>
+				</configuration>
+			</plugin>
+
+
+<!--			<plugin>-->
+<!--				<groupId>org.jvnet.jaxb2.maven2</groupId>-->
+<!--				<artifactId>maven-jaxb2-plugin</artifactId>-->
+<!--				<version>0.14.0</version>-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<goals>-->
+<!--							<goal>generate</goal>-->
+<!--						</goals>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--				<configuration>-->
+<!--					<generatePackage>org.springframework.ws.samples.mtom.client.sws</generatePackage>-->
+<!--					<schemas>-->
+<!--						<schema>-->
+<!--							<url>${wsdl}</url>-->
+<!--						</schema>-->
+<!--					</schemas>-->
+<!--					<addCompileSourceRoot>true</addCompileSourceRoot>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.1</version>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>process-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${project.basedir}/target/generated-sources/jaxb</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>

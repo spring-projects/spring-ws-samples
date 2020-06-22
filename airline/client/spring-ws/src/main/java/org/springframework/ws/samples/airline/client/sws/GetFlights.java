@@ -16,87 +16,87 @@
 
 package org.springframework.ws.samples.airline.client.sws;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import javax.xml.bind.JAXBElement;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeConstants;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 
-import org.springframework.springWs.samples.airline.schemas.messages.BookFlightRequestDocument;
-import org.springframework.springWs.samples.airline.schemas.messages.BookFlightResponseDocument;
-import org.springframework.springWs.samples.airline.schemas.messages.GetFlightsRequestDocument;
-import org.springframework.springWs.samples.airline.schemas.messages.GetFlightsResponseDocument;
-import org.springframework.springWs.samples.airline.schemas.types.Flight;
-import org.springframework.springWs.samples.airline.schemas.types.Name;
-import org.springframework.springWs.samples.airline.schemas.types.Ticket;
+import org.springframework.springWs.samples.airline.schemas.BookFlightRequest;
+import org.springframework.springWs.samples.airline.schemas.Flight;
+import org.springframework.springWs.samples.airline.schemas.GetFlightsRequest;
+import org.springframework.springWs.samples.airline.schemas.GetFlightsResponse;
+import org.springframework.springWs.samples.airline.schemas.Name;
+import org.springframework.springWs.samples.airline.schemas.Ticket;
+import org.springframework.stereotype.Service;
 import org.springframework.ws.WebServiceMessageFactory;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 
 public class GetFlights extends WebServiceGatewaySupport {
 
-    public GetFlights(WebServiceMessageFactory messageFactory) {
-        super(messageFactory);
-    }
+	public GetFlights(WebServiceMessageFactory messageFactory) {
+		super(messageFactory);
+	}
 
-    public void getFlights() {
-        GetFlightsRequestDocument getFlightsRequestDocument = GetFlightsRequestDocument.Factory.newInstance();
-        GetFlightsRequestDocument.GetFlightsRequest getFlightsRequest =
-                getFlightsRequestDocument.addNewGetFlightsRequest();
-        getFlightsRequest.setFrom("AMS");
-        getFlightsRequest.setTo("VCE");
-        Calendar departureDate = Calendar.getInstance();
-        departureDate.clear();
-        departureDate.set(2006, Calendar.JANUARY, 31);
-        getFlightsRequest.setDepartureDate(departureDate);
+	public void getFlights() {
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        System.out.println("Requesting flights on " + dateFormat.format(departureDate.getTime()));
-        GetFlightsResponseDocument getFlightsResponseDocument =
-                (GetFlightsResponseDocument) getWebServiceTemplate().marshalSendAndReceive(getFlightsRequestDocument);
-        GetFlightsResponseDocument.GetFlightsResponse response = getFlightsResponseDocument.getGetFlightsResponse();
-        System.out.println("Got " + response.sizeOfFlightArray() + " results");
-        if (response.sizeOfFlightArray() > 0) {
-            // Book the first flight using John Doe as a frequent flyer
-            BookFlightRequestDocument bookFlightRequestDocument = BookFlightRequestDocument.Factory.newInstance();
-            BookFlightRequestDocument.BookFlightRequest bookFlightRequest =
-                    bookFlightRequestDocument.addNewBookFlightRequest();
-            bookFlightRequest.setFlightNumber(response.getFlightArray(0).getNumber());
-            bookFlightRequest.setDepartureTime(response.getFlightArray(0).getDepartureTime());
-            BookFlightRequestDocument.BookFlightRequest.Passengers passengers = bookFlightRequest.addNewPassengers();
-            passengers.addUsername("john");
+		GetFlightsRequest getFlightsRequest = new GetFlightsRequest();
+		getFlightsRequest.setFrom("AMS");
+		getFlightsRequest.setTo("VCE");
+		XMLGregorianCalendar departureDate = null;
+		try {
+			departureDate = DatatypeFactory.newInstance().newXMLGregorianCalendarDate(2006, 1, 31,
+					DatatypeConstants.FIELD_UNDEFINED);
+		} catch (DatatypeConfigurationException e) {
+			throw new RuntimeException(e);
+		}
 
-            BookFlightResponseDocument bookFlightResponseDocument = (BookFlightResponseDocument) getWebServiceTemplate()
-                    .marshalSendAndReceive(bookFlightRequestDocument);
-            Ticket ticket = bookFlightResponseDocument.getBookFlightResponse();
-            writeTicket(ticket);
-        }
-    }
+		getFlightsRequest.setDepartureDate(departureDate);
 
-    private void writeTicket(Ticket ticket) {
-        System.out.println("Ticket " + ticket.getId());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        System.out.println("Ticket issue date:\t" + dateFormat.format(ticket.getIssueDate().getTime()));
-        for (int i = 0; i < ticket.getPassengers().sizeOfPassengerArray(); i++) {
-            writeName(ticket.getPassengers().getPassengerArray(i));
+		System.out.println("Requesting flights on " + departureDate);
+		GetFlightsResponse response = (GetFlightsResponse) getWebServiceTemplate().marshalSendAndReceive(getFlightsRequest);
+		System.out.println("Got " + response.getFlight().size() + " results");
+		if (response.getFlight().size() > 0) {
+			// Book the first flight using John Doe as a frequent flyer
+			BookFlightRequest bookFlightRequest = new BookFlightRequest();
+			bookFlightRequest.setFlightNumber(response.getFlight().get(0).getNumber());
+			bookFlightRequest.setDepartureTime(response.getFlight().get(0).getDepartureTime());
+			BookFlightRequest.Passengers passengers = new BookFlightRequest.Passengers();
+			passengers.getPassengerOrUsername().add("john");
+			bookFlightRequest.setPassengers(passengers);
 
-        }
-        writeFlight(ticket.getFlight());
-    }
+			JAXBElement<Ticket> ticket = (JAXBElement<Ticket>) getWebServiceTemplate()
+					.marshalSendAndReceive(bookFlightRequest);
 
-    private void writeName(Name name) {
-        System.out.println("Passenger Name:");
-        System.out.println(name.getFirst() + " " + name.getLast());
-        System.out.println("------------");
-    }
+			writeTicket(ticket.getValue());
+		}
+	}
 
-    private void writeFlight(Flight flight) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        System.out.println(dateFormat.format(flight.getDepartureTime().getTime()));
-        System.out.println(flight.getNumber() + "\t" + flight.getServiceClass());
-        System.out.println("------------");
-        System.out.println("Depart:\t" + flight.getFrom().getCode() + "-" + flight.getFrom().getName() + "\t" +
-                dateFormat.format(flight.getDepartureTime().getTime()));
-        System.out.println("\t" + flight.getFrom().getCity());
-        System.out.println("Arrive:\t" + flight.getTo().getCode() + "-" + flight.getTo().getName() + "\t" +
-                dateFormat.format(flight.getArrivalTime().getTime()));
-        System.out.println("\t" + flight.getTo().getCity());
-    }
+	private void writeTicket(Ticket ticket) {
 
+		System.out.println("Ticket " + ticket.getId());
+		System.out.println("Ticket issue date:\t" + ticket.getIssueDate());
+		ticket.getPassengers().getPassenger().forEach(this::writeName);
+		writeFlight(ticket.getFlight());
+	}
+
+	private void writeName(Name name) {
+
+		System.out.println("Passenger Name:");
+		System.out.println(name.getFirst() + " " + name.getLast());
+		System.out.println("------------");
+	}
+
+	private void writeFlight(Flight flight) {
+
+		System.out.println(flight.getDepartureTime());
+		System.out.println(flight.getNumber() + "\t" + flight.getServiceClass());
+		System.out.println("------------");
+		System.out.println(
+				"Depart:\t" + flight.getFrom().getCode() + "-" + flight.getFrom().getName() + "\t" + flight.getDepartureTime());
+		System.out.println("\t" + flight.getFrom().getCity());
+		System.out.println(
+				"Arrive:\t" + flight.getTo().getCode() + "-" + flight.getTo().getName() + "\t" + flight.getArrivalTime());
+		System.out.println("\t" + flight.getTo().getCity());
+	}
 }

@@ -16,7 +16,8 @@
 
 package org.springframework.ws.samples.airline.service;
 
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
+
 import org.springframework.ws.soap.server.endpoint.annotation.FaultCode;
 import org.springframework.ws.soap.server.endpoint.annotation.SoapFault;
 
@@ -30,9 +31,9 @@ public class NoSuchFlightException extends Exception {
 
     private String flightNumber;
 
-    private DateTime departureTime;
+    private ZonedDateTime departureTime;
 
-    public NoSuchFlightException(String flightNumber, DateTime departureTime) {
+    public NoSuchFlightException(String flightNumber, ZonedDateTime departureTime) {
         super("No flight with number [" + flightNumber + "] and departure time [" + departureTime + "]");
         this.flightNumber = flightNumber;
         this.departureTime = departureTime;
@@ -46,7 +47,7 @@ public class NoSuchFlightException extends Exception {
         return flightNumber;
     }
 
-    public DateTime getDepartureTime() {
+    public ZonedDateTime getDepartureTime() {
         return departureTime;
     }
 }

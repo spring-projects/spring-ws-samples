@@ -25,16 +25,17 @@ import org.springframework.xml.transform.StringSource;
 
 public class GetFrequentFlyerMileage extends WebServiceGatewaySupport {
 
-    public GetFrequentFlyerMileage(WebServiceMessageFactory messageFactory) {
-        super(messageFactory);
-    }
+	public GetFrequentFlyerMileage(WebServiceMessageFactory messageFactory) {
+		super(messageFactory);
+	}
 
-    public void getFrequentFlyerMileage() {
-        Source source = new StringSource(
-                "<GetFrequentFlyerMileageRequest xmlns=\"http://www.springframework.org/spring-ws/samples/airline/schemas/messages\" />");
+	public void getFrequentFlyerMileage() {
 
-        getWebServiceTemplate().sendSourceAndReceiveToResult(source, new StreamResult(System.out));
+		Source source = new StringSource(
+				"<GetFrequentFlyerMileageRequest xmlns=\"http://www.springframework.org/spring-ws/samples/airline/schemas/messages\" />");
 
-    }
+		getWebServiceTemplate().sendSourceAndReceiveToResult(source, new StreamResult(System.out));
+
+	}
 
 }

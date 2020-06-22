@@ -16,10 +16,6 @@
 
 package org.springframework.ws.samples.airline.client.jms;
 
-import java.io.IOException;
-import javax.jms.JMSException;
-import javax.xml.soap.SOAPException;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamResult;
 
 import org.springframework.context.ApplicationContext;
@@ -30,19 +26,11 @@ import org.springframework.xml.transform.StringSource;
 /** @author Arjen Poutsma */
 public class JmsClient extends WebServiceGatewaySupport {
 
-    private static final String PAYLOAD =
-            "<airline:GetFlightsRequest xmlns:airline=\"http://www.springframework.org/spring-ws/samples/airline/schemas/messages\">" +
-                    "<airline:from>AMS</airline:from>" + "<airline:to>VCE</airline:to>" +
-                    "<airline:departureDate>2006-01-31</airline:departureDate>" + "</airline:GetFlightsRequest>";
+	private static final String PAYLOAD = "<airline:GetFlightsRequest xmlns:airline=\"http://www.springframework.org/spring-ws/samples/airline/schemas/messages\">"
+			+ "<airline:from>AMS</airline:from>" + "<airline:to>VCE</airline:to>"
+			+ "<airline:departureDate>2006-01-31</airline:departureDate>" + "</airline:GetFlightsRequest>";
 
-    public void getFlights() throws SOAPException, IOException, TransformerException, JMSException {
-        getWebServiceTemplate().sendSourceAndReceiveToResult(new StringSource(PAYLOAD), new StreamResult(System.out));
-    }
-
-    public static void main(String[] args) throws Exception {
-        ApplicationContext applicationContext =
-                new ClassPathXmlApplicationContext("applicationContext.xml", JmsClient.class);
-        JmsClient jmsClient = (JmsClient) applicationContext.getBean("jmsClient", JmsClient.class);
-        jmsClient.getFlights();
-    }
+	public void getFlights() {
+		getWebServiceTemplate().sendSourceAndReceiveToResult(new StringSource(PAYLOAD), new StreamResult(System.out));
+	}
 }

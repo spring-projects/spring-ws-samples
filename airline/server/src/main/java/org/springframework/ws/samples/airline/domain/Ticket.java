@@ -19,6 +19,7 @@ package org.springframework.ws.samples.airline.domain;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,67 +32,67 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.apache.openjpa.persistence.Persistent;
 import org.joda.time.LocalDate;
+import org.springframework.data.annotation.Persistent;
 
 @Entity
 @Table(name = "TICKET")
 public class Ticket implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(name = "ISSUE_DATE")
-    @Persistent
-    private LocalDate issueDate;
+	@Column(name = "ISSUE_DATE")
+	@Persistent
+	private LocalDate issueDate;
 
-    @ManyToOne
-    @JoinColumn(name = "FLIGHT_ID", nullable = false)
-    private Flight flight;
+	@ManyToOne
+	@JoinColumn(name = "FLIGHT_ID", nullable = false)
+	private Flight flight;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "PASSENGER_TICKET",
-            joinColumns = @JoinColumn(name = "TICKET_ID"),
-            inverseJoinColumns = @JoinColumn(name = "PASSENGER_ID"))
-    private Set<Passenger> passengers = new HashSet<Passenger>();
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(name = "PASSENGER_TICKET",
+			joinColumns = @JoinColumn(name = "TICKET_ID"),
+			inverseJoinColumns = @JoinColumn(name = "PASSENGER_ID"))
+	private Set<Passenger> passengers = new HashSet<Passenger>();
 
-    public Ticket() {
-    }
+	public Ticket() {
+	}
 
-    public Ticket(Long id) {
-        this.id = id;
-    }
+	public Ticket(Long id) {
+		this.id = id;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public Flight getFlight() {
-        return flight;
-    }
+	public Flight getFlight() {
+		return flight;
+	}
 
-    public void setFlight(Flight flight) {
-        this.flight = flight;
-    }
+	public void setFlight(Flight flight) {
+		this.flight = flight;
+	}
 
-    public LocalDate getIssueDate() {
-        return issueDate;
-    }
+	public LocalDate getIssueDate() {
+		return issueDate;
+	}
 
-    public void setIssueDate(LocalDate issueDate) {
-        this.issueDate = issueDate;
-    }
+	public void setIssueDate(LocalDate issueDate) {
+		this.issueDate = issueDate;
+	}
 
-    public Set<Passenger> getPassengers() {
-        return passengers;
-    }
+	public Set<Passenger> getPassengers() {
+		return passengers;
+	}
 
-    public void setPassengers(Set<Passenger> passengers) {
-        this.passengers = passengers;
-    }
+	public void setPassengers(Set<Passenger> passengers) {
+		this.passengers = passengers;
+	}
 
-    public void addPassenger(Passenger passenger) {
-        passengers.add(passenger);
-    }
+	public void addPassenger(Passenger passenger) {
+		passengers.add(passenger);
+	}
 }

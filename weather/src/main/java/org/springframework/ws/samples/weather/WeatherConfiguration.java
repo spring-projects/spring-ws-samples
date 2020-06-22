@@ -25,18 +25,21 @@ public class WeatherConfiguration {
 
 	@Bean
 	public Jaxb2Marshaller marshaller() {
+
 		Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
 		marshaller.setContextPath("org.springframework.ws.samples.weather");
 		return marshaller;
 	}
 
 	@Bean
-	public WeatherClient weatherClient() {
+	public WeatherClient weatherClient(Jaxb2Marshaller marshaller) {
+
 		WeatherClient client = new WeatherClient();
 		client.setDefaultUri("http://wsf.cdyne.com/WeatherWS/Weather.asmx");
-		Jaxb2Marshaller marshaller = marshaller();
+
 		client.setMarshaller(marshaller);
 		client.setUnmarshaller(marshaller);
+
 		return client;
 	}
 

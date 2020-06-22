@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Flights</title></head>
+<body>
+<form method="GET" th:action="@{/flights}">
+    <table>
+        <tr>
+            <td>From:</td>
+            <td><input type="text" name="from" th:value="*{from}" th:default="AMS"/></td>
+        </tr>
+        <tr>
+            <td>To:</td>
+            <td><input type="text" name="to" th:value="*{to}" th:default="VCE"/></td>
+        </tr>
+        <tr>
+            <td>Departure Date:</td>
+            <td><input type="text" name="departureDate" th:value="*{departureDate}" th:default="2006-01-31"/></td>
+        </tr>
+        <tr>
+            <td>Service Class:</td>
+            <td>
+                <select name="serviceClass">
+                    <option value="ECONOMY" selected="selected">Economy</option>
+                    <option value="BUSINESS">Business</option>
+                    <option value="FIRST">First</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Submit"/>
+            </td>
+        </tr>
+    </table>
+    <div th:unless="${#lists.isEmpty(flights)}">
+
+        <table border="1px">
+            <tr>
+                <th>Number</th>
+                <th>Departs</th>
+                <th>Arrives</th>
+            </tr>
+            <tr th:each="flight : ${flights}">
+                <td>
+                    <a th:href="@{'/flights/' + ${flight.id}}" th:text="${flight.number}"></a>
+                </td>
+                <td>
+                    <span th:text="${flight.from.city}"/>
+                    (<span th:text="${flight.from.code}"/>)
+                    <span th:text="${flight.departureTime}"/>
+                </td>
+                <td>
+                    <span th:text="${flight.to.city}"/>
+                    (<span th:text="${flight.to.code}"/>)
+                    <span th:text="${flight.arrivalTime}"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>
+</body>
+</html>

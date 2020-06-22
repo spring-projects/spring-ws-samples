@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ws.samples.airline.domain.FrequentFlyer;
 
@@ -37,7 +37,7 @@ public class FrequentFlyerDetails implements UserDetails {
     public static final Collection<GrantedAuthority> GRANTED_AUTHORITIES =
             new ArrayList<GrantedAuthority>();
     {
-        GRANTED_AUTHORITIES.add(new GrantedAuthorityImpl("ROLE_FREQUENT_FLYER"));
+        GRANTED_AUTHORITIES.add(new SimpleGrantedAuthority("ROLE_FREQUENT_FLYER"));
     };
 
     public FrequentFlyerDetails(FrequentFlyer frequentFlyer) {

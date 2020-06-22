@@ -16,11 +16,9 @@
 
 package org.springframework.ws.samples.airline.dao;
 
-import org.springframework.dao.DataAccessException;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.ws.samples.airline.domain.Ticket;
 
-public interface TicketDao {
-
-    void save(Ticket ticket) throws DataAccessException;
+public interface TicketDao extends CrudRepository<Ticket, Long> {
 
 }

@@ -15,22 +15,50 @@
  */
 package org.springframework.ws.samples.airline.dao;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
-import org.joda.time.DateTime;
 import org.joda.time.Interval;
-import org.springframework.dao.DataAccessException;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.ws.samples.airline.domain.Flight;
 import org.springframework.ws.samples.airline.domain.ServiceClass;
 
-public interface FlightDao {
+public interface FlightDao extends CrudRepository<Flight, Long> {
 
-    List<Flight> findFlights(String fromAirportCode, String toAirportCode, Interval interval, ServiceClass serviceClass)
-            throws DataAccessException;
+	@Query("SELECT f FROM Flight f WHERE f.from.code = :fromAirportCode "
+			+ "AND f.to.code = :toAirportCode AND f.departureTime >= :#{#interval.start.toGregorianCalendar().toZonedDateTime()} AND f.departureTime <= :#{#interval.end.toGregorianCalendar().toZonedDateTime()} AND "
+			+ "f.serviceClass = :class")
+	List<Flight> findFlights(@Param("fromAirportCode") String fromAirportCode, //
+							 @Param("toAirportCode") String toAirportCode, //
+							 @Param("interval") Interval interval, //
+							 @Param("class") ServiceClass serviceClass);
 
-    Flight getFlight(Long id);
+	/**
+	 * @deprecated Migrate to {@link #findById(Object)}.
+	 */
+	default Flight getFlight(Long id) {
+		return findById(id).get();
+	}
 
-    Flight getFlight(String flightNumber, DateTime departureTime);
+	;
 
-    Flight update(Flight flight);
+	/**
+	 * @deprecated Migrate to {@link #findFlightByNumberAndDepartureTime(String, ZonedDateTime)}.
+	 */
+	@Deprecated
+	default Flight getFlight(String flightNumber, ZonedDateTime departureTime) {
+		return findFlightByNumberAndDepartureTime(flightNumber, departureTime);
+	}
+
+	Flight findFlightByNumberAndDepartureTime(String flightNumber, ZonedDateTime departureTime);
+
+	/**
+	 * @deprecated Migrate to {@link #save(Object)}.
+	 */
+	@Deprecated
+	default Flight update(Flight flight) {
+		return save(flight);
+	}
 }

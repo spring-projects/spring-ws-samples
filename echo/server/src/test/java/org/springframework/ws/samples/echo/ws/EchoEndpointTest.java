@@ -16,60 +16,56 @@
 
 package org.springframework.ws.samples.echo.ws;
 
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.ws.samples.echo.service.EchoService;
-
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
-import static org.easymock.EasyMock.*;
-
 public class EchoEndpointTest {
 
-    private EchoEndpoint endpoint;
+	private EchoEndpoint endpoint;
 
-    private Document requestDocument;
+	private Document requestDocument;
 
-    private Document responseDocument;
+	private Document responseDocument;
 
-    private EchoService mock;
+	private EchoService echoServiceMock;
 
-    @Before
-    public void setUp() throws Exception {
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        documentBuilderFactory.setNamespaceAware(true);
-        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-        requestDocument = documentBuilder.newDocument();
-        responseDocument = documentBuilder.newDocument();
-        mock = createMock(EchoService.class);
-        endpoint = new EchoEndpoint(mock);
-    }
+	@BeforeEach
+	public void setUp() throws Exception {
 
-    @Test
-    public void testInvokeInternal() throws Exception {
-        Element echoRequest =
-                requestDocument.createElementNS(EchoEndpoint.NAMESPACE_URI, EchoEndpoint.ECHO_REQUEST_LOCAL_NAME);
-        String content = "ABC";
-        Text requestText = requestDocument.createTextNode(content);
-        echoRequest.appendChild(requestText);
-        String result = "DEF";
-        expect(mock.echo(content)).andReturn(result);
+		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+		documentBuilderFactory.setNamespaceAware(true);
+		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+		requestDocument = documentBuilder.newDocument();
+		responseDocument = documentBuilder.newDocument();
+		echoServiceMock = mock(EchoService.class);
+		endpoint = new EchoEndpoint(echoServiceMock);
+	}
 
-        replay(mock);
+	@Test
+	public void testInvokeInternal() throws Exception {
 
-        Element echoResponse = endpoint.handleEchoRequest(echoRequest);
-        Assert.assertEquals("Invalid namespace", EchoEndpoint.NAMESPACE_URI, echoResponse.getNamespaceURI());
-        Assert.assertEquals("Invalid namespace", EchoEndpoint.ECHO_RESPONSE_LOCAL_NAME, echoResponse.getLocalName());
-        Text responseText = (Text) echoResponse.getChildNodes().item(0);
-        Assert.assertEquals("Invalid content", result, responseText.getNodeValue());
+		Element echoRequest = requestDocument.createElementNS(EchoEndpoint.NAMESPACE_URI,
+				EchoEndpoint.ECHO_REQUEST_LOCAL_NAME);
+		Text requestText = requestDocument.createTextNode("ABC");
+		echoRequest.appendChild(requestText);
+		when(echoServiceMock.echo("ABC")).thenReturn("DEF");
 
-        verify(mock);
-    }
+		Element echoResponse = endpoint.handleEchoRequest(echoRequest);
 
+		assertThat(echoResponse.getNamespaceURI()).isEqualTo(EchoEndpoint.NAMESPACE_URI);
+		assertThat(echoResponse.getLocalName()).isEqualTo(EchoEndpoint.ECHO_RESPONSE_LOCAL_NAME);
+		assertThat(echoResponse.getChildNodes().item(0).getNodeValue()).isEqualTo("DEF");
+
+		verify(echoServiceMock);
+	}
 }

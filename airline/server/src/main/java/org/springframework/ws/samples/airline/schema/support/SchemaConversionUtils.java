@@ -16,15 +16,16 @@
 
 package org.springframework.ws.samples.airline.schema.support;
 
-import java.util.ArrayList;
+import java.time.ZonedDateTime;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 import org.springframework.ws.samples.airline.domain.Passenger;
 import org.springframework.ws.samples.airline.schema.Airport;
@@ -36,112 +37,119 @@ import org.springframework.ws.samples.airline.schema.Ticket;
 /** @author Arjen Poutsma */
 public abstract class SchemaConversionUtils {
 
-    private SchemaConversionUtils() {
-    }
+	private SchemaConversionUtils() {}
 
-    public static Flight toSchemaType(org.springframework.ws.samples.airline.domain.Flight domainFlight)
-            throws DatatypeConfigurationException {
-        Flight schemaFlight = new Flight();
-        schemaFlight.setNumber(domainFlight.getNumber());
-        schemaFlight.setDepartureTime(toXMLGregorianCalendar(domainFlight.getDepartureTime()));
-        schemaFlight.setFrom(toSchemaType(domainFlight.getFrom()));
-        schemaFlight.setArrivalTime(toXMLGregorianCalendar(domainFlight.getArrivalTime()));
-        schemaFlight.setTo(toSchemaType(domainFlight.getTo()));
-        schemaFlight.setServiceClass(toSchemaType(domainFlight.getServiceClass()));
-        return schemaFlight;
-    }
+	public static Flight toSchemaType(org.springframework.ws.samples.airline.domain.Flight domainFlight)
+			throws DatatypeConfigurationException {
 
-    public static List<Flight> toSchemaType(List<org.springframework.ws.samples.airline.domain.Flight> domainFlights)
-            throws DatatypeConfigurationException {
-        List<Flight> schemaFlights = new ArrayList<Flight>(domainFlights.size());
-        for (org.springframework.ws.samples.airline.domain.Flight domainFlight : domainFlights) {
-            schemaFlights.add(toSchemaType(domainFlight));
-        }
-        return schemaFlights;
-    }
+		Flight schemaFlight = new Flight();
+		schemaFlight.setNumber(domainFlight.getNumber());
+		schemaFlight.setDepartureTime(toXMLGregorianCalendar(domainFlight.getDepartureTime()));
+		schemaFlight.setFrom(toSchemaType(domainFlight.getFrom()));
+		schemaFlight.setArrivalTime(toXMLGregorianCalendar(domainFlight.getArrivalTime()));
+		schemaFlight.setTo(toSchemaType(domainFlight.getTo()));
+		schemaFlight.setServiceClass(toSchemaType(domainFlight.getServiceClass()));
+		return schemaFlight;
+	}
 
-    public static XMLGregorianCalendar toXMLGregorianCalendar(DateTime dateTime) throws DatatypeConfigurationException {
-        DatatypeFactory factory = DatatypeFactory.newInstance();
-        return factory.newXMLGregorianCalendar(dateTime.toGregorianCalendar());
-    }
+	public static List<Flight> toSchemaType(List<org.springframework.ws.samples.airline.domain.Flight> domainFlights) {
 
-    public static DateTime toDateTime(XMLGregorianCalendar calendar) {
-        int timeZoneMinutes = calendar.getTimezone();
-        DateTimeZone timeZone = DateTimeZone.forOffsetHoursMinutes(timeZoneMinutes / 60, timeZoneMinutes % 60);
-        return new DateTime(calendar.getYear(), calendar.getMonth(), calendar.getDay(), calendar.getHour(),
-                calendar.getMinute(), calendar.getSecond(), calendar.getMillisecond(), timeZone);
-    }
+		return domainFlights.stream() //
+				.map(flight -> {
+					try {
+						return toSchemaType(flight);
+					} catch (DatatypeConfigurationException e) {
+						throw new RuntimeException(e);
+					}
+				}) //
+				.collect(Collectors.toList());
+	}
 
-    public static XMLGregorianCalendar toXMLGregorianCalendar(LocalDate localDate)
-            throws DatatypeConfigurationException {
-        DatatypeFactory factory = DatatypeFactory.newInstance();
-        return factory.newXMLGregorianCalendarDate(localDate.getYear(), localDate.getMonthOfYear(),
-                localDate.getDayOfMonth(), DatatypeConstants.FIELD_UNDEFINED);
-    }
+	public static XMLGregorianCalendar toXMLGregorianCalendar(ZonedDateTime dateTime)
+			throws DatatypeConfigurationException {
 
-    public static LocalDate toLocalDate(XMLGregorianCalendar calendar) {
-        return new LocalDate(calendar.getYear(), calendar.getMonth(), calendar.getDay());
-    }
+		DatatypeFactory factory = DatatypeFactory.newInstance();
+		return factory.newXMLGregorianCalendar(GregorianCalendar.from(dateTime));
+	}
 
-    public static Airport toSchemaType(org.springframework.ws.samples.airline.domain.Airport domainAirport) {
-        if (domainAirport == null) {
-            return null;
-        }
-        Airport schemaAirport = new Airport();
-        schemaAirport.setCode(domainAirport.getCode());
-        schemaAirport.setName(domainAirport.getName());
-        schemaAirport.setCity(domainAirport.getCity());
-        return schemaAirport;
-    }
+	public static ZonedDateTime toDateTime(XMLGregorianCalendar calendar) {
+		return calendar.toGregorianCalendar().toZonedDateTime();
+	}
 
-    public static ServiceClass toSchemaType(org.springframework.ws.samples.airline.domain.ServiceClass domainServiceClass) {
-        switch (domainServiceClass) {
-            case BUSINESS:
-                return ServiceClass.BUSINESS;
-            case ECONOMY:
-                return ServiceClass.ECONOMY;
-            case FIRST:
-                return ServiceClass.FIRST;
-            default:
-                throw new IllegalArgumentException("Invalid domain service class: [" + domainServiceClass + "]");
-        }
-    }
+	public static XMLGregorianCalendar toXMLGregorianCalendar(LocalDate localDate) throws DatatypeConfigurationException {
 
-    public static org.springframework.ws.samples.airline.domain.ServiceClass toDomainType(ServiceClass schemaServiceClass) {
-        if (schemaServiceClass == null) {
-            return null;
-        }
-        switch (schemaServiceClass) {
-            case BUSINESS:
-                return org.springframework.ws.samples.airline.domain.ServiceClass.BUSINESS;
-            case ECONOMY:
-                return org.springframework.ws.samples.airline.domain.ServiceClass.ECONOMY;
-            case FIRST:
-                return org.springframework.ws.samples.airline.domain.ServiceClass.FIRST;
-            default:
-                throw new IllegalArgumentException("Invalid schema service class: [" + schemaServiceClass + "]");
-        }
-    }
+		DatatypeFactory factory = DatatypeFactory.newInstance();
+		return factory.newXMLGregorianCalendarDate(localDate.getYear(), localDate.getMonthOfYear(),
+				localDate.getDayOfMonth(), DatatypeConstants.FIELD_UNDEFINED);
+	}
 
-    public static Name toSchemaType(org.springframework.ws.samples.airline.domain.Passenger passenger) {
-        Name name = new Name();
-        name.setFirst(passenger.getFirstName());
-        name.setLast(passenger.getLastName());
-        return name;
-    }
+	public static LocalDate toLocalDate(XMLGregorianCalendar calendar) {
+		return new LocalDate(calendar.getYear(), calendar.getMonth(), calendar.getDay());
+	}
 
-    public static Ticket toSchemaType(org.springframework.ws.samples.airline.domain.Ticket domainTicket)
-            throws DatatypeConfigurationException {
-        Ticket schemaTicket = new Ticket();
-        schemaTicket.setId(domainTicket.getId());
-        schemaTicket.setFlight(toSchemaType(domainTicket.getFlight()));
-        schemaTicket.setIssueDate(toXMLGregorianCalendar(domainTicket.getIssueDate()));
-        if (!domainTicket.getPassengers().isEmpty()) {
-            schemaTicket.setPassengers(new Ticket.Passengers());
-        }
-        for (Passenger passenger : domainTicket.getPassengers()) {
-            schemaTicket.getPassengers().getPassenger().add(toSchemaType(passenger));
-        }
-        return schemaTicket;
-    }
+	public static Airport toSchemaType(org.springframework.ws.samples.airline.domain.Airport domainAirport) {
+
+		if (domainAirport == null) {
+			return null;
+		}
+
+		Airport schemaAirport = new Airport();
+		schemaAirport.setCode(domainAirport.getCode());
+		schemaAirport.setName(domainAirport.getName());
+		schemaAirport.setCity(domainAirport.getCity());
+		return schemaAirport;
+	}
+
+	public static ServiceClass toSchemaType(
+			org.springframework.ws.samples.airline.domain.ServiceClass domainServiceClass) {
+		switch (domainServiceClass) {
+			case BUSINESS:
+				return ServiceClass.BUSINESS;
+			case ECONOMY:
+				return ServiceClass.ECONOMY;
+			case FIRST:
+				return ServiceClass.FIRST;
+			default:
+				throw new IllegalArgumentException("Invalid domain service class: [" + domainServiceClass + "]");
+		}
+	}
+
+	public static org.springframework.ws.samples.airline.domain.ServiceClass toDomainType(
+			ServiceClass schemaServiceClass) {
+		if (schemaServiceClass == null) {
+			return null;
+		}
+		switch (schemaServiceClass) {
+			case BUSINESS:
+				return org.springframework.ws.samples.airline.domain.ServiceClass.BUSINESS;
+			case ECONOMY:
+				return org.springframework.ws.samples.airline.domain.ServiceClass.ECONOMY;
+			case FIRST:
+				return org.springframework.ws.samples.airline.domain.ServiceClass.FIRST;
+			default:
+				throw new IllegalArgumentException("Invalid schema service class: [" + schemaServiceClass + "]");
+		}
+	}
+
+	public static Name toSchemaType(Passenger passenger) {
+		Name name = new Name();
+		name.setFirst(passenger.getFirstName());
+		name.setLast(passenger.getLastName());
+		return name;
+	}
+
+	public static Ticket toSchemaType(org.springframework.ws.samples.airline.domain.Ticket domainTicket)
+			throws DatatypeConfigurationException {
+		Ticket schemaTicket = new Ticket();
+		schemaTicket.setId(domainTicket.getId());
+		schemaTicket.setFlight(toSchemaType(domainTicket.getFlight()));
+		schemaTicket.setIssueDate(toXMLGregorianCalendar(domainTicket.getIssueDate()));
+		if (!domainTicket.getPassengers().isEmpty()) {
+			schemaTicket.setPassengers(new Ticket.Passengers());
+		}
+		for (Passenger passenger : domainTicket.getPassengers()) {
+			schemaTicket.getPassengers().getPassenger().add(toSchemaType(passenger));
+		}
+		return schemaTicket;
+	}
 }

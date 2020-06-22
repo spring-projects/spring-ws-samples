@@ -26,72 +26,70 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumn(name = "PASSENGER_ID")
 public class FrequentFlyer extends Passenger {
 
-    @Column(name = "USERNAME")
-    private String username;
+	@Column(name = "USERNAME") private String username;
 
-    @Column(name = "PASSWORD")
-    private String password;
+	@Column(name = "PASSWORD") private String password;
 
-    @Column(name = "MILES")
-    private int miles;
+	@Column(name = "MILES") private int miles;
 
-    public FrequentFlyer() {
-    }
+	public FrequentFlyer() {}
 
-    public FrequentFlyer(String username) {
-        this.username = username;
-    }
+	public FrequentFlyer(String username) {
+		this.username = username;
+	}
 
-    public FrequentFlyer(String firstName, String lastName, String username, String password) {
-        super(firstName, lastName);
-        this.username = username;
-        this.password = password;
-    }
+	public FrequentFlyer(String firstName, String lastName, String username, String password) {
 
-    public int getMiles() {
-        return miles;
-    }
+		super(firstName, lastName);
+		this.username = username;
+		this.password = password;
+	}
 
-    public void setMiles(int miles) {
-        this.miles = miles;
-    }
+	public int getMiles() {
+		return miles;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public void setMiles(int miles) {
+		this.miles = miles;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public boolean equals(Object other) {
-        if (this == other) {
-            return true;
-        }
-        if (!(other instanceof FrequentFlyer)) {
-            return false;
-        }
-        final FrequentFlyer that = (FrequentFlyer) other;
-        return username.equals(that.username);
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public int hashCode() {
-        return username.hashCode();
-    }
+	public boolean equals(Object other) {
 
-    public String toString() {
-        return username;
-    }
+		if (this == other) {
+			return true;
+		}
+		if (!(other instanceof FrequentFlyer)) {
+			return false;
+		}
+		final FrequentFlyer that = (FrequentFlyer) other;
+		return username.equals(that.username);
+	}
 
-    public void addMiles(int miles) {
-        this.miles += miles;
-    }
+	public int hashCode() {
+		return username.hashCode();
+	}
+
+	public String toString() {
+		return username;
+	}
+
+	public void addMiles(int miles) {
+		this.miles += miles;
+	}
 }
