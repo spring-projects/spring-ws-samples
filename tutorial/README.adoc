@@ -1,0 +1,16 @@
+= Spring Web Service Tutorial
+
+This sample contains the code for the tutorial, which can be found in the
+https://projects.spring.io/spring-ws[Spring Web Services] reference documentation.
+
+== Build and deploy
+
+. See the main link:../README.adoc[README] for build instructions.
+
+. Access the WSDL at the following URL:
+
+http://localhost:8080/tutorial/holiday.wsdl
+
+== License
+
+https://projects.spring.io/spring-ws[Spring Web Services] is released under version 2.0 of the http://www.apache.org/licenses/LICENSE-2.0[Apache License].

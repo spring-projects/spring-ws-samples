@@ -1,0 +1,54 @@
+= Spring Web Services Samples
+
+https://spring.io/projects/spring-ws[Spring Web Services] is a product of the Spring community focused on creating
+document-driven, contract-first Web services. This repository contains sample
+projects illustrating usage of Spring Web Services.
+
+== Sample Applications
+
+The following sample applications demonstrate the capabilities of https://spring.io/projects/spring-ws[Spring Web
+Services]. See the README within each sample project for more information and
+additional instructions.
+
+* link:./airline[airline] - a complete airline sample that shows both Web Service and
+O/X Mapping functionality in a complete application
+* link:./echo[echo] - a simple sample that shows a bare-bones Echo service
+* link:./mtom[mtom] - shows how to use MTOM and JAXB2 marshalling
+* link:./stockquote[stockquote] - shows how to use WS-Addressing and the Java 6 HTTP Server
+* link:./tutorial[tutorial] - contains the code from the Spring-WS tutorial
+* link:./weather[weather] - shows how to connect to a public SOAP service
+
+== Running the Server
+
+Most of the sample apps can be built and run using the following commands from
+within the `server` folder.
+
+----
+```sh
+$ ./mvnw spring-boot:run
+```
+----
+
+Or alternatively, run the following to create runnable JAR file that will run anywhere there's a JDK:
+
+----
+```sh
+$ ./mvnw package
+```
+----
+
+== Running the Client(s)
+
+Most of the sample apps have a separate `client` directory containing clients
+that connect to the server. You can run these clients by using the following
+command from within each of client subdirectories:
+
+----
+```sh
+$ ./mvnw spring-boot:run
+```
+----
+
+== License
+
+https://projects.spring.io/spring-ws[Spring Web Services] is released under version 2.0 of the http://www.apache.org/licenses/LICENSE-2.0[Apache License].

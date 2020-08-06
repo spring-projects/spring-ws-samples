@@ -1,0 +1,12 @@
+= Echo Sample
+
+This sample shows a bare-bones echoing service. Incoming messages are handled
+via DOM, and a simple 'business logic' service is used to obtain the result.
+
+== Build and deploy
+
+See the main link:../README.adoc[README] for build instructions.
+
+== License
+
+https://projects.spring.io/spring-ws[Spring Web Services] is released under version 2.0 of the http://www.apache.org/licenses/LICENSE-2.0[Apache License].
