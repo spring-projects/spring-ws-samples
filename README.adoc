@@ -24,17 +24,13 @@ Most of the sample apps can be built and run using the following commands from
 within the `server` folder.
 
 ----
-```sh
 $ ./mvnw spring-boot:run
-```
 ----
 
 Or alternatively, run the following to create runnable JAR file that will run anywhere there's a JDK:
 
 ----
-```sh
 $ ./mvnw package
-```
 ----
 
 == Running the Client(s)
@@ -44,9 +40,7 @@ that connect to the server. You can run these clients by using the following
 command from within each of client subdirectories:
 
 ----
-```sh
 $ ./mvnw spring-boot:run
-```
 ----
 
 == License

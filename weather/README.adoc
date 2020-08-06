@@ -7,9 +7,7 @@ send the request to and receive the response from the service.
 You can run the client by using the following command from within this directory:
 
 ----
-```sh
 $ ./mvnw spring-boot:run
-```
 ----
 
 == License
