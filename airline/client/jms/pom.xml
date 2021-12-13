@@ -20,7 +20,7 @@
 		<activemq.version>4.1.2</activemq.version>
 		<java.version>1.8</java.version>
 		<jms.version>1.1</jms.version>
-		<log4j.version>1.2.16</log4j.version>
+		<log4j2.version>2.15.0</log4j2.version>
 		<sourcesDir>${project.basedir}/target/generated-sources/jaxws</sourcesDir>
 		<classesDir>${project.basedir}/target/classes</classesDir>
 		<wsdl>${project.basedir}/../airline.wsdl</wsdl>
@@ -42,13 +42,6 @@
 			<groupId>org.apache.geronimo.specs</groupId>
 			<artifactId>geronimo-jms_1.1_spec</artifactId>
 			<version>${jms.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>${log4j.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 
 		<dependency>

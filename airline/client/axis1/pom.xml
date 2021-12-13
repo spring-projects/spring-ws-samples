@@ -19,7 +19,8 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<axis.version>1.4</axis.version>
-		<log4j.version>1.2.16</log4j.version>
+		<log4j2.version>2.15.0</log4j2.version>
+
 		<sourcesDir>${project.basedir}/target/generated-sources/axis</sourcesDir>
 		<classesDir>${project.basedir}/target/classes</classesDir>
 		<wsdl>${project.basedir}/../airline.wsdl</wsdl>
@@ -37,13 +38,6 @@
 			<groupId>axis</groupId>
 			<artifactId>axis-jaxrpc</artifactId>
 			<version>${axis.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>${log4j.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 
 	</dependencies>

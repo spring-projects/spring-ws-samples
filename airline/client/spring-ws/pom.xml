@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -19,7 +19,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<jax-ws.version>2.1.7</jax-ws.version>
-		<log4j.version>1.2.16</log4j.version>
+		<log4j2.version>2.15.0</log4j2.version>
 		<xmlbeans.version>2.4.0</xmlbeans.version>
 		<xws.version>3.0</xws.version>
 		<sourcesDir>${project.basedir}/target/generated-sources/xjc</sourcesDir>
@@ -65,13 +65,6 @@
 					<artifactId>activation</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
-
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>${log4j.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 
 		<dependency>
