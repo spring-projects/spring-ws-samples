@@ -55,7 +55,6 @@
 		<module>mtom/client/spring-ws</module>
 		<module>mtom/server</module>
 		<module>tutorial</module>
-		<module>weather</module>
 	</modules>
 
 	<dependencies>
