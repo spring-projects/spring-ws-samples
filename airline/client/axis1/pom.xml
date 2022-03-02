@@ -35,7 +35,7 @@
 		</dependency>
 
 		<dependency>
-			<groupId>axis</groupId>
+			<groupId>org.apache.axis</groupId>
 			<artifactId>axis-jaxrpc</artifactId>
 			<version>${axis.version}</version>
 		</dependency>
@@ -48,6 +48,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
 				<dependencies>
 					<dependency>
 						<groupId>axis</groupId>

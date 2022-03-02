@@ -20,7 +20,7 @@
 		<java.version>1.8</java.version>
 		<jax-ws.version>2.1.7</jax-ws.version>
 		<log4j2.version>2.15.0</log4j2.version>
-		<spring-ws.version>2.1.4.RELEASE</spring-ws.version>
+<!--		<spring-ws.version>2.1.4.RELEASE</spring-ws.version>-->
 		<sourcesDir>${project.basedir}/target/generated-sources/jaxws</sourcesDir>
 		<classesDir>${project.basedir}/target/classes</classesDir>
 		<wsdl>${project.basedir}/../airline.wsdl</wsdl>
@@ -31,7 +31,7 @@
 		<dependency>
 			<groupId>org.springframework.ws</groupId>
 			<artifactId>spring-ws-core</artifactId>
-			<version>${spring-ws.version}</version>
+<!--			<version>${spring-ws.version}</version>-->
 		</dependency>
 
 	</dependencies>
@@ -42,6 +42,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
 				<dependencies>
 					<dependency>
 						<groupId>com.sun.xml.ws</groupId>
