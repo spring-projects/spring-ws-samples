@@ -17,7 +17,7 @@
 	<description>Demo project for Spring Web Services</description>
 
 	<properties>
-		<activemq.version>4.1.2</activemq.version>
+		<activemq.version>5.6.0</activemq.version>
 		<java.version>1.8</java.version>
 		<jms.version>1.1</jms.version>
 		<log4j2.version>2.15.0</log4j2.version>
