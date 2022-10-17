@@ -22,8 +22,42 @@ pipeline {
 				ARTIFACTORY = credentials('02bd1690-b54f-4c9f-819d-a77cb7a9822c')
 			}
 			steps {
-				sh "ci/test.sh"
+				sh "PROFILES=none ci/test.sh"
 			}
+		}
+
+		stage("Test other configurations") {
+		    parallel {
+		        stage("Test: spring-ws-3.1-snapshots") {
+                    agent {
+                        docker {
+                            image 'adoptopenjdk/openjdk8:latest'
+                            args '-v $HOME/.m2:/root/.m2'
+                        }
+                    }
+                    environment {
+                        ARTIFACTORY = credentials('02bd1690-b54f-4c9f-819d-a77cb7a9822c')
+                    }
+                    steps {
+                        sh "PROFILES=spring-ws-3.1-snapshots ci/test.sh"
+                    }
+		        }
+
+		        stage("Test: spring-ws-3.2") {
+                    agent {
+                        docker {
+                            image 'adoptopenjdk/openjdk8:latest'
+                            args '-v $HOME/.m2:/root/.m2'
+                        }
+                    }
+                    environment {
+                        ARTIFACTORY = credentials('02bd1690-b54f-4c9f-819d-a77cb7a9822c')
+                    }
+                    steps {
+                        sh "PROFILES=spring-ws-3.2 ci/test.sh"
+                    }
+		        }
+		    }
 		}
 	}
 
