@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.4</version>
+		<version>2.7.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
@@ -59,15 +59,15 @@
 
     <profiles>
         <profile>
-            <id>spring-ws-3.1-snapshots</id>
+            <id>spring-ws-3.1.4</id>
             <properties>
-                <spring-ws.version>3.1.4-SNAPSHOT</spring-ws.version>
+                <spring-ws.version>3.1.4</spring-ws.version>
             </properties>
         </profile>
         <profile>
-            <id>spring-ws-3.2</id>
+            <id>spring-ws-3.1-snapshots</id>
             <properties>
-                <spring-ws.version>3.2.0-SNAPSHOT</spring-ws.version>
+                <spring-ws.version>3.1.4-SNAPSHOT</spring-ws.version>
             </properties>
         </profile>
     </profiles>

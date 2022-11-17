@@ -43,7 +43,7 @@ pipeline {
                     }
 		        }
 
-		        stage("Test: spring-ws-3.2") {
+		        stage("Test: spring-ws-3.1.4") {
                     agent {
                         docker {
                             image 'adoptopenjdk/openjdk8:latest'
@@ -54,7 +54,7 @@ pipeline {
                         ARTIFACTORY = credentials('02bd1690-b54f-4c9f-819d-a77cb7a9822c')
                     }
                     steps {
-                        sh "PROFILES=spring-ws-3.2 ci/test.sh"
+                        sh "PROFILES=spring-ws-3.1.4 ci/test.sh"
                     }
 		        }
 		    }
