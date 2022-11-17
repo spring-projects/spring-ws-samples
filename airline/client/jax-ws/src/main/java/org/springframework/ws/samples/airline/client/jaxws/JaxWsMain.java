@@ -16,6 +16,8 @@
 
 package org.springframework.ws.samples.airline.client.jaxws;
 
+import jakarta.xml.ws.soap.SOAPFaultException;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -24,7 +26,6 @@ import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
-import javax.xml.ws.soap.SOAPFaultException;
 
 /**
  * Simple client that calls the <code>GetFlights</code> and <code>BookFlight</code> operations using JAX-WS.

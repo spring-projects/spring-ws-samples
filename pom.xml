@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.4</version>
+		<version>3.0.0-SNAPSHOT</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
@@ -42,13 +42,22 @@
 		</license>
 	</licenses>
 
+    <properties>
+        <java.version>17</java.version>
+        <jaxws-tools.version>3.0.1</jaxws-tools.version>
+        <jws-api.version>3.0.0</jws-api.version>
+        <sourcesDir>${project.basedir}/target/generated-sources/jaxws</sourcesDir>
+        <classesDir>${project.basedir}/target/classes</classesDir>
+        <wsdl>${project.basedir}/airline/client/airline.wsdl</wsdl>
+    </properties>
+
 	<modules>
-		<module>airline/client/axis1</module>
+<!--		<module>airline/client/axis1</module>-->
 		<module>airline/client/jax-ws</module>
-		<module>airline/client/jms</module>
+<!--		<module>airline/client/jms</module>-->
 		<module>airline/client/saaj</module>
 		<module>airline/client/spring-ws</module>
-		<module>airline/server</module>
+<!--		<module>airline/server</module>-->
 		<module>echo/client/saaj</module>
 		<module>echo/client/spring-ws</module>
 		<module>echo/server</module>
@@ -56,21 +65,6 @@
 		<module>mtom/server</module>
 		<module>tutorial</module>
 	</modules>
-
-    <profiles>
-        <profile>
-            <id>spring-ws-3.1-snapshots</id>
-            <properties>
-                <spring-ws.version>3.1.4-SNAPSHOT</spring-ws.version>
-            </properties>
-        </profile>
-        <profile>
-            <id>spring-ws-3.2</id>
-            <properties>
-                <spring-ws.version>3.2.0-SNAPSHOT</spring-ws.version>
-            </properties>
-        </profile>
-    </profiles>
 
 	<dependencies>
 
