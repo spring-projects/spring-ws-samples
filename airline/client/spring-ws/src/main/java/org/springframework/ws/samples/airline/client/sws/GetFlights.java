@@ -16,19 +16,14 @@
 
 package org.springframework.ws.samples.airline.client.sws;
 
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBElement;
+
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import org.springframework.springWs.samples.airline.schemas.BookFlightRequest;
-import org.springframework.springWs.samples.airline.schemas.Flight;
-import org.springframework.springWs.samples.airline.schemas.GetFlightsRequest;
-import org.springframework.springWs.samples.airline.schemas.GetFlightsResponse;
-import org.springframework.springWs.samples.airline.schemas.Name;
-import org.springframework.springWs.samples.airline.schemas.Ticket;
-import org.springframework.stereotype.Service;
+import org.springframework.springWs.samples.airline.schemas.*;
 import org.springframework.ws.WebServiceMessageFactory;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 
