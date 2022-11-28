@@ -18,8 +18,6 @@ package org.springframework.ws.samples.airline.client.jms;
 
 import javax.xml.transform.stream.StreamResult;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.xml.transform.StringSource;
 
