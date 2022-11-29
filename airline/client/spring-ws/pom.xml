@@ -17,11 +17,8 @@
 	<description>Demo project for Spring Web Services</description>
 
 	<properties>
-		<java.version>1.8</java.version>
 		<jax-ws.version>2.1.7</jax-ws.version>
-		<log4j2.version>2.15.0</log4j2.version>
 		<xmlbeans.version>2.4.0</xmlbeans.version>
-		<xws.version>3.0</xws.version>
 		<sourcesDir>${project.basedir}/target/generated-sources/xjc</sourcesDir>
 		<classesDir>${project.basedir}/target/classes</classesDir>
 		<schema>${project.basedir}/../../server/src/main/resources</schema>
@@ -33,38 +30,6 @@
 		<dependency>
 			<groupId>org.springframework.ws</groupId>
 			<artifactId>spring-ws-core</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.ws</groupId>
-			<artifactId>spring-ws-security</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>com.sun.xml.wsit</groupId>
-					<artifactId>wsit-rt</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.sun.xml.wsit</groupId>
-					<artifactId>xws-security</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<dependency>
-			<groupId>com.sun.xml.wss</groupId>
-			<artifactId>xws-security</artifactId>
-			<version>${xws.version}</version>
-			<scope>runtime</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>javax.xml.crypto</groupId>
-					<artifactId>xmldsig</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.activation</groupId>
-					<artifactId>activation</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<dependency>

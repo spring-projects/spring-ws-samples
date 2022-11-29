@@ -29,8 +29,5 @@ public class SpringWsMain {
 
 		GetFlights getFlights = ctx.getBean(GetFlights.class);
 		getFlights.getFlights();
-
-		GetFrequentFlyerMileage getFrequentFlyerMileage = ctx.getBean(GetFrequentFlyerMileage.class);
-		getFrequentFlyerMileage.getFrequentFlyerMileage();
 	}
 }
