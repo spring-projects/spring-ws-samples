@@ -14,7 +14,7 @@ pipeline {
 		stage("Test: baseline (jdk17)") {
 			agent {
 				docker {
-					image 'eclipse-temurin:17-alpine'
+					image 'eclipse-temurin:17-jdk'
 					args '-v $HOME/.m2:/root/.m2'
 				}
 			}
@@ -31,7 +31,7 @@ pipeline {
 		        stage("Test: snapshots") {
                     agent {
                         docker {
-                            image 'eclipse-temurin:17-alpine'
+                            image 'eclipse-temurin:17-jdk'
                             args '-v $HOME/.m2:/root/.m2'
                         }
                     }
@@ -46,7 +46,7 @@ pipeline {
 		        stage("Test: baseline (jdk19)") {
                     agent {
                         docker {
-                            image 'eclipse-temurin:19-alpine'
+                            image 'eclipse-temurin:17-jdk'
                             args '-v $HOME/.m2:/root/.m2'
                         }
                     }
