@@ -19,7 +19,7 @@
 		<sourcesDir>${project.basedir}/target/generated-sources/xjc</sourcesDir>
 		<classesDir>${project.basedir}/target/classes</classesDir>
 		<schema>${project.basedir}/../../server/src/main/resources</schema>
-		<wsdl>${project.basedir}/../airline.wsdl</wsdl>
+		<wsdl>file://${project.basedir}/../airline.wsdl</wsdl>
 	</properties>
 
 	<dependencies>
