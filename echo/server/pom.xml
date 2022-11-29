@@ -10,16 +10,12 @@
 		<relativePath>../../</relativePath> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>org.springframework.ws</groupId>
 	<artifactId>echo-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Spring Web Services Samples - Echo - Server</name>
 	<description>Demo project for Spring Web Services</description>
 
 	<properties>
-		<java.version>1.8</java.version>
-		<joda-time.version>2.10.6</joda-time.version>
-		<log4j2.version>2.15.0</log4j2.version>
 		<sourcesDir>${project.basedir}/target/generated-sources/axis</sourcesDir>
 		<classesDir>${project.basedir}/target/classes</classesDir>
 		<wsdl>${project.basedir}/../airline.wsdl</wsdl>
@@ -55,12 +51,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 	</dependencies>
@@ -77,7 +67,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jaxb2-maven-plugin</artifactId>
-				<version>2.5.0</version>
+				<version>3.1.0</version>
 				<executions>
 					<execution>
 						<id>xjc</id>
@@ -89,7 +79,7 @@
 				<configuration>
 					<sources>${project.basedir}/src/main/resources/echo.xsd</sources>
 					<packageName>org.springframework.ws.samples.airline.schema</packageName>
-					<target>2.1</target>
+					<target>3.0</target>
 				</configuration>
 			</plugin>
 

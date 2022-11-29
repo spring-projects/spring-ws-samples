@@ -16,18 +16,10 @@
 
 package org.springframework.ws.samples.echo.client.saaj;
 
+import jakarta.xml.soap.*;
+
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import javax.xml.soap.MessageFactory;
-import javax.xml.soap.Name;
-import javax.xml.soap.SOAPBodyElement;
-import javax.xml.soap.SOAPConnection;
-import javax.xml.soap.SOAPConnectionFactory;
-import javax.xml.soap.SOAPEnvelope;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPFault;
-import javax.xml.soap.SOAPMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

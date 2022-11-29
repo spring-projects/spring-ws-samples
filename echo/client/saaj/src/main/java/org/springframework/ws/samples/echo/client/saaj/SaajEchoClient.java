@@ -1,8 +1,8 @@
 package org.springframework.ws.samples.echo.client.saaj;
 
-import java.net.MalformedURLException;
+import jakarta.xml.soap.SOAPException;
 
-import javax.xml.soap.SOAPException;
+import java.net.MalformedURLException;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
