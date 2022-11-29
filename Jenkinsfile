@@ -46,7 +46,7 @@ pipeline {
 		        stage("Test: baseline (jdk19)") {
                     agent {
                         docker {
-                            image 'eclipse-temurin:17-jdk'
+                            image 'eclipse-temurin:19-jdk'
                             args '-v $HOME/.m2:/root/.m2'
                         }
                     }
