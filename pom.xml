@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.0.0-SNAPSHOT</version>
+		<version>3.0.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
@@ -52,12 +52,12 @@
     </properties>
 
 	<modules>
-<!--		<module>airline/client/axis1</module>-->
+<!--		<module>airline/client/axis1</module>--> <!-- Migrate to axis2 -->
 		<module>airline/client/jax-ws</module>
-<!--		<module>airline/client/jms</module>-->
+		<module>airline/client/jms</module>
 		<module>airline/client/saaj</module>
 		<module>airline/client/spring-ws</module>
-<!--		<module>airline/server</module>-->
+		<module>airline/server</module>
 		<module>echo/client/saaj</module>
 		<module>echo/client/spring-ws</module>
 		<module>echo/server</module>
