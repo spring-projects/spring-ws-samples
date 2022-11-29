@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
  */
 public class SaajMain {
 
-    private static final Logger logger = LoggerFactory.getLogger(SaajMain.class);
+	private static final Logger logger = LoggerFactory.getLogger(SaajMain.class);
 
 	public static void main(String[] args) throws Exception {
 
@@ -33,15 +33,9 @@ public class SaajMain {
 			url = args[0];
 		}
 
-        logger.info("Connecting to " + url + " for flight details...");
+		logger.info("Connecting to " + url + " for flight details...");
 
-        GetFlights getFlights = new GetFlights(url);
+		GetFlights getFlights = new GetFlights(url);
 		getFlights.getFlights();
-
-		String username = "john";
-		String password = "changeme";
-		GetFrequentFlyerMileage getMileage = new GetFrequentFlyerMileage(url);
-		getMileage.getMileage(username, password);
 	}
-
 }

@@ -10,48 +10,29 @@
 		<relativePath>../../../</relativePath> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>org.springframework.ws</groupId>
 	<artifactId>airline-client-saaj</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Spring Web Services Samples - Airline - Client - SAAJ</name>
 	<description>Demo project for Spring Web Services</description>
 
 	<properties>
-		<java.version>1.8</java.version>
-		<log4j2.version>2.15.0</log4j2.version>
-		<xws.version>3.0</xws.version>
+        <saaj-impl.version>2.0.1</saaj-impl.version>
 	</properties>
 
 	<dependencies>
 
-		<dependency>
+        <dependency>
+            <groupId>com.sun.xml.messaging.saaj</groupId>
+            <artifactId>saaj-impl</artifactId>
+            <version>${saaj-impl.version}</version>
+        </dependency>
+
+        <dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>com.sun.xml.wss</groupId>
-			<artifactId>xws-security</artifactId>
-			<version>${xws.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>javax.xml.crypto</groupId>
-					<artifactId>xmldsig</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.activation</groupId>
-					<artifactId>activation</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-<!--		<dependency>-->
-<!--			<groupId>javax.activation</groupId>-->
-<!--			<artifactId>activation</artifactId>-->
-<!--			<version>1.1</version>-->
-<!--		</dependency>-->
-
-	</dependencies>
+ 	</dependencies>
 
 	<repositories>
 		<repository>
