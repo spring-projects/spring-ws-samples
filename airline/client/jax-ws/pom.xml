@@ -17,10 +17,7 @@
 	<description>Demo project for Spring Web Services</description>
 
 	<properties>
-		<java.version>1.8</java.version>
 		<jax-ws.version>2.1.7</jax-ws.version>
-		<log4j2.version>2.15.0</log4j2.version>
-<!--		<spring-ws.version>2.1.4.RELEASE</spring-ws.version>-->
 		<sourcesDir>${project.basedir}/target/generated-sources/jaxws</sourcesDir>
 		<classesDir>${project.basedir}/target/classes</classesDir>
 		<wsdl>${project.basedir}/../airline.wsdl</wsdl>
