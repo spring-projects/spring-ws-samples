@@ -10,17 +10,14 @@
 		<relativePath>../../</relativePath> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>org.springframework.ws</groupId>
 	<artifactId>mtom-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Spring Web Services Samples - MTOM - Server</name>
 	<description>Demo project for Spring Web Services</description>
 
 	<properties>
-		<java.version>1.8</java.version>
-		<joda-time.version>2.10.6</joda-time.version>
-		<log4j2.version>2.15.0</log4j2.version>
-		<xmlschema.version>2.0.2</xmlschema.version>
+        <xmlschema.version>2.0.2</xmlschema.version>
+        <wsdl>${project.basedir}/src/main/resources/contentStore.wsdl</wsdl>
 	</properties>
 
 	<dependencies>
@@ -52,12 +49,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 	</dependencies>
@@ -71,25 +62,28 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>jaxb2-maven-plugin</artifactId>
-				<version>2.5.0</version>
-				<executions>
-					<execution>
-						<id>xjc</id>
-						<goals>
-							<goal>xjc</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<sourceType>WSDL</sourceType>
-					<sources>${project.basedir}/src/main/resources/contentStore.wsdl</sources>
-					<packageName>org.springframework.ws.samples.mtom.schema</packageName>
-					<target>2.1</target>
-				</configuration>
-			</plugin>
+            <plugin>
+                <groupId>com.evolvedbinary.maven.jvnet</groupId>
+                <artifactId>jaxb30-maven-plugin</artifactId>
+                <version>0.15.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <schemaLanguage>WSDL</schemaLanguage>
+                    <generatePackage>org.springframework.ws.samples.mtom.schema</generatePackage>
+                    <schemas>
+                        <schema>
+                            <url>${wsdl}</url>
+                        </schema>
+                    </schemas>
+                    <addCompileSourceRoot>true</addCompileSourceRoot>
+                </configuration>
+            </plugin>
 
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -104,7 +98,7 @@
 						</goals>
 						<configuration>
 							<sources>
-								<source>target/generated-sources/jaxb</source>
+                                <source>target/generated-sources/xjc</source>
 							</sources>
 						</configuration>
 					</execution>

@@ -16,18 +16,14 @@
 
 package org.springframework.ws.samples.mtom.ws;
 
+import jakarta.activation.DataHandler;
+import jakarta.activation.FileDataSource;
+
 import java.io.File;
 import java.io.IOException;
 
-import javax.activation.DataHandler;
-import javax.activation.FileDataSource;
-
 import org.springframework.util.Assert;
-import org.springframework.ws.samples.mtom.schema.LoadContentRequest;
-import org.springframework.ws.samples.mtom.schema.LoadContentResponse;
-import org.springframework.ws.samples.mtom.schema.ObjectFactory;
-import org.springframework.ws.samples.mtom.schema.StoreContentRequest;
-import org.springframework.ws.samples.mtom.schema.StoreContentResponse;
+import org.springframework.ws.samples.mtom.schema.*;
 import org.springframework.ws.samples.mtom.service.ContentRepository;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;

@@ -16,10 +16,10 @@
 
 package org.springframework.ws.samples.mtom.service;
 
+import jakarta.activation.DataHandler;
+
 import java.io.File;
 import java.io.IOException;
-
-import javax.activation.DataHandler;
 
 /** @author Arjen Poutsma */
 public interface ContentRepository {
