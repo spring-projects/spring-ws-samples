@@ -10,15 +10,12 @@
 		<relativePath>../../../</relativePath> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>org.springframework.ws</groupId>
 	<artifactId>airline-client-spring-ws</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Spring Web Services Samples - Airline - Client - Spring WS</name>
 	<description>Demo project for Spring Web Services</description>
 
 	<properties>
-		<jax-ws.version>2.1.7</jax-ws.version>
-		<xmlbeans.version>2.4.0</xmlbeans.version>
 		<sourcesDir>${project.basedir}/target/generated-sources/xjc</sourcesDir>
 		<classesDir>${project.basedir}/target/classes</classesDir>
 		<schema>${project.basedir}/../../server/src/main/resources</schema>

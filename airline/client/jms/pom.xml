@@ -10,7 +10,6 @@
 		<relativePath>../../../</relativePath> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>org.springframework.ws</groupId>
 	<artifactId>airline-client-jms</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Spring Web Services Samples - Airline - Client - JMS</name>
@@ -18,9 +17,7 @@
 
 	<properties>
 		<activemq.version>4.1.2</activemq.version>
-		<java.version>17</java.version>
-        <jakarta-jms.version>3.1.0</jakarta-jms.version>
-		<log4j2.version>2.15.0</log4j2.version>
+		<jakarta-jms.version>3.1.0</jakarta-jms.version>
 		<sourcesDir>${project.basedir}/target/generated-sources/jaxws</sourcesDir>
 		<classesDir>${project.basedir}/target/classes</classesDir>
 		<wsdl>${project.basedir}/../airline.wsdl</wsdl>
