@@ -1,7 +1,7 @@
 = Spring Web Service Tutorial
 
 This sample contains the code for the tutorial, which can be found in the
-https://projects.spring.io/spring-ws[Spring Web Services] reference documentation.
+https://spring.io/projects/spring-ws[Spring Web Services] reference documentation.
 
 == Build and deploy
 
