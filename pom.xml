@@ -85,6 +85,17 @@
 		</plugins>
 	</build>
 
+    <profiles>
+        <profile>
+            <id>snapshots</id>
+            <properties>
+                <spring-data-bom.version>2022.0.1-SNAPSHOT</spring-data-bom.version>
+                <spring-framework.version>6.0.3-SNAPSHOT</spring-framework.version>
+                <spring-ws.version>4.0.1-SNAPSHOT</spring-ws.version>
+            </properties>
+        </profile>
+    </profiles>
+
 	<repositories>
 		<repository>
 			<id>spring-milestones</id>

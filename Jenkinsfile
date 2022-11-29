@@ -11,10 +11,10 @@ pipeline {
 	}
 
 	stages {
-		stage("Test: baseline (jdk8)") {
+		stage("Test: baseline (jdk17)") {
 			agent {
 				docker {
-					image 'adoptopenjdk/openjdk8:latest'
+					image 'eclipse-temurin:17-alpine'
 					args '-v $HOME/.m2:/root/.m2'
 				}
 			}
@@ -28,10 +28,10 @@ pipeline {
 
 		stage("Test other configurations") {
 		    parallel {
-		        stage("Test: spring-ws-3.1-snapshots") {
+		        stage("Test: snapshots") {
                     agent {
                         docker {
-                            image 'adoptopenjdk/openjdk8:latest'
+                            image 'eclipse-temurin:17-alpine'
                             args '-v $HOME/.m2:/root/.m2'
                         }
                     }
@@ -39,14 +39,14 @@ pipeline {
                         ARTIFACTORY = credentials('02bd1690-b54f-4c9f-819d-a77cb7a9822c')
                     }
                     steps {
-                        sh "PROFILES=spring-ws-3.1-snapshots ci/test.sh"
+                        sh "PROFILES=snapshots ci/test.sh"
                     }
 		        }
 
-		        stage("Test: spring-ws-3.2") {
+		        stage("Test: baseline (jdk19)") {
                     agent {
                         docker {
-                            image 'adoptopenjdk/openjdk8:latest'
+                            image 'eclipse-temurin:19-alpine'
                             args '-v $HOME/.m2:/root/.m2'
                         }
                     }
@@ -54,7 +54,7 @@ pipeline {
                         ARTIFACTORY = credentials('02bd1690-b54f-4c9f-819d-a77cb7a9822c')
                     }
                     steps {
-                        sh "PROFILES=spring-ws-3.2 ci/test.sh"
+                        sh "PROFILES=none ci/test.sh"
                     }
 		        }
 		    }
