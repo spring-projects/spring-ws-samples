@@ -16,19 +16,27 @@
 
 package org.springframework.ws.samples.airline.client.jms;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 /**
  * "Main" that creates a {@link JmsClient} and uses it to talk to the SOAP-based server.
  *
  * @author Greg Turnquist
  */
+@SpringBootApplication
 public class JmsMain {
 
 	public static void main(String[] args) {
+		SpringApplication.run(JmsMain.class);
+	}
 
-		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(JmsConfiguration.class);
-
-		ctx.getBean(JmsClient.class).getFlights();
+	@Bean
+	CommandLineRunner getFlights(JmsClient client) {
+		return args -> {
+			client.getFlights();
+		};
 	}
 }

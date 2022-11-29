@@ -16,6 +16,7 @@
 
 package org.springframework.ws.samples.airline.schema.support;
 
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -26,13 +27,8 @@ import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import org.joda.time.LocalDate;
 import org.springframework.ws.samples.airline.domain.Passenger;
-import org.springframework.ws.samples.airline.schema.Airport;
-import org.springframework.ws.samples.airline.schema.Flight;
-import org.springframework.ws.samples.airline.schema.Name;
-import org.springframework.ws.samples.airline.schema.ServiceClass;
-import org.springframework.ws.samples.airline.schema.Ticket;
+import org.springframework.ws.samples.airline.schema.*;
 
 /** @author Arjen Poutsma */
 public abstract class SchemaConversionUtils {
@@ -79,12 +75,12 @@ public abstract class SchemaConversionUtils {
 	public static XMLGregorianCalendar toXMLGregorianCalendar(LocalDate localDate) throws DatatypeConfigurationException {
 
 		DatatypeFactory factory = DatatypeFactory.newInstance();
-		return factory.newXMLGregorianCalendarDate(localDate.getYear(), localDate.getMonthOfYear(),
+		return factory.newXMLGregorianCalendarDate(localDate.getYear(), localDate.getMonthValue(),
 				localDate.getDayOfMonth(), DatatypeConstants.FIELD_UNDEFINED);
 	}
 
 	public static LocalDate toLocalDate(XMLGregorianCalendar calendar) {
-		return new LocalDate(calendar.getYear(), calendar.getMonth(), calendar.getDay());
+		return LocalDate.of(calendar.getYear(), calendar.getMonth(), calendar.getDay());
 	}
 
 	public static Airport toSchemaType(org.springframework.ws.samples.airline.domain.Airport domainAirport) {

@@ -15,86 +15,75 @@
  */
 package org.springframework.ws.samples.airline.domain;
 
-import java.io.Serializable;
+import jakarta.persistence.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "PASSENGER")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Passenger implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID") private Long id;
 
-    @Column(name = "FIRST_NAME")
-    private String firstName;
+	@Column(name = "FIRST_NAME") private String firstName;
 
-    @Column(name = "LAST_NAME")
-    private String lastName;
+	@Column(name = "LAST_NAME") private String lastName;
 
-    public Passenger() {
-    }
+	public Passenger() {}
 
-    public Passenger(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
+	public Passenger(String firstName, String lastName) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 
-    public Passenger(Long id, String firstName, String lastName) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
+	public Passenger(Long id, String firstName, String lastName) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 
-    public String getFirstName() {
-        return firstName;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    public String toString() {
-        return firstName + " " + lastName;
-    }
+	public String toString() {
+		return firstName + " " + lastName;
+	}
 
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
 
-        final Passenger passenger = (Passenger) o;
+		final Passenger passenger = (Passenger) o;
 
-        if (!getFirstName().equals(passenger.getFirstName())) {
-            return false;
-        }
-        if (!getLastName().equals(passenger.getLastName())) {
-            return false;
-        }
+		if (!getFirstName().equals(passenger.getFirstName())) {
+			return false;
+		}
+		if (!getLastName().equals(passenger.getLastName())) {
+			return false;
+		}
 
-        return true;
-    }
+		return true;
+	}
 
-    public int hashCode() {
-        int result = getFirstName().hashCode();
-        result = 29 * result + getLastName().hashCode();
-        return result;
-    }
+	public int hashCode() {
+		int result = getFirstName().hashCode();
+		result = 29 * result + getLastName().hashCode();
+		return result;
+	}
 }

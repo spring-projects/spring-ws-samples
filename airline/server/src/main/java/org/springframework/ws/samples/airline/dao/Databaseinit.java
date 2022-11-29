@@ -1,6 +1,8 @@
 package org.springframework.ws.samples.airline.dao;
 
-import org.joda.time.DateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,9 +24,9 @@ public class Databaseinit {
 
 			Flight flight = new Flight();
 			flight.setNumber("KL1653");
-			flight.setDepartureTime(new DateTime(2006, 1, 31, 10, 5, 0, 0).toGregorianCalendar().toZonedDateTime());
+			flight.setDepartureTime(ZonedDateTime.of(2006, 1, 31, 10, 5, 0, 0, ZoneId.systemDefault()));
 			flight.setFrom(amsterdam);
-			flight.setArrivalTime(new DateTime(2006, 1, 31, 12, 25, 0, 0).toGregorianCalendar().toZonedDateTime());
+			flight.setArrivalTime(ZonedDateTime.of(2006, 1, 31, 12, 25, 0, 0, ZoneId.systemDefault()));
 			flight.setTo(venice);
 			flight.setServiceClass(ServiceClass.ECONOMY);
 			flight.setSeatsAvailable(5);
@@ -34,9 +36,9 @@ public class Databaseinit {
 
 			flight = new Flight();
 			flight.setNumber("KL1654");
-			flight.setDepartureTime(new DateTime(2006, 2, 5, 12, 40, 0, 0).toGregorianCalendar().toZonedDateTime());
+			flight.setDepartureTime(ZonedDateTime.of(2006, 2, 5, 12, 40, 0, 0, ZoneId.systemDefault()));
 			flight.setFrom(venice);
-			flight.setArrivalTime(new DateTime(2006, 2, 5, 14, 15, 0, 0).toGregorianCalendar().toZonedDateTime());
+			flight.setArrivalTime(ZonedDateTime.of(2006, 2, 5, 14, 15, 0, 0, ZoneId.systemDefault()));
 			flight.setTo(amsterdam);
 			flight.setServiceClass(ServiceClass.ECONOMY);
 			flight.setSeatsAvailable(5);

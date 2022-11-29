@@ -8,14 +8,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.ws.server.endpoint.interceptor.PayloadLoggingInterceptor;
 import org.springframework.ws.soap.saaj.SaajSoapMessageFactory;
-import org.springframework.ws.soap.security.xwss.XwsSecurityInterceptor;
-import org.springframework.ws.soap.security.xwss.callback.SpringDigestPasswordValidationCallbackHandler;
 import org.springframework.ws.soap.server.SoapMessageDispatcher;
-import org.springframework.ws.soap.server.endpoint.interceptor.PayloadRootSmartSoapEndpointInterceptor;
 import org.springframework.ws.soap.server.endpoint.interceptor.PayloadValidatingInterceptor;
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
 import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
@@ -60,33 +56,33 @@ public class WebServicesConfiguration {
 		return payloadValidatingInterceptor;
 	}
 
-	@Bean
-	XwsSecurityInterceptor securityInterceptor(UserDetailsService securityService) {
+//	@Bean
+//	XwsSecurityInterceptor securityInterceptor(UserDetailsService securityService) {
+//
+//		XwsSecurityInterceptor securityInterceptor = new XwsSecurityInterceptor();
+//		securityInterceptor.setSecureResponse(false);
+//		securityInterceptor.setPolicyConfiguration(
+//				new ClassPathResource("org/springframework/ws/samples/airline/security/securityPolicy.xml"));
+//		securityInterceptor.setCallbackHandler(springDigestPasswordValidationCallbackHandler(securityService));
+//
+//		return securityInterceptor;
+//	}
 
-		XwsSecurityInterceptor securityInterceptor = new XwsSecurityInterceptor();
-		securityInterceptor.setSecureResponse(false);
-		securityInterceptor.setPolicyConfiguration(
-				new ClassPathResource("org/springframework/ws/samples/airline/security/securityPolicy.xml"));
-		securityInterceptor.setCallbackHandler(springDigestPasswordValidationCallbackHandler(securityService));
+// @Bean
+// PayloadRootSmartSoapEndpointInterceptor smartSoapEndpointInterceptor(XwsSecurityInterceptor securityInterceptor) {
+//
+// return new PayloadRootSmartSoapEndpointInterceptor(securityInterceptor,
+// "http://www.springframework.org/spring-ws/samples/airline/schemas/messages", "GetFrequentFlyerMileageRequest");
+// }
 
-		return securityInterceptor;
-	}
-
-	@Bean
-	PayloadRootSmartSoapEndpointInterceptor smartSoapEndpointInterceptor(XwsSecurityInterceptor securityInterceptor) {
-
-		return new PayloadRootSmartSoapEndpointInterceptor(securityInterceptor,
-				"http://www.springframework.org/spring-ws/samples/airline/schemas/messages", "GetFrequentFlyerMileageRequest");
-	}
-
-	@Bean
-	SpringDigestPasswordValidationCallbackHandler springDigestPasswordValidationCallbackHandler(
-			UserDetailsService securityService) {
-
-		SpringDigestPasswordValidationCallbackHandler handler = new SpringDigestPasswordValidationCallbackHandler();
-		handler.setUserDetailsService(securityService);
-		return handler;
-	}
+//	@Bean
+//	SpringDigestPasswordValidationCallbackHandler springDigestPasswordValidationCallbackHandler(
+//			UserDetailsService securityService) {
+//
+//		SpringDigestPasswordValidationCallbackHandler handler = new SpringDigestPasswordValidationCallbackHandler();
+//		handler.setUserDetailsService(securityService);
+//		return handler;
+//	}
 
 	@Bean
 	SaajSoapMessageFactory messageFactory() {

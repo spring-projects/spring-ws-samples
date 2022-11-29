@@ -18,7 +18,6 @@ package org.springframework.ws.samples.airline.client.jms;
 
 import jakarta.jms.ConnectionFactory;
 
-import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.ws.transport.jms.JmsMessageSender;
@@ -30,11 +29,6 @@ import org.springframework.ws.transport.jms.JmsMessageSender;
  */
 @Configuration(proxyBeanMethods = false)
 public class JmsConfiguration {
-
-	@Bean
-	ConnectionFactory connectionFactory() {
-		return new ActiveMQConnectionFactory("tcp://localhost:61616");
-	}
 
 	@Bean
 	JmsMessageSender jmsMessageSender(ConnectionFactory connectionFactory) {

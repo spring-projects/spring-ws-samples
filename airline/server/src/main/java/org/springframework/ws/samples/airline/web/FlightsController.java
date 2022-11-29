@@ -16,10 +16,13 @@
 
 package org.springframework.ws.samples.airline.web;
 
-import org.joda.time.LocalDate;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,14 +51,14 @@ public class FlightsController {
 			@RequestParam(value = "departureDate", required = false) String departureDateString,
 			@RequestParam(value = "serviceClass", required = false) String serviceClassString, ModelMap model) {
 
-		if (StringUtils.isEmpty(departureDateString)) {
-			departureDateString = new LocalDate().toString();
+		if (ObjectUtils.isEmpty(departureDateString)) {
+			departureDateString = LocalDate.now().toString();
 		}
-		if (StringUtils.isEmpty(serviceClassString)) {
+		if (ObjectUtils.isEmpty(serviceClassString)) {
 			serviceClassString = "ECONOMY";
 		}
 		ServiceClass serviceClass = ServiceClass.valueOf(serviceClassString);
-		LocalDate departureDate = new LocalDate(departureDateString);
+        ZonedDateTime departureDate = ZonedDateTime.parse(departureDateString);
 
 		if (StringUtils.hasLength(fromAirportCode) && StringUtils.hasLength(toAirportCode)) {
 			model.addAttribute("from", fromAirportCode);

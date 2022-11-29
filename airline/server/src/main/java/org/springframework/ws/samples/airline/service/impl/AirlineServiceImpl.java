@@ -15,26 +15,22 @@
  */
 package org.springframework.ws.samples.airline.service.impl;
 
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.ws.samples.airline.dao.FlightDao;
 import org.springframework.ws.samples.airline.dao.TicketDao;
 import org.springframework.ws.samples.airline.domain.Flight;
-import org.springframework.ws.samples.airline.domain.FrequentFlyer;
 import org.springframework.ws.samples.airline.domain.Passenger;
 import org.springframework.ws.samples.airline.domain.ServiceClass;
 import org.springframework.ws.samples.airline.domain.Ticket;
-import org.springframework.ws.samples.airline.security.FrequentFlyerSecurityService;
-import org.springframework.ws.samples.airline.security.StubFrequentFlyerSecurityService;
 import org.springframework.ws.samples.airline.service.AirlineService;
 import org.springframework.ws.samples.airline.service.NoSeatAvailableException;
 import org.springframework.ws.samples.airline.service.NoSuchFlightException;
@@ -55,18 +51,11 @@ public class AirlineServiceImpl implements AirlineService {
 
 	private TicketDao ticketDao;
 
-	private FrequentFlyerSecurityService frequentFlyerSecurityService = new StubFrequentFlyerSecurityService();
-
 	@Autowired
 	public AirlineServiceImpl(FlightDao flightDao, TicketDao ticketDao) {
 
 		this.flightDao = flightDao;
 		this.ticketDao = ticketDao;
-	}
-
-	@Autowired(required = false)
-	public void setFrequentFlyerSecurityService(FrequentFlyerSecurityService frequentFlyerSecurityService) {
-		this.frequentFlyerSecurityService = frequentFlyerSecurityService;
 	}
 
 	@Transactional(readOnly = false,
@@ -78,44 +67,27 @@ public class AirlineServiceImpl implements AirlineService {
 		if (logger.isDebugEnabled()) {
 			logger.debug("Booking flight '" + flightNumber + "' on '" + departureTime + "' for " + passengers);
 		}
-		Flight flight = flightDao.getFlight(flightNumber, departureTime);
+		Flight flight = flightDao.findFlightByNumberAndDepartureTime(flightNumber, departureTime);
 		if (flight == null) {
 			throw new NoSuchFlightException(flightNumber, departureTime);
 		} else if (flight.getSeatsAvailable() < passengers.size()) {
 			throw new NoSeatAvailableException(flight);
 		}
 		Ticket ticket = new Ticket();
-		ticket.setIssueDate(new LocalDate());
+		ticket.setIssueDate(LocalDate.now());
 		ticket.setFlight(flight);
-		for (Passenger passenger : passengers) {
-			// frequent flyer service is not required
-			if (passenger instanceof FrequentFlyer && frequentFlyerSecurityService != null) {
-				String username = ((FrequentFlyer) passenger).getUsername();
-				Assert.hasLength(username, "No username specified");
-				FrequentFlyer frequentFlyer = frequentFlyerSecurityService.getFrequentFlyer(username);
-				frequentFlyer.addMiles(flight.getMiles());
-				ticket.addPassenger(frequentFlyer);
-			} else {
-				ticket.addPassenger(passenger);
-			}
-		}
+		passengers.forEach(ticket::addPassenger);
 		flight.substractSeats(passengers.size());
-		flightDao.update(flight);
+		flightDao.save(flight);
 		ticketDao.save(ticket);
 		return ticket;
 	}
 
 	public Flight getFlight(Long id) throws NoSuchFlightException {
-
-		Flight flight = flightDao.getFlight(id);
-		if (flight != null) {
-			return flight;
-		} else {
-			throw new NoSuchFlightException(id);
-		}
+		return flightDao.findById(id).orElseThrow(() -> new NoSuchFlightException(id));
 	}
 
-	public List<Flight> getFlights(String fromAirportCode, String toAirportCode, LocalDate departureDate,
+	public List<Flight> getFlights(String fromAirportCode, String toAirportCode, ZonedDateTime departureDate,
 			ServiceClass serviceClass) {
 
 		if (serviceClass == null) {
@@ -124,21 +96,10 @@ public class AirlineServiceImpl implements AirlineService {
 		if (logger.isDebugEnabled()) {
 			logger.debug("Getting flights from '" + fromAirportCode + "' to '" + toAirportCode + "' on " + departureDate);
 		}
-		List<Flight> flights = flightDao.findFlights(fromAirportCode, toAirportCode, departureDate.toInterval(),
-				serviceClass);
+		List<Flight> flights = flightDao.findFlights(fromAirportCode, toAirportCode, departureDate, serviceClass);
 		if (logger.isDebugEnabled()) {
 			logger.debug("Returning " + flights.size() + " flights");
 		}
 		return flights;
-	}
-
-	@Secured({ "ROLE_FREQUENT_FLYER" })
-	public int getFrequentFlyerMileage() {
-
-		if (logger.isDebugEnabled()) {
-			logger.debug("Using " + frequentFlyerSecurityService + " for security");
-		}
-		FrequentFlyer frequentFlyer = frequentFlyerSecurityService.getCurrentlyAuthenticatedFrequentFlyer();
-		return frequentFlyer != null ? frequentFlyer.getMiles() : 0;
 	}
 }

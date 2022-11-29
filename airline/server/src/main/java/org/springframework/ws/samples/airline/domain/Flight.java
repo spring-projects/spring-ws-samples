@@ -15,19 +15,10 @@
  */
 package org.springframework.ws.samples.airline.domain;
 
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 import org.springframework.data.annotation.Persistent;
 
@@ -35,19 +26,26 @@ import org.springframework.data.annotation.Persistent;
 @Table(name = "FLIGHT")
 public class Flight implements Serializable {
 
-	@Id @Column(name = "ID") @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
+	@Id
+	@Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
 
 	@Column(name = "NUMBER") private String number;
 
-	@Column(name = "DEPARTURE_TIME") @Persistent private ZonedDateTime departureTime;
+	@Column(name = "DEPARTURE_TIME")
+	@Persistent private ZonedDateTime departureTime;
 
-	@ManyToOne @JoinColumn(name = "FROM_AIRPORT_CODE", nullable = false) private Airport from;
+	@ManyToOne
+	@JoinColumn(name = "FROM_AIRPORT_CODE", nullable = false) private Airport from;
 
-	@Column(name = "ARRIVAL_TIME") @Persistent private ZonedDateTime arrivalTime;
+	@Column(name = "ARRIVAL_TIME")
+	@Persistent private ZonedDateTime arrivalTime;
 
-	@ManyToOne @JoinColumn(name = "TO_AIRPORT_CODE", nullable = false) private Airport to;
+	@ManyToOne
+	@JoinColumn(name = "TO_AIRPORT_CODE", nullable = false) private Airport to;
 
-	@Column(name = "SERVICE_CLASS") @Enumerated(EnumType.STRING) private ServiceClass serviceClass;
+	@Column(name = "SERVICE_CLASS")
+	@Enumerated(EnumType.STRING) private ServiceClass serviceClass;
 
 	@Column(name = "SEATS_AVAILABLE") private int seatsAvailable;
 

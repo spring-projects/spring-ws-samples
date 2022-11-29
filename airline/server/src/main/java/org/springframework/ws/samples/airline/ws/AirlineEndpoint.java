@@ -18,43 +18,33 @@ package org.springframework.ws.samples.airline.ws;
 
 import static org.springframework.ws.samples.airline.ws.AirlineWebServiceConstants.*;
 
+import jakarta.xml.bind.JAXBElement;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.xml.bind.JAXBElement;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.XMLGregorianCalendar;
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.ws.samples.airline.domain.FrequentFlyer;
 import org.springframework.ws.samples.airline.domain.Passenger;
 import org.springframework.ws.samples.airline.domain.ServiceClass;
-import org.springframework.ws.samples.airline.schema.BookFlightRequest;
-import org.springframework.ws.samples.airline.schema.GetFlightsResponse;
-import org.springframework.ws.samples.airline.schema.Name;
-import org.springframework.ws.samples.airline.schema.ObjectFactory;
-import org.springframework.ws.samples.airline.schema.Ticket;
+import org.springframework.ws.samples.airline.schema.*;
 import org.springframework.ws.samples.airline.schema.support.SchemaConversionUtils;
 import org.springframework.ws.samples.airline.service.AirlineService;
 import org.springframework.ws.samples.airline.service.NoSeatAvailableException;
 import org.springframework.ws.samples.airline.service.NoSuchFlightException;
 import org.springframework.ws.samples.airline.service.NoSuchFrequentFlyerException;
-import org.springframework.ws.server.endpoint.annotation.Endpoint;
-import org.springframework.ws.server.endpoint.annotation.Namespace;
-import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
-import org.springframework.ws.server.endpoint.annotation.RequestPayload;
-import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-import org.springframework.ws.server.endpoint.annotation.XPathParam;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import org.springframework.ws.server.endpoint.annotation.*;
 
 /**
  * Endpoint that handles the Airline Web Service messages using a combination of JAXB2 marshalling and XPath
@@ -99,7 +89,7 @@ public class AirlineEndpoint {
 			logger.debug("Received GetFlightsRequest '" + from + "' to '" + to + "' on " + departureDateString);
 		}
 
-		LocalDate departureDate = new LocalDate(departureDateString);
+		ZonedDateTime departureDate = LocalDate.parse(departureDateString).atStartOfDay(ZoneId.systemDefault());
 		ServiceClass serviceClass = null;
 
 		if (StringUtils.hasLength(serviceClassString)) {
@@ -165,22 +155,4 @@ public class AirlineEndpoint {
 
 		return SchemaConversionUtils.toSchemaType(domainTicket);
 	}
-
-	@PayloadRoot(localPart = GET_FREQUENT_FLYER_MILEAGE_REQUEST, namespace = MESSAGES_NAMESPACE)
-	@ResponsePayload
-	public Element getFrequentFlyerMileage() throws Exception {
-
-		if (logger.isDebugEnabled()) {
-			logger.debug("Received GetFrequentFlyerMileageRequest");
-		}
-
-		int mileage = airlineService.getFrequentFlyerMileage();
-		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-		Document document = documentBuilder.newDocument();
-		Element response = document.createElementNS(MESSAGES_NAMESPACE, GET_FREQUENT_FLYER_MILEAGE_RESPONSE);
-		response.setTextContent(Integer.toString(mileage));
-
-		return response;
-	}
-
 }

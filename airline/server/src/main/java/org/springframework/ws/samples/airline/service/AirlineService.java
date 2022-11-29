@@ -18,12 +18,7 @@ package org.springframework.ws.samples.airline.service;
 import java.time.ZonedDateTime;
 import java.util.List;
 
-import org.joda.time.LocalDate;
-import org.springframework.ws.samples.airline.domain.Flight;
-import org.springframework.ws.samples.airline.domain.FrequentFlyer;
-import org.springframework.ws.samples.airline.domain.Passenger;
-import org.springframework.ws.samples.airline.domain.ServiceClass;
-import org.springframework.ws.samples.airline.domain.Ticket;
+import org.springframework.ws.samples.airline.domain.*;
 
 /**
  * Defines the business logic of the Airline application.
@@ -32,52 +27,43 @@ import org.springframework.ws.samples.airline.domain.Ticket;
  */
 public interface AirlineService {
 
-    /**
-     * Returns a single <code>Flight</code> with the given id.
-     *
-     * @param id the flight identifier
-     * @return the flight
-     * @throws NoSuchFlightException if a flight with the specified flight iddoes not exist
-     */
-    Flight getFlight(Long id) throws NoSuchFlightException;
+	/**
+	 * Returns a single <code>Flight</code> with the given id.
+	 *
+	 * @param id the flight identifier
+	 * @return the flight
+	 * @throws NoSuchFlightException if a flight with the specified flight iddoes not exist
+	 */
+	Flight getFlight(Long id) throws NoSuchFlightException;
 
-    /**
-     * Returns a list of <code>Flight</code> objects that fall within the specified criteria.
-     *
-     * @param fromAirportCode the three-letter airport code to get flights from
-     * @param toAirportCode   the three-letter airport code to get flights to
-     * @param departureDate   the date of the flights
-     * @param serviceClass    the desired service class level. May be <code>null</code>
-     * @return a list of flights
-     */
-    List<Flight> getFlights(String fromAirportCode,
-							String toAirportCode,
-							LocalDate departureDate,
-							ServiceClass serviceClass);
+	/**
+	 * Returns a list of <code>Flight</code> objects that fall within the specified criteria.
+	 *
+	 * @param fromAirportCode the three-letter airport code to get flights from
+	 * @param toAirportCode the three-letter airport code to get flights to
+	 * @param departureDate the date of the flights
+	 * @param serviceClass the desired service class level. May be <code>null</code>
+	 * @return a list of flights
+	 */
+	List<Flight> getFlights(String fromAirportCode, String toAirportCode, ZonedDateTime departureDate,
+			ServiceClass serviceClass);
 
-    /**
-     * Books a single flight for a number of passengers. Passengers can be either specified by name or by frequent flyer
-     * username. If a {@link FrequentFlyer} is specified, the first and last name are looked up in the database.
-     *
-     * @param flightNumber  the number of the flight to book
-     * @param departureTime the departure time of the flight to book
-     * @param passengers    the list of passengers for the flight to book. Can be either {@link Passenger} objects with
-     *                      a first and last name, or {@link FrequentFlyer} objects with a username.
-     * @return the created ticket
-     * @throws NoSuchFlightException        if a flight with the specified flight number and departure time does not
-     *                                      exist
-     * @throws NoSeatAvailableException     if not enough seats are available for the flight
-     * @throws NoSuchFrequentFlyerException if a specified {@link FrequentFlyer} cannot be found
-     * @see Passenger
-     * @see FrequentFlyer
-     */
-    Ticket bookFlight(String flightNumber, ZonedDateTime departureTime, List<Passenger> passengers)
-            throws NoSuchFlightException, NoSeatAvailableException, NoSuchFrequentFlyerException;
+	/**
+	 * Books a single flight for a number of passengers. Passengers can be either specified by name or by frequent flyer
+	 * username. If a {@link FrequentFlyer} is specified, the first and last name are looked up in the database.
+	 *
+	 * @param flightNumber the number of the flight to book
+	 * @param departureTime the departure time of the flight to book
+	 * @param passengers the list of passengers for the flight to book. Can be either {@link Passenger} objects with a
+	 *          first and last name, or {@link FrequentFlyer} objects with a username.
+	 * @return the created ticket
+	 * @throws NoSuchFlightException if a flight with the specified flight number and departure time does not exist
+	 * @throws NoSeatAvailableException if not enough seats are available for the flight
+	 * @throws NoSuchFrequentFlyerException if a specified {@link FrequentFlyer} cannot be found
+	 * @see Passenger
+	 * @see FrequentFlyer
+	 */
+	Ticket bookFlight(String flightNumber, ZonedDateTime departureTime, List<Passenger> passengers)
+			throws NoSuchFlightException, NoSeatAvailableException, NoSuchFrequentFlyerException;
 
-    /**
-     * Returns the amount of frequent flyer award miles for the currently logged in frequent flyer.
-     *
-     * @return the amount of frequent flyer miles
-     */
-    int getFrequentFlyerMileage();
 }

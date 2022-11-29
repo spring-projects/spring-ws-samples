@@ -1,11 +1,12 @@
 package org.springframework.ws.samples.airline.jms;
 
-import javax.jms.ConnectionFactory;
+import jakarta.jms.ConnectionFactory;
 
-import org.apache.activemq.ActiveMQConnectionFactory;
-import org.apache.activemq.broker.BrokerFactory;
-import org.apache.activemq.broker.BrokerService;
-import org.apache.activemq.command.ActiveMQQueue;
+import org.apache.activemq.artemis.api.core.TransportConfiguration;
+import org.apache.activemq.artemis.core.remoting.impl.netty.NettyAcceptorFactory;
+import org.apache.activemq.artemis.core.remoting.impl.netty.NettyConnectorFactory;
+import org.apache.activemq.artemis.jms.client.ActiveMQQueue;
+import org.springframework.boot.autoconfigure.jms.artemis.ArtemisConfigurationCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.listener.DefaultMessageListenerContainer;
@@ -16,19 +17,21 @@ import org.springframework.ws.transport.jms.WebServiceMessageListener;
 @Configuration
 public class JmsConfiguration {
 
-	@Bean(initMethod = "start")
-	BrokerService broker() throws Exception {
-		return BrokerFactory.createBroker("broker:tcp://localhost:61616?persistent=false");
-	}
-
+	/**
+	 * Make embedded ActiveMQ broker open to tcp connections.
+	 */
 	@Bean
-	ActiveMQConnectionFactory connectionFactory() {
-
-		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
-		connectionFactory.setBrokerURL("tcp://localhost:61616");
-		return connectionFactory;
+	ArtemisConfigurationCustomizer customizer() {
+		return configuration -> {
+			configuration.addConnectorConfiguration("nettyConnector",
+					new TransportConfiguration(NettyConnectorFactory.class.getName()));
+			configuration.addAcceptorConfiguration(new TransportConfiguration(NettyAcceptorFactory.class.getName()));
+		};
 	}
 
+	/**
+	 * Listen for JMS messages and route them into the SOAP-based {@link WebServiceMessageListener}.
+	 */
 	@Bean
 	DefaultMessageListenerContainer containerFactory(ConnectionFactory connectionFactory,
 			WebServiceMessageListener messageListener) {

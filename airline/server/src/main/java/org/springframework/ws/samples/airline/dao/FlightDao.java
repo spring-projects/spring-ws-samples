@@ -18,7 +18,6 @@ package org.springframework.ws.samples.airline.dao;
 import java.time.ZonedDateTime;
 import java.util.List;
 
-import org.joda.time.Interval;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -28,29 +27,12 @@ import org.springframework.ws.samples.airline.domain.ServiceClass;
 public interface FlightDao extends CrudRepository<Flight, Long> {
 
 	@Query("SELECT f FROM Flight f WHERE f.from.code = :fromAirportCode "
-			+ "AND f.to.code = :toAirportCode AND f.departureTime >= :#{#interval.start.toGregorianCalendar().toZonedDateTime()} AND f.departureTime <= :#{#interval.end.toGregorianCalendar().toZonedDateTime()} AND "
+			+ "AND f.to.code = :toAirportCode AND f.departureTime >= :#{#date} AND f.departureTime <= :#{#date.plusDays(1)} AND "
 			+ "f.serviceClass = :class")
 	List<Flight> findFlights(@Param("fromAirportCode") String fromAirportCode, //
-							 @Param("toAirportCode") String toAirportCode, //
-							 @Param("interval") Interval interval, //
-							 @Param("class") ServiceClass serviceClass);
-
-	/**
-	 * @deprecated Migrate to {@link #findById(Object)}.
-	 */
-	default Flight getFlight(Long id) {
-		return findById(id).get();
-	}
-
-	;
-
-	/**
-	 * @deprecated Migrate to {@link #findFlightByNumberAndDepartureTime(String, ZonedDateTime)}.
-	 */
-	@Deprecated
-	default Flight getFlight(String flightNumber, ZonedDateTime departureTime) {
-		return findFlightByNumberAndDepartureTime(flightNumber, departureTime);
-	}
+			@Param("toAirportCode") String toAirportCode, //
+			@Param("date") ZonedDateTime date, //
+			@Param("class") ServiceClass serviceClass);
 
 	Flight findFlightByNumberAndDepartureTime(String flightNumber, ZonedDateTime departureTime);
 
