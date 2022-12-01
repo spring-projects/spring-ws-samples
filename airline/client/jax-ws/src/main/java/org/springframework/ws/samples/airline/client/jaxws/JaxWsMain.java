@@ -38,6 +38,7 @@ public class JaxWsMain {
 
 		try {
 			AirlineService service;
+
 			if (args.length == 0) {
 				service = new AirlineService();
 			} else {
@@ -45,19 +46,24 @@ public class JaxWsMain {
 						"AirlineService");
 				service = new AirlineService(new URL(args[0]), serviceName);
 			}
+
 			Airline airline = service.getAirlineSoap11();
+
 			GetFlightsRequest request = new GetFlightsRequest();
 			request.setFrom("AMS");
 			request.setTo("VCE");
 			XMLGregorianCalendar departureDate = DatatypeFactory.newInstance().newXMLGregorianCalendarDate(2006, 1, 31,
 					DatatypeConstants.FIELD_UNDEFINED);
 			request.setDepartureDate(departureDate);
+
 			System.out.format("Requesting flights on %1tD%n", departureDate.toGregorianCalendar());
+
 			GetFlightsResponse response = airline.getFlights(request);
+
 			System.out.format("Got %1d results%n", response.getFlight().size());
-			if (!response.getFlight().isEmpty())
-			// Book the first flight using John Doe as a frequent flyer
-			{
+
+			if (!response.getFlight().isEmpty()) {
+				// Book the first flight using John Doe as a frequent flyer
 				Flight flight = response.getFlight().get(0);
 				BookFlightRequest bookFlightRequest = new BookFlightRequest();
 				bookFlightRequest.setFlightNumber(flight.getNumber());
@@ -68,10 +74,10 @@ public class JaxWsMain {
 				Ticket ticket = airline.bookFlight(bookFlightRequest);
 				writeTicket(ticket);
 			}
+
 		} catch (SOAPFaultException ex) {
 			System.out.format("SOAP Fault Code    %1s%n", ex.getFault().getFaultCodeAsQName());
 			System.out.format("SOAP Fault String: %1s%n", ex.getFault().getFaultString());
-
 		}
 	}
 
@@ -79,10 +85,11 @@ public class JaxWsMain {
 
 		System.out.format("Ticket %1d%n", ticket.getId());
 		System.out.format("Ticket issue date:\t%1tD%n", ticket.getIssueDate().toGregorianCalendar());
+
 		for (Name passenger : ticket.getPassengers().getPassenger()) {
 			writeName(passenger);
-
 		}
+
 		writeFlight(ticket.flight);
 	}
 
