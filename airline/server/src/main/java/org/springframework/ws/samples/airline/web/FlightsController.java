@@ -20,7 +20,7 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
@@ -49,7 +49,7 @@ public class FlightsController {
 	public String flightList(@RequestParam(value = "from", required = false) String fromAirportCode,
 			@RequestParam(value = "to", required = false) String toAirportCode,
 			@RequestParam(value = "departureDate", required = false) String departureDateString,
-			@RequestParam(value = "serviceClass", required = false) String serviceClassString, ModelMap model) {
+			@RequestParam(value = "serviceClass", required = false) String serviceClassString, Model model) {
 
 		if (ObjectUtils.isEmpty(departureDateString)) {
 			departureDateString = LocalDate.now().toString();
@@ -58,7 +58,7 @@ public class FlightsController {
 			serviceClassString = "ECONOMY";
 		}
 		ServiceClass serviceClass = ServiceClass.valueOf(serviceClassString);
-        ZonedDateTime departureDate = ZonedDateTime.parse(departureDateString);
+		ZonedDateTime departureDate = ZonedDateTime.parse(departureDateString);
 
 		if (StringUtils.hasLength(fromAirportCode) && StringUtils.hasLength(toAirportCode)) {
 			model.addAttribute("from", fromAirportCode);
@@ -72,7 +72,7 @@ public class FlightsController {
 	}
 
 	@GetMapping(value = "{id}")
-	public String singleFlight(@PathVariable("id") long id, ModelMap model) throws NoSuchFlightException {
+	public String singleFlight(@PathVariable("id") long id, Model model) throws NoSuchFlightException {
 
 		model.addAttribute(airlineService.getFlight(id));
 		return "flight";

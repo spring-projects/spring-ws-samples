@@ -49,8 +49,13 @@ public class GetFlights extends WebServiceGatewaySupport {
 		getFlightsRequest.setDepartureDate(departureDate);
 
 		System.out.println("Requesting flights on " + departureDate);
-		GetFlightsResponse response = (GetFlightsResponse) getWebServiceTemplate().marshalSendAndReceive(getFlightsRequest);
-		System.out.println("Got " + response.getFlight().size() + " results");
+        GetFlightsResponse response = null;
+        try {
+            response = (GetFlightsResponse) getWebServiceTemplate().marshalSendAndReceive(getFlightsRequest);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Got " + response.getFlight().size() + " results");
 		if (response.getFlight().size() > 0) {
 			// Book the first flight using John Doe as a frequent flyer
 			BookFlightRequest bookFlightRequest = new BookFlightRequest();

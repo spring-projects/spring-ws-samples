@@ -35,12 +35,4 @@ public interface FlightDao extends CrudRepository<Flight, Long> {
 			@Param("class") ServiceClass serviceClass);
 
 	Flight findFlightByNumberAndDepartureTime(String flightNumber, ZonedDateTime departureTime);
-
-	/**
-	 * @deprecated Migrate to {@link #save(Object)}.
-	 */
-	@Deprecated
-	default Flight update(Flight flight) {
-		return save(flight);
-	}
 }

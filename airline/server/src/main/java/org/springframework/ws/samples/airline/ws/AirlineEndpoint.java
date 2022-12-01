@@ -24,15 +24,16 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.ws.samples.airline.domain.FrequentFlyer;
@@ -45,6 +46,8 @@ import org.springframework.ws.samples.airline.service.NoSeatAvailableException;
 import org.springframework.ws.samples.airline.service.NoSuchFlightException;
 import org.springframework.ws.samples.airline.service.NoSuchFrequentFlyerException;
 import org.springframework.ws.server.endpoint.annotation.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * Endpoint that handles the Airline Web Service messages using a combination of JAXB2 marshalling and XPath
@@ -55,7 +58,7 @@ import org.springframework.ws.server.endpoint.annotation.*;
 @Endpoint
 public class AirlineEndpoint {
 
-	private static final Log logger = LogFactory.getLog(AirlineEndpoint.class);
+	private static final Logger logger = LoggerFactory.getLogger(AirlineEndpoint.class);
 
 	private final ObjectFactory objectFactory = new ObjectFactory();
 
@@ -136,23 +139,38 @@ public class AirlineEndpoint {
 			NoSuchFrequentFlyerException, DatatypeConfigurationException {
 
 		ZonedDateTime departureTime = SchemaConversionUtils.toDateTime(xmlDepartureTime);
-		List<Passenger> passengers = new ArrayList<Passenger>(passengerOrUsernameList.size());
+		List<Passenger> passengers = new ArrayList<>(passengerOrUsernameList.size());
 
-		for (Iterator<Object> iterator = passengerOrUsernameList.iterator(); iterator.hasNext();) {
-			Object passengerOrUsername = iterator.next();
-			if (passengerOrUsername instanceof Name) {
-				Name passengerName = (Name) passengerOrUsername;
+		for (Object passengerOrUsername : passengerOrUsernameList) {
+			if (passengerOrUsername instanceof Name passengerName) {
 				Passenger passenger = new Passenger(passengerName.getFirst(), passengerName.getLast());
 				passengers.add(passenger);
-			} else if (passengerOrUsername instanceof String) {
-				String frequentFlyerUsername = (String) passengerOrUsername;
+			} else if (passengerOrUsername instanceof String frequentFlyerUsername) {
 				FrequentFlyer frequentFlyer = new FrequentFlyer(frequentFlyerUsername);
 				passengers.add(frequentFlyer);
 			}
 		}
+
 		org.springframework.ws.samples.airline.domain.Ticket domainTicket = airlineService.bookFlight(flightNumber,
 				departureTime, passengers);
 
 		return SchemaConversionUtils.toSchemaType(domainTicket);
+	}
+
+	@PayloadRoot(localPart = GET_FREQUENT_FLYER_MILEAGE_REQUEST, namespace = MESSAGES_NAMESPACE)
+	@ResponsePayload
+	public Element getFrequentFlyerMileage() throws ParserConfigurationException {
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("Received GetFrequentFlyerMileageRequest");
+		}
+
+		int mileage = airlineService.getFrequentFlyerMileage();
+		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+		Document document = documentBuilder.newDocument();
+		Element response = document.createElementNS(MESSAGES_NAMESPACE, GET_FREQUENT_FLYER_MILEAGE_RESPONSE);
+		response.setTextContent(Integer.toString(mileage));
+
+		return response;
 	}
 }

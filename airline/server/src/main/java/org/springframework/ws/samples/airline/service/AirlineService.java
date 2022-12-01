@@ -66,4 +66,11 @@ public interface AirlineService {
 	Ticket bookFlight(String flightNumber, ZonedDateTime departureTime, List<Passenger> passengers)
 			throws NoSuchFlightException, NoSeatAvailableException, NoSuchFrequentFlyerException;
 
+    /**
+     * Returns the amount of frequent flyer award miles for the currently logged in frequent flyer.
+     *
+     * @return the amount of frequent flyer miles
+     */
+    int getFrequentFlyerMileage();
 }
+

@@ -85,8 +85,10 @@ public class FrequentFlyer extends Passenger {
 		return username.hashCode();
 	}
 
+	@Override
 	public String toString() {
-		return username;
+		return "FrequentFlyer{" + "username='" + username + '\'' + ", password='" + password + '\'' + ", miles=" + miles
+				+ '}';
 	}
 
 	public void addMiles(int miles) {
