@@ -52,7 +52,7 @@
     </properties>
 
 	<modules>
-<!--		<module>airline/client/axis1</module>--> <!-- Migrate to axis2 -->
+		<module>airline/client/axis1</module>
 		<module>airline/client/jax-ws</module>
 		<module>airline/client/jms</module>
 		<module>airline/client/saaj</module>

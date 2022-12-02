@@ -33,9 +33,11 @@ public class AxisMain {
 	public static void main(String[] args) throws ServiceException, RemoteException {
 
 		AirlineServiceLocator service = new AirlineServiceLocator();
+
 		if (args.length > 0) {
 			service.setAirlineSoap11EndpointAddress(args[0]);
 		}
+
 		Airline airline = service.getAirlineSoap11();
 		GetFlightsRequest request = new GetFlightsRequest();
 		request.setFrom("AMS");
@@ -48,8 +50,11 @@ public class AxisMain {
 		request.setDepartureDate(departureDate);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		System.out.println("Requesting flights on " + dateFormat.format(departureDate));
+
 		Flight[] flights = airline.getFlights(request);
+
 		System.out.println("Got " + flights.length + " results");
+
 		if (flights.length > 0) {
 			// Book the first flight using John Doe as a frequent flyer
 			BookFlightRequest bookFlightRequest = new BookFlightRequest();
@@ -59,6 +64,7 @@ public class AxisMain {
 			passengers.setUsername("john");
 			bookFlightRequest.setPassengers(passengers);
 			Ticket ticket = airline.bookFlight(bookFlightRequest);
+
 			writeTicket(ticket);
 		}
 	}

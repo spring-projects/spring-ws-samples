@@ -17,7 +17,6 @@
 	<description>Demo project for Spring Web Services</description>
 
 	<properties>
-		<java.version>1.8</java.version>
 		<axis.version>1.4</axis.version>
 		<log4j2.version>2.15.0</log4j2.version>
 
@@ -90,7 +89,7 @@
 
 								<javac fork="true"
 								       destdir="${classesDir}"
-								       source="1.6" target="1.6" debug="true"
+								       source="8" target="8" debug="true"
 								       debugLevel="lines,vars,source">
 									<classpath refid="maven.compile.classpath"/>
 									<src path="${sourcesDir}"/>
