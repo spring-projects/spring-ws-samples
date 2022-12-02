@@ -7,6 +7,7 @@ projects illustrating usage of Spring Web Services.
 == Spring Boot 2.7 + Spring WS 3.1
 
 This version of the samples focuses on Spring WS 3.1, the generation provided by Spring Boot 2.7.
+For newer versions of Spring WS, check out https://github.com/spring-projects/spring-ws-samples.
 
 == Sample Applications
 
