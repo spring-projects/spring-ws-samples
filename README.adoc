@@ -19,9 +19,7 @@ additional instructions.
 O/X Mapping functionality in a complete application
 * link:./echo[echo] - a simple sample that shows a bare-bones Echo service
 * link:./mtom[mtom] - shows how to use MTOM and JAXB2 marshalling
-* link:./stockquote[stockquote] - shows how to use WS-Addressing and the Java 6 HTTP Server
 * link:./tutorial[tutorial] - contains the code from the Spring-WS tutorial
-* link:./weather[weather] - shows how to connect to a public SOAP service
 
 == Running the Server
 
