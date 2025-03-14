@@ -2,7 +2,7 @@ name: Build Samples
 on:
   push:
     branches:
-      - main
+      - 2.0.x
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
 jobs:
