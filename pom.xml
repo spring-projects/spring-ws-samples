@@ -3,53 +3,45 @@
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.4.3</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
-
 	<groupId>org.springframework.ws</groupId>
 	<artifactId>spring-ws-samples</artifactId>
 	<version>2.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-
 	<name>Spring Web Services Samples</name>
-
-	<inceptionYear>2019</inceptionYear>
-
+	<organization>
+		<name>Broadcom Inc.</name>
+		<url>https://www.spring.io</url>
+	</organization>
 	<licenses>
 		<license>
 			<name>Apache License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
-			<comments>
-				Copyright 2020 the original author or authors.
-
-				Licensed under the Apache License, Version 2.0 (the "License");
-				you may not use this file except in compliance with the License.
-				You may obtain a copy of the License at
-
-				http://www.apache.org/licenses/LICENSE-2.0
-
-				Unless required by applicable law or agreed to in writing, software
-				distributed under the License is distributed on an "AS IS" BASIS,
-				WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
-				implied.
-				See the License for the specific language governing permissions and
-				limitations under the License.
-			</comments>
+			<url>https://www.apache.org/licenses/LICENSE-2.0</url>
 		</license>
 	</licenses>
 
 	<properties>
 		<java.version>17</java.version>
-		<jaxws-tools.version>3.0.1</jaxws-tools.version>
-		<jws-api.version>3.0.0</jws-api.version>
+
 		<sourcesDir>${project.basedir}/target/generated-sources/jaxws</sourcesDir>
 		<classesDir>${project.basedir}/target/classes</classesDir>
 		<wsdl>${project.basedir}/airline/client/airline.wsdl</wsdl>
+
+		<axis.version>1.4</axis.version>
+		<jaxb2-maven-plugin.version>3.1.0</jaxb2-maven-plugin.version>
+		<jaxb30-maven-plugin.version>0.15.0</jaxb30-maven-plugin.version>
+		<jaxen.version>1.1.6</jaxen.version>
+		<jaxws-maven-plugin.version>3.0.0</jaxws-maven-plugin.version>
+		<jaxws-tools.version>3.0.1</jaxws-tools.version>
+		<jdom.version>2.0.6.1</jdom.version>
+		<jws-api.version>3.0.0</jws-api.version>
+		<wsdl4j.version>1.6.3</wsdl4j.version>
+		<xmlschema.version>2.2.2</xmlschema.version>
 	</properties>
 
 	<modules>
@@ -67,17 +59,71 @@
 		<module>tutorial</module>
 	</modules>
 
-	<dependencies>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-	</dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>axis</groupId>
+				<artifactId>axis</artifactId>
+				<version>${axis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.xml.ws</groupId>
+				<artifactId>jaxws-tools</artifactId>
+				<version>${jaxws-tools.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>jakarta.jws</groupId>
+				<artifactId>jakarta.jws-api</artifactId>
+				<version>${jws-api.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>jaxen</groupId>
+				<artifactId>jaxen</artifactId>
+				<version>${jaxen.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.axis</groupId>
+				<artifactId>axis-jaxrpc</artifactId>
+				<version>${axis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.ws.xmlschema</groupId>
+				<artifactId>xmlschema-core</artifactId>
+				<version>${xmlschema.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jdom</groupId>
+				<artifactId>jdom2</artifactId>
+				<version>${jdom.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>wsdl4j</groupId>
+				<artifactId>wsdl4j</artifactId>
+				<version>${wsdl4j.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>com.evolvedbinary.maven.jvnet</groupId>
+					<artifactId>jaxb30-maven-plugin</artifactId>
+					<version>${jaxb30-maven-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>com.sun.xml.ws</groupId>
+					<artifactId>jaxws-maven-plugin</artifactId>
+					<version>${jaxws-maven-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>jaxb2-maven-plugin</artifactId>
+					<version>${jaxb2-maven-plugin.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -85,17 +131,6 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<profiles>
-		<profile>
-			<id>snapshots</id>
-			<properties>
-				<spring-data-bom.version>2022.0.1-SNAPSHOT</spring-data-bom.version>
-				<spring-framework.version>6.0.3-SNAPSHOT</spring-framework.version>
-				<spring-ws.version>4.0.1-SNAPSHOT</spring-ws.version>
-			</properties>
-		</profile>
-	</profiles>
 
 	<repositories>
 		<repository>

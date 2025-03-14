@@ -3,18 +3,14 @@
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<parent>
 		<groupId>org.springframework.ws</groupId>
 		<artifactId>spring-ws-samples</artifactId>
 		<version>2.0.0-SNAPSHOT</version>
-		<relativePath>../../../</relativePath> <!-- lookup parent from repository -->
+		<relativePath>../../../pom.xml</relativePath>
 	</parent>
-
 	<artifactId>airline-client-spring-ws</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>Spring Web Services Samples - Airline - Client - Spring WS</name>
-	<description>Demo project for Spring Web Services</description>
 
 	<properties>
 		<sourcesDir>${project.basedir}/target/generated-sources/xjc</sourcesDir>
@@ -24,33 +20,32 @@
 	</properties>
 
 	<dependencies>
-
 		<dependency>
 			<groupId>org.springframework.ws</groupId>
 			<artifactId>spring-ws-core</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.ws</groupId>
 			<artifactId>spring-ws-security</artifactId>
 		</dependency>
 
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.ws</groupId>
 			<artifactId>spring-ws-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
 
 	<build>
-
 		<plugins>
-
 			<plugin>
 				<groupId>com.evolvedbinary.maven.jvnet</groupId>
 				<artifactId>jaxb30-maven-plugin</artifactId>
-				<version>0.15.0</version>
 				<executions>
 					<execution>
 						<goals>
@@ -69,11 +64,9 @@
 					<addCompileSourceRoot>true</addCompileSourceRoot>
 				</configuration>
 			</plugin>
-
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>1.1</version>
 				<executions>
 					<execution>
 						<id>add-source</id>
@@ -90,7 +83,6 @@
 				</executions>
 			</plugin>
 		</plugins>
-
 	</build>
 
 </project>
