@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.ws</groupId>
+		<artifactId>spring-ws-samples</artifactId>
+		<version>2.1.0-SNAPSHOT</version>
+		<relativePath>../../../pom.xml</relativePath>
+	</parent>
+	<artifactId>airline-client-axis</artifactId>
+	<name>Spring Web Services Samples - Airline - Client - Axis</name>
+
+	<properties>
+		<generated-sources>${project.basedir}/target/generated-sources/axis</generated-sources>
+		<wsdl>${project.basedir}/../airline.wsdl</wsdl>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-adb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-transport-local</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-transport-http</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.axis2</groupId>
+				<artifactId>axis2-wsdl2code-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>wsdl2code</id>
+						<goals>
+							<goal>wsdl2code</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<generateServerSideInterface>true</generateServerSideInterface>
+					<namespaceURIs>
+						<namespaceURI>
+							<uri>http://www.springframework.org/spring-ws/samples/airline/definitions</uri>
+							<packageName>org.springframework.ws.samples.airline.client.axis</packageName>
+						</namespaceURI>
+						<namespaceURI>
+							<uri>http://www.springframework.org/spring-ws/samples/airline/schemas/messages</uri>
+							<packageName>org.springframework.ws.samples.airline.client.axis</packageName>
+						</namespaceURI>
+						<namespaceURI>
+							<uri>http://www.springframework.org/spring-ws/samples/airline/schemas/types</uri>
+							<packageName>org.springframework.ws.samples.airline.client.axis</packageName>
+						</namespaceURI>
+					</namespaceURIs>
+					<outputDirectory>${generated-sources}</outputDirectory>
+					<wsdlFile>${wsdl}</wsdlFile>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>process-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${generated-sources}/src</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

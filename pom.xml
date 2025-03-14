@@ -32,7 +32,8 @@
 		<classesDir>${project.basedir}/target/classes</classesDir>
 		<wsdl>${project.basedir}/airline/client/airline.wsdl</wsdl>
 
-		<axis.version>1.4</axis.version>
+		<axis.version>2.0.0</axis.version>
+		<axis2-wsdl2code-maven-plugin>1.7.9</axis2-wsdl2code-maven-plugin>
 		<jaxb2-maven-plugin.version>3.2.0</jaxb2-maven-plugin.version>
 		<jaxb30-maven-plugin.version>0.15.0</jaxb30-maven-plugin.version>
 		<jaxen.version>1.2.0</jaxen.version>
@@ -46,7 +47,7 @@
 	</properties>
 
 	<modules>
-		<module>airline/client/axis1</module>
+		<module>airline/client/axis</module>
 		<module>airline/client/jax-ws</module>
 		<module>airline/client/jms</module>
 		<module>airline/client/saaj</module>
@@ -63,11 +64,6 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>axis</groupId>
-				<artifactId>axis</artifactId>
-				<version>${axis.version}</version>
-			</dependency>
-			<dependency>
 				<groupId>com.sun.xml.ws</groupId>
 				<artifactId>jaxws-tools</artifactId>
 				<version>${jaxws-tools.version}</version>
@@ -83,8 +79,18 @@
 				<version>${jaxen.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.apache.axis</groupId>
-				<artifactId>axis-jaxrpc</artifactId>
+				<groupId>org.apache.axis2</groupId>
+				<artifactId>axis2-adb</artifactId>
+				<version>${axis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.axis2</groupId>
+				<artifactId>axis2-transport-local</artifactId>
+				<version>${axis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.axis2</groupId>
+				<artifactId>axis2-transport-http</artifactId>
 				<version>${axis.version}</version>
 			</dependency>
 			<dependency>
@@ -117,6 +123,11 @@
 					<groupId>com.sun.xml.ws</groupId>
 					<artifactId>jaxws-maven-plugin</artifactId>
 					<version>${jaxws-maven-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.axis2</groupId>
+					<artifactId>axis2-wsdl2code-maven-plugin</artifactId>
+					<version>${axis2-wsdl2code-maven-plugin}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
