@@ -18,7 +18,6 @@
 
 	<properties>
 		<axis.version>1.4</axis.version>
-		<log4j2.version>2.15.0</log4j2.version>
 
 		<sourcesDir>${project.basedir}/target/generated-sources/axis</sourcesDir>
 		<classesDir>${project.basedir}/target/classes</classesDir>

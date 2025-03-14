@@ -16,8 +16,6 @@
 	<description>Demo project for Spring Web Services</description>
 
 	<properties>
-		<activemq.version>4.1.2</activemq.version>
-		<jakarta-jms.version>3.1.0</jakarta-jms.version>
 		<sourcesDir>${project.basedir}/target/generated-sources/jaxws</sourcesDir>
 		<classesDir>${project.basedir}/target/classes</classesDir>
 		<wsdl>${project.basedir}/../airline.wsdl</wsdl>

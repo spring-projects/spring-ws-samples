@@ -17,7 +17,6 @@
 	<description>Demo project for Spring Web Services</description>
 
 	<properties>
-		<log4j2.version>2.15.0</log4j2.version>
 		<sourcesDir>${project.basedir}/target/generated-sources/axis</sourcesDir>
 		<classesDir>${project.basedir}/target/classes</classesDir>
 		<wsdl>${project.basedir}/../airline.wsdl</wsdl>
