@@ -1,11 +1,11 @@
 /*
- * Copyright 2005-2010 the original author or authors.
+ * Copyright 2006-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -33,8 +33,9 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import com.mycompany.hr.service.HumanResourceService;
 
 /**
- * This endpoint handles holiday requests. It uses a combination of JDOM and XPath to extract interesting pieces of XML
- * from the incoming message, and invoked the injected {@link HumanResourceService} with those.
+ * This endpoint handles holiday requests. It uses a combination of JDOM and XPath to
+ * extract interesting pieces of XML from the incoming message, and invoked the injected
+ * {@link HumanResourceService} with those.
  *
  * @author Arjen Poutsma
  */
@@ -83,7 +84,8 @@ public class HolidayEndpoint {
 		if (result != null) {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			return dateFormat.parse(result.getText());
-		} else {
+		}
+		else {
 			throw new IllegalArgumentException("Could not evaluate [" + expression + "] on [" + element + "]");
 		}
 	}

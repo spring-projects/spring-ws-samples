@@ -1,11 +1,11 @@
 /*
- * Copyright 2006 the original author or authors.
+ * Copyright 2006-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -68,7 +68,8 @@ public class EchoClient {
 		SOAPMessage response = connection.call(request, url);
 		if (!response.getSOAPBody().hasFault()) {
 			writeEchoResponse(response);
-		} else {
+		}
+		else {
 			SOAPFault fault = response.getSOAPBody().getFault();
 			logger.error("Received SOAP Fault");
 			logger.error("SOAP Fault Code :" + fault.getFaultCode());
@@ -80,9 +81,11 @@ public class EchoClient {
 
 		SOAPEnvelope envelope = message.getSOAPPart().getEnvelope();
 		Name echoResponseName = envelope.createName("echoResponse", PREFIX, NAMESPACE_URI);
-		SOAPBodyElement echoResponseElement = (SOAPBodyElement) message.getSOAPBody().getChildElements(echoResponseName)
-				.next();
+		SOAPBodyElement echoResponseElement = (SOAPBodyElement) message.getSOAPBody()
+			.getChildElements(echoResponseName)
+			.next();
 		String echoValue = echoResponseElement.getTextContent();
 		logger.info("Echo Response [" + echoValue + "]");
 	}
+
 }

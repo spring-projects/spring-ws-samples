@@ -1,11 +1,11 @@
 /*
- * Copyright 2005-2011 the original author or authors.
+ * Copyright 2006-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -65,8 +65,8 @@ public class AirlineServiceImpl implements AirlineService {
 		this.frequentFlyerSecurityService = frequentFlyerSecurityService;
 	}
 
-	@Transactional(readOnly = false,
-			rollbackFor = { NoSuchFlightException.class, NoSeatAvailableException.class, NoSuchFrequentFlyerException.class })
+	@Transactional(readOnly = false, rollbackFor = { NoSuchFlightException.class, NoSeatAvailableException.class,
+			NoSuchFrequentFlyerException.class })
 	public Ticket bookFlight(String flightNumber, ZonedDateTime departureTime, List<Passenger> passengers)
 			throws NoSuchFlightException, NoSeatAvailableException, NoSuchFrequentFlyerException {
 
@@ -80,7 +80,8 @@ public class AirlineServiceImpl implements AirlineService {
 
 		if (flight == null) {
 			throw new NoSuchFlightException(flightNumber, departureTime);
-		} else if (flight.getSeatsAvailable() < passengers.size()) {
+		}
+		else if (flight.getSeatsAvailable() < passengers.size()) {
 			throw new NoSeatAvailableException(flight);
 		}
 
@@ -95,7 +96,8 @@ public class AirlineServiceImpl implements AirlineService {
 				FrequentFlyer frequentFlyer = frequentFlyerSecurityService.getFrequentFlyer(username);
 				frequentFlyer.addMiles(flight.getMiles());
 				ticket.addPassenger(frequentFlyer);
-			} else {
+			}
+			else {
 				ticket.addPassenger(passenger);
 			}
 		}
@@ -111,7 +113,7 @@ public class AirlineServiceImpl implements AirlineService {
 	public Flight getFlight(Long id) throws NoSuchFlightException {
 
 		return flightDao.findById(id) //
-				.orElseThrow(() -> new NoSuchFlightException(id));
+			.orElseThrow(() -> new NoSuchFlightException(id));
 	}
 
 	public List<Flight> getFlights(String fromAirportCode, String toAirportCode, ZonedDateTime departureDate,
@@ -122,7 +124,8 @@ public class AirlineServiceImpl implements AirlineService {
 		}
 
 		if (logger.isDebugEnabled()) {
-			logger.debug("Getting flights from '" + fromAirportCode + "' to '" + toAirportCode + "' on " + departureDate);
+			logger
+				.debug("Getting flights from '" + fromAirportCode + "' to '" + toAirportCode + "' on " + departureDate);
 		}
 
 		List<Flight> flights = flightDao.findFlights(fromAirportCode, toAirportCode, departureDate, serviceClass);
@@ -143,7 +146,8 @@ public class AirlineServiceImpl implements AirlineService {
 		}
 
 		return Optional.ofNullable(frequentFlyerSecurityService.getCurrentlyAuthenticatedFrequentFlyer())
-				.map(FrequentFlyer::getMiles) //
-				.orElse(0);
+			.map(FrequentFlyer::getMiles) //
+			.orElse(0);
 	}
+
 }

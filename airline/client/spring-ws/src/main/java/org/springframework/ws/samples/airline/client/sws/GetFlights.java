@@ -1,11 +1,11 @@
 /*
- * Copyright 2005-2011 the original author or authors.
+ * Copyright 2006-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -40,22 +40,24 @@ public class GetFlights extends WebServiceGatewaySupport {
 		getFlightsRequest.setTo("VCE");
 		XMLGregorianCalendar departureDate = null;
 		try {
-			departureDate = DatatypeFactory.newInstance().newXMLGregorianCalendarDate(2006, 1, 31,
-					DatatypeConstants.FIELD_UNDEFINED);
-		} catch (DatatypeConfigurationException e) {
+			departureDate = DatatypeFactory.newInstance()
+				.newXMLGregorianCalendarDate(2006, 1, 31, DatatypeConstants.FIELD_UNDEFINED);
+		}
+		catch (DatatypeConfigurationException e) {
 			throw new RuntimeException(e);
 		}
 
 		getFlightsRequest.setDepartureDate(departureDate);
 
 		System.out.println("Requesting flights on " + departureDate);
-        GetFlightsResponse response = null;
-        try {
-            response = (GetFlightsResponse) getWebServiceTemplate().marshalSendAndReceive(getFlightsRequest);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println("Got " + response.getFlight().size() + " results");
+		GetFlightsResponse response = null;
+		try {
+			response = (GetFlightsResponse) getWebServiceTemplate().marshalSendAndReceive(getFlightsRequest);
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		System.out.println("Got " + response.getFlight().size() + " results");
 		if (response.getFlight().size() > 0) {
 			// Book the first flight using John Doe as a frequent flyer
 			BookFlightRequest bookFlightRequest = new BookFlightRequest();
@@ -66,7 +68,7 @@ public class GetFlights extends WebServiceGatewaySupport {
 			bookFlightRequest.setPassengers(passengers);
 
 			JAXBElement<Ticket> ticket = (JAXBElement<Ticket>) getWebServiceTemplate()
-					.marshalSendAndReceive(bookFlightRequest);
+				.marshalSendAndReceive(bookFlightRequest);
 
 			writeTicket(ticket.getValue());
 		}
@@ -92,11 +94,12 @@ public class GetFlights extends WebServiceGatewaySupport {
 		System.out.println(flight.getDepartureTime());
 		System.out.println(flight.getNumber() + "\t" + flight.getServiceClass());
 		System.out.println("------------");
-		System.out.println(
-				"Depart:\t" + flight.getFrom().getCode() + "-" + flight.getFrom().getName() + "\t" + flight.getDepartureTime());
+		System.out.println("Depart:\t" + flight.getFrom().getCode() + "-" + flight.getFrom().getName() + "\t"
+				+ flight.getDepartureTime());
 		System.out.println("\t" + flight.getFrom().getCity());
-		System.out.println(
-				"Arrive:\t" + flight.getTo().getCode() + "-" + flight.getTo().getName() + "\t" + flight.getArrivalTime());
+		System.out.println("Arrive:\t" + flight.getTo().getCode() + "-" + flight.getTo().getName() + "\t"
+				+ flight.getArrivalTime());
 		System.out.println("\t" + flight.getTo().getCity());
 	}
+
 }

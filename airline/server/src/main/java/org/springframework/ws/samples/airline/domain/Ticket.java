@@ -1,11 +1,11 @@
 /*
- * Copyright 2006 the original author or authors.
+ * Copyright 2006-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,19 +30,24 @@ import org.springframework.data.annotation.Persistent;
 public class Ticket implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	@Column(name = "ISSUE_DATE")
-	@Persistent private LocalDate issueDate;
+	@Persistent
+	private LocalDate issueDate;
 
 	@ManyToOne
-	@JoinColumn(name = "FLIGHT_ID", nullable = false) private Flight flight;
+	@JoinColumn(name = "FLIGHT_ID", nullable = false)
+	private Flight flight;
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = "PASSENGER_TICKET", joinColumns = @JoinColumn(name = "TICKET_ID"), inverseJoinColumns = @JoinColumn(
-			name = "PASSENGER_ID")) private Set<Passenger> passengers = new HashSet<Passenger>();
+	@JoinTable(name = "PASSENGER_TICKET", joinColumns = @JoinColumn(name = "TICKET_ID"),
+			inverseJoinColumns = @JoinColumn(name = "PASSENGER_ID"))
+	private Set<Passenger> passengers = new HashSet<Passenger>();
 
-	public Ticket() {}
+	public Ticket() {
+	}
 
 	public Ticket(Long id) {
 		this.id = id;
@@ -79,4 +84,5 @@ public class Ticket implements Serializable {
 	public void addPassenger(Passenger passenger) {
 		passengers.add(passenger);
 	}
+
 }

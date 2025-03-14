@@ -1,11 +1,11 @@
 /*
- * Copyright 2006 the original author or authors.
+ * Copyright 2006-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -28,7 +28,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
 
 /**
- * Simple client that calls the <code>GetFlights</code> and <code>BookFlight</code> operations using JAX-WS.
+ * Simple client that calls the <code>GetFlights</code> and <code>BookFlight</code>
+ * operations using JAX-WS.
  *
  * @author Arjen Poutsma
  */
@@ -41,7 +42,8 @@ public class JaxWsMain {
 
 			if (args.length == 0) {
 				service = new AirlineService();
-			} else {
+			}
+			else {
 				QName serviceName = new QName("http://www.springframework.org/spring-ws/samples/airline/definitions",
 						"AirlineService");
 				service = new AirlineService(new URL(args[0]), serviceName);
@@ -52,8 +54,8 @@ public class JaxWsMain {
 			GetFlightsRequest request = new GetFlightsRequest();
 			request.setFrom("AMS");
 			request.setTo("VCE");
-			XMLGregorianCalendar departureDate = DatatypeFactory.newInstance().newXMLGregorianCalendarDate(2006, 1, 31,
-					DatatypeConstants.FIELD_UNDEFINED);
+			XMLGregorianCalendar departureDate = DatatypeFactory.newInstance()
+				.newXMLGregorianCalendarDate(2006, 1, 31, DatatypeConstants.FIELD_UNDEFINED);
 			request.setDepartureDate(departureDate);
 
 			System.out.format("Requesting flights on %1tD%n", departureDate.toGregorianCalendar());
@@ -75,7 +77,8 @@ public class JaxWsMain {
 				writeTicket(ticket);
 			}
 
-		} catch (SOAPFaultException ex) {
+		}
+		catch (SOAPFaultException ex) {
 			System.out.format("SOAP Fault Code    %1s%n", ex.getFault().getFaultCodeAsQName());
 			System.out.format("SOAP Fault String: %1s%n", ex.getFault().getFaultString());
 		}

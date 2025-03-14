@@ -1,11 +1,11 @@
 /*
- * Copyright 2002-2009 the original author or authors.
+ * Copyright 2006-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -35,8 +35,8 @@ import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.soap.saaj.SaajSoapMessageFactory;
 
 /**
- * Simple client that demonstrates MTOM by invoking {@code StoreImage} and {@code LoadImage} using a WebServiceTemplate
- * and SAAJ.
+ * Simple client that demonstrates MTOM by invoking {@code StoreImage} and
+ * {@code LoadImage} using a WebServiceTemplate and SAAJ.
  *
  * @author Tareq Abed Rabbo
  * @author Arjen Poutsma
@@ -60,6 +60,7 @@ public class SaajMtomClient extends WebServiceGatewaySupport {
 	private static final Logger logger = LoggerFactory.getLogger(SaajMtomClient.class);
 
 	private ObjectFactory objectFactory = new ObjectFactory();
+
 	private StopWatch stopWatch = new StopWatch(ClassUtils.getShortName(getClass()));
 
 	public SaajMtomClient(SaajSoapMessageFactory messageFactory) {
@@ -71,8 +72,8 @@ public class SaajMtomClient extends WebServiceGatewaySupport {
 		StoreContentRequest storeContentRequest = this.objectFactory.createStoreContentRequest();
 
 		storeContentRequest.setName("spring-ws-logo");
-		storeContentRequest
-				.setContent(new DataHandler(Thread.currentThread().getContextClassLoader().getResource("spring-ws-logo.png")));
+		storeContentRequest.setContent(
+				new DataHandler(Thread.currentThread().getContextClassLoader().getResource("spring-ws-logo.png")));
 
 		this.stopWatch.start("store");
 
@@ -96,7 +97,7 @@ public class SaajMtomClient extends WebServiceGatewaySupport {
 		this.stopWatch.start("load");
 
 		LoadContentResponse loadContentResponse = (LoadContentResponse) getWebServiceTemplate()
-				.marshalSendAndReceive(loadContentRequest);
+			.marshalSendAndReceive(loadContentRequest);
 
 		this.stopWatch.stop();
 
@@ -132,4 +133,5 @@ public class SaajMtomClient extends WebServiceGatewaySupport {
 
 		return size;
 	}
+
 }

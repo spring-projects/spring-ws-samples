@@ -1,11 +1,11 @@
 /*
- * Copyright 2005-2010 the original author or authors.
+ * Copyright 2006-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -33,7 +33,8 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
 /**
- * Simple echoing Web service endpoint. Uses a <code>EchoService</code> to create a response string.
+ * Simple echoing Web service endpoint. Uses a <code>EchoService</code> to create a
+ * response string.
  *
  * @author Ingo Siebert
  * @author Arjen Poutsma
@@ -66,7 +67,6 @@ public class EchoEndpoint {
 
 	/**
 	 * Reads the given <code>requestElement</code>, and sends a the response back.
-	 *
 	 * @param requestElement the contents of the SOAP message as DOM elements
 	 * @return the response element
 	 */
@@ -101,4 +101,5 @@ public class EchoEndpoint {
 
 		return responseElement;
 	}
+
 }

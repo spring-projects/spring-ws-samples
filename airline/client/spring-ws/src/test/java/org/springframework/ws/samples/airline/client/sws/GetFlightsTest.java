@@ -1,11 +1,11 @@
 /*
- * Copyright 2005-2010 the original author or authors.
+ * Copyright 2006-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,7 +34,8 @@ import org.springframework.ws.test.client.MockWebServiceServer;
 import org.springframework.xml.transform.StringSource;
 
 /**
- * This test illustrates the use of the client-side testing API, introduced in Spring-WS 2.0.
+ * This test illustrates the use of the client-side testing API, introduced in Spring-WS
+ * 2.0.
  *
  * @author Arjen Poutsma
  */
@@ -42,7 +43,8 @@ import org.springframework.xml.transform.StringSource;
 @Import(WsConfiguration.class)
 public class GetFlightsTest {
 
-	@Autowired GetFlights getFlights;
+	@Autowired
+	GetFlights getFlights;
 
 	private MockWebServiceServer mockServer;
 
@@ -58,8 +60,9 @@ public class GetFlightsTest {
 	@Test
 	public void getFlights() {
 
-		Source getFlightsRequest = new StringSource("<GetFlightsRequest xmlns='" + MESSAGES_NS + "'>" + "<from>AMS</from>"
-				+ "<to>VCE</to>" + "<departureDate>2006-01-31</departureDate>" + "</GetFlightsRequest>");
+		Source getFlightsRequest = new StringSource(
+				"<GetFlightsRequest xmlns='" + MESSAGES_NS + "'>" + "<from>AMS</from>" + "<to>VCE</to>"
+						+ "<departureDate>2006-01-31</departureDate>" + "</GetFlightsRequest>");
 
 		String flightInfo = "<t:number>KL1653</t:number>"
 				+ "<t:departureTime>2006-01-31T10:05:00.000+01:00</t:departureTime>"
@@ -81,9 +84,9 @@ public class GetFlightsTest {
 		Map<String, String> namespaces = Collections.singletonMap("m", MESSAGES_NS);
 
 		mockServer.expect(xpath("/m:BookFlightRequest/m:flightNumber", namespaces).exists())
-				.andExpect(xpath("/m:BookFlightRequest/m:departureTime", namespaces).exists())
-				.andExpect(xpath("/m:BookFlightRequest/m:passengers", namespaces).exists())
-				.andRespond(withPayload(bookFlightResponse));
+			.andExpect(xpath("/m:BookFlightRequest/m:departureTime", namespaces).exists())
+			.andExpect(xpath("/m:BookFlightRequest/m:passengers", namespaces).exists())
+			.andRespond(withPayload(bookFlightResponse));
 
 		getFlights.getFlights();
 

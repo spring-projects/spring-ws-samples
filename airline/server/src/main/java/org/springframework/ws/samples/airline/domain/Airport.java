@@ -1,11 +1,11 @@
 /*
- * Copyright 2006 the original author or authors.
+ * Copyright 2006-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -28,13 +28,17 @@ import java.io.Serializable;
 public class Airport implements Serializable {
 
 	@Id
-	@Column(name = "CODE") private String code;
+	@Column(name = "CODE")
+	private String code;
 
-	@Column(name = "NAME") private String name;
+	@Column(name = "NAME")
+	private String name;
 
-	@Column(name = "CITY") private String city;
+	@Column(name = "CITY")
+	private String city;
 
-	public Airport() {}
+	public Airport() {
+	}
 
 	public Airport(String code, String name, String city) {
 		this.code = code;
@@ -68,4 +72,5 @@ public class Airport implements Serializable {
 	public int hashCode() {
 		return code.hashCode();
 	}
+
 }

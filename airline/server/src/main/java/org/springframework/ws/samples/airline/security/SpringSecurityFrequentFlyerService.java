@@ -1,3 +1,19 @@
+/*
+ * Copyright 2006-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package org.springframework.ws.samples.airline.security;
 
 import org.apache.wss4j.common.principal.UsernameTokenPrincipal;
@@ -32,7 +48,7 @@ public class SpringSecurityFrequentFlyerService implements FrequentFlyerSecurity
 	@Transactional
 	public FrequentFlyer getFrequentFlyer(String username) throws NoSuchFrequentFlyerException {
 		return frequentFlyerDao.findByUsername(username) //
-				.orElseThrow(() -> new NoSuchFrequentFlyerException(username));
+			.orElseThrow(() -> new NoSuchFrequentFlyerException(username));
 	}
 
 	@Override
@@ -55,11 +71,12 @@ public class SpringSecurityFrequentFlyerService implements FrequentFlyerSecurity
 		log.debug("Looking up " + username);
 
 		FrequentFlyerDetails details = frequentFlyerDao.findByUsername(username) //
-				.map(FrequentFlyerDetails::new) //
-				.orElseThrow(() -> new UsernameNotFoundException("Frequent flyer '" + username + "' not found"));
+			.map(FrequentFlyerDetails::new) //
+			.orElseThrow(() -> new UsernameNotFoundException("Frequent flyer '" + username + "' not found"));
 
 		log.debug("Found " + details);
 
 		return details;
 	}
+
 }

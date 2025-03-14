@@ -1,11 +1,11 @@
 /*
- * Copyright 2007 the original author or authors.
+ * Copyright 2006-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,10 +30,13 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import org.springframework.ws.samples.airline.domain.Passenger;
 import org.springframework.ws.samples.airline.schema.*;
 
-/** @author Arjen Poutsma */
+/**
+ * @author Arjen Poutsma
+ */
 public abstract class SchemaConversionUtils {
 
-	private SchemaConversionUtils() {}
+	private SchemaConversionUtils() {
+	}
 
 	public static Flight toSchemaType(org.springframework.ws.samples.airline.domain.Flight domainFlight)
 			throws DatatypeConfigurationException {
@@ -51,14 +54,15 @@ public abstract class SchemaConversionUtils {
 	public static List<Flight> toSchemaType(List<org.springframework.ws.samples.airline.domain.Flight> domainFlights) {
 
 		return domainFlights.stream() //
-				.map(flight -> {
-					try {
-						return toSchemaType(flight);
-					} catch (DatatypeConfigurationException e) {
-						throw new RuntimeException(e);
-					}
-				}) //
-				.collect(Collectors.toList());
+			.map(flight -> {
+				try {
+					return toSchemaType(flight);
+				}
+				catch (DatatypeConfigurationException e) {
+					throw new RuntimeException(e);
+				}
+			}) //
+			.collect(Collectors.toList());
 	}
 
 	public static XMLGregorianCalendar toXMLGregorianCalendar(ZonedDateTime dateTime)
@@ -72,7 +76,8 @@ public abstract class SchemaConversionUtils {
 		return calendar.toGregorianCalendar().toZonedDateTime();
 	}
 
-	public static XMLGregorianCalendar toXMLGregorianCalendar(LocalDate localDate) throws DatatypeConfigurationException {
+	public static XMLGregorianCalendar toXMLGregorianCalendar(LocalDate localDate)
+			throws DatatypeConfigurationException {
 
 		DatatypeFactory factory = DatatypeFactory.newInstance();
 		return factory.newXMLGregorianCalendarDate(localDate.getYear(), localDate.getMonthValue(),
@@ -148,4 +153,5 @@ public abstract class SchemaConversionUtils {
 		}
 		return schemaTicket;
 	}
+
 }

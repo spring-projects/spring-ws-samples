@@ -1,11 +1,11 @@
 /*
- * Copyright 2005-2011 the original author or authors.
+ * Copyright 2006-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -50,8 +50,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- * Endpoint that handles the Airline Web Service messages using a combination of JAXB2 marshalling and XPath
- * expressions.
+ * Endpoint that handles the Airline Web Service messages using a combination of JAXB2
+ * marshalling and XPath expressions.
  *
  * @author Arjen Poutsma
  */
@@ -72,9 +72,8 @@ public class AirlineEndpoint {
 	}
 
 	/**
-	 * This endpoint method uses a combination of XPath expressions and marshalling to handle message with a
-	 * <code>&lt;GetFlightsRequest&gt;</code> payload.
-	 *
+	 * This endpoint method uses a combination of XPath expressions and marshalling to
+	 * handle message with a <code>&lt;GetFlightsRequest&gt;</code> payload.
 	 * @param from the from airport
 	 * @param to the to airport
 	 * @param departureDateString the string representation of the departure date
@@ -110,8 +109,8 @@ public class AirlineEndpoint {
 	}
 
 	/**
-	 * This endpoint method uses marshalling to handle message with a <code>&lt;BookFlightRequest&gt;</code> payload.
-	 *
+	 * This endpoint method uses marshalling to handle message with a
+	 * <code>&lt;BookFlightRequest&gt;</code> payload.
 	 * @param request the JAXB2 representation of a <code>&lt;BookFlightRequest&gt;</code>
 	 * @return the JAXB2 representation of a <code>&lt;BookFlightResponse&gt;</code>
 	 */
@@ -121,8 +120,8 @@ public class AirlineEndpoint {
 			DatatypeConfigurationException, NoSuchFlightException, NoSuchFrequentFlyerException {
 
 		if (logger.isDebugEnabled()) {
-			logger.debug("Received BookingFlightRequest '" + request.getFlightNumber() + "' on '" + request.getDepartureTime()
-					+ "' for " + request.getPassengers().getPassengerOrUsername());
+			logger.debug("Received BookingFlightRequest '" + request.getFlightNumber() + "' on '"
+					+ request.getDepartureTime() + "' for " + request.getPassengers().getPassengerOrUsername());
 		}
 
 		Ticket ticket = bookSchemaFlight(request.getFlightNumber(), request.getDepartureTime(),
@@ -145,7 +144,8 @@ public class AirlineEndpoint {
 			if (passengerOrUsername instanceof Name passengerName) {
 				Passenger passenger = new Passenger(passengerName.getFirst(), passengerName.getLast());
 				passengers.add(passenger);
-			} else if (passengerOrUsername instanceof String frequentFlyerUsername) {
+			}
+			else if (passengerOrUsername instanceof String frequentFlyerUsername) {
 				FrequentFlyer frequentFlyer = new FrequentFlyer(frequentFlyerUsername);
 				passengers.add(frequentFlyer);
 			}
@@ -173,4 +173,5 @@ public class AirlineEndpoint {
 
 		return response;
 	}
+
 }

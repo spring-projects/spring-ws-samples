@@ -1,11 +1,11 @@
 /*
- * Copyright 2005, 2006 the original author or authors.
+ * Copyright 2006-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -28,30 +28,40 @@ public class Flight implements Serializable {
 
 	@Id
 	@Column(name = "ID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-	@Column(name = "NUMBER") private String number;
+	@Column(name = "NUMBER")
+	private String number;
 
 	@Column(name = "DEPARTURE_TIME")
-	@Persistent private ZonedDateTime departureTime;
+	@Persistent
+	private ZonedDateTime departureTime;
 
 	@ManyToOne
-	@JoinColumn(name = "FROM_AIRPORT_CODE", nullable = false) private Airport from;
+	@JoinColumn(name = "FROM_AIRPORT_CODE", nullable = false)
+	private Airport from;
 
 	@Column(name = "ARRIVAL_TIME")
-	@Persistent private ZonedDateTime arrivalTime;
+	@Persistent
+	private ZonedDateTime arrivalTime;
 
 	@ManyToOne
-	@JoinColumn(name = "TO_AIRPORT_CODE", nullable = false) private Airport to;
+	@JoinColumn(name = "TO_AIRPORT_CODE", nullable = false)
+	private Airport to;
 
 	@Column(name = "SERVICE_CLASS")
-	@Enumerated(EnumType.STRING) private ServiceClass serviceClass;
+	@Enumerated(EnumType.STRING)
+	private ServiceClass serviceClass;
 
-	@Column(name = "SEATS_AVAILABLE") private int seatsAvailable;
+	@Column(name = "SEATS_AVAILABLE")
+	private int seatsAvailable;
 
-	@Column(name = "MILES") private int miles;
+	@Column(name = "MILES")
+	private int miles;
 
-	public Flight() {}
+	public Flight() {
+	}
 
 	public Flight(Long id) {
 		this.id = id;
@@ -154,4 +164,5 @@ public class Flight implements Serializable {
 	public String toString() {
 		return getNumber() + " " + getDepartureTime();
 	}
+
 }

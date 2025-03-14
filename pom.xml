@@ -40,6 +40,7 @@
 		<jaxws-tools.version>3.0.2</jaxws-tools.version>
 		<jdom.version>2.0.6.1</jdom.version>
 		<jws-api.version>3.0.0</jws-api.version>
+		<spring-javaformat.version>0.0.43</spring-javaformat.version>
 		<wsdl4j.version>1.6.3</wsdl4j.version>
 		<xmlschema.version>2.3.1</xmlschema.version>
 	</properties>
@@ -125,6 +126,19 @@
 			</plugins>
 		</pluginManagement>
 		<plugins>
+			<plugin>
+				<groupId>io.spring.javaformat</groupId>
+				<artifactId>spring-javaformat-maven-plugin</artifactId>
+				<version>${spring-javaformat.version}</version>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>validate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
