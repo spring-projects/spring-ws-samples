@@ -33,15 +33,15 @@
 		<wsdl>${project.basedir}/airline/client/airline.wsdl</wsdl>
 
 		<axis.version>1.4</axis.version>
-		<jaxb2-maven-plugin.version>3.1.0</jaxb2-maven-plugin.version>
+		<jaxb2-maven-plugin.version>3.2.0</jaxb2-maven-plugin.version>
 		<jaxb30-maven-plugin.version>0.15.0</jaxb30-maven-plugin.version>
-		<jaxen.version>1.1.6</jaxen.version>
+		<jaxen.version>1.2.0</jaxen.version>
 		<jaxws-maven-plugin.version>3.0.0</jaxws-maven-plugin.version>
-		<jaxws-tools.version>3.0.1</jaxws-tools.version>
+		<jaxws-tools.version>3.0.2</jaxws-tools.version>
 		<jdom.version>2.0.6.1</jdom.version>
 		<jws-api.version>3.0.0</jws-api.version>
 		<wsdl4j.version>1.6.3</wsdl4j.version>
-		<xmlschema.version>2.2.2</xmlschema.version>
+		<xmlschema.version>2.3.1</xmlschema.version>
 	</properties>
 
 	<modules>
