@@ -1,92 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.springframework.ws</groupId>
-        <artifactId>spring-ws-samples</artifactId>
-        <version>2.0.0-SNAPSHOT</version>
-        <relativePath>../../../</relativePath> <!-- lookup parent from repository -->
-    </parent>
+	<parent>
+		<groupId>org.springframework.ws</groupId>
+		<artifactId>spring-ws-samples</artifactId>
+		<version>2.0.0-SNAPSHOT</version>
+		<relativePath>../../../</relativePath> <!-- lookup parent from repository -->
+	</parent>
 
-    <artifactId>airline-client-jax-ws</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>Spring Web Services Samples - Airline - Client - JAX-WS</name>
-    <description>Demo project for Spring Web Services</description>
+	<artifactId>airline-client-jax-ws</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Spring Web Services Samples - Airline - Client - JAX-WS</name>
+	<description>Demo project for Spring Web Services</description>
 
-    <properties>
-        <jax-ws.version>2.1.7</jax-ws.version>
-        <sourcesDir>${project.basedir}/target/generated-sources/jaxws</sourcesDir>
-        <classesDir>${project.basedir}/target/classes</classesDir>
-        <wsdl>${project.basedir}/../airline.wsdl</wsdl>
-    </properties>
+	<properties>
+		<jax-ws.version>2.1.7</jax-ws.version>
+		<sourcesDir>${project.basedir}/target/generated-sources/jaxws</sourcesDir>
+		<classesDir>${project.basedir}/target/classes</classesDir>
+		<wsdl>${project.basedir}/../airline.wsdl</wsdl>
+	</properties>
 
-    <dependencies>
+	<dependencies>
 
-        <dependency>
-            <groupId>org.springframework.ws</groupId>
-            <artifactId>spring-ws-core</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>org.springframework.ws</groupId>
+			<artifactId>spring-ws-core</artifactId>
+		</dependency>
 
-        <dependency>
-            <groupId>com.sun.xml.ws</groupId>
-            <artifactId>jaxws-tools</artifactId>
-            <version>${jaxws-tools.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>com.sun.xml.ws</groupId>
+			<artifactId>jaxws-tools</artifactId>
+			<version>${jaxws-tools.version}</version>
+		</dependency>
 
-        <dependency>
-            <groupId>jakarta.jws</groupId>
-            <artifactId>jakarta.jws-api</artifactId>
-            <version>${jws-api.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>jakarta.jws</groupId>
+			<artifactId>jakarta.jws-api</artifactId>
+			<version>${jws-api.version}</version>
+		</dependency>
 
-    </dependencies>
+	</dependencies>
 
-    <build>
+	<build>
 
-        <plugins>
-            <plugin>
-                <groupId>com.sun.xml.ws</groupId>
-                <artifactId>jaxws-maven-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>wsimport</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <!-- The name of your generated source package -->
-                    <wsdlFiles>${project.basedir}/../airline.wsdl</wsdlFiles>
-                    <packageName>org.springframework.ws.samples.airline.client.jaxws</packageName>
-                    <sourceDestDir>${sourcesDir}</sourceDestDir>
-                    <destDir>${classesDir}</destDir>
-                    <extension>true</extension>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.1</version>
-                <executions>
-                    <execution>
-                        <id>add-source</id>
-                        <phase>process-sources</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>${sourcesDir}</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
+		<plugins>
+			<plugin>
+				<groupId>com.sun.xml.ws</groupId>
+				<artifactId>jaxws-maven-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<!-- The name of your generated source package -->
+					<wsdlFiles>${project.basedir}/../airline.wsdl</wsdlFiles>
+					<packageName>org.springframework.ws.samples.airline.client.jaxws</packageName>
+					<sourceDestDir>${sourcesDir}</sourceDestDir>
+					<destDir>${classesDir}</destDir>
+					<extension>true</extension>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.1</version>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>process-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${sourcesDir}</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
 
-    </build>
+	</build>
 
 </project>

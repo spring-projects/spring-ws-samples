@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -17,7 +18,7 @@
 	<description>Demo project for Spring Web Services</description>
 
 	<properties>
-        <wsdl>${project.basedir}/../../server/src/main/resources/contentStore.wsdl</wsdl>
+		<wsdl>${project.basedir}/../../server/src/main/resources/contentStore.wsdl</wsdl>
 	</properties>
 
 	<dependencies>
@@ -48,71 +49,71 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
-            <plugin>
-                <groupId>com.evolvedbinary.maven.jvnet</groupId>
-                <artifactId>jaxb30-maven-plugin</artifactId>
-                <version>0.15.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <schemaLanguage>WSDL</schemaLanguage>
-                    <generatePackage>org.springframework.ws.samples.mtom.client.sws</generatePackage>
-                    <schemas>
-                        <schema>
-                            <url>${wsdl}</url>
-                        </schema>
-                    </schemas>
-                    <addCompileSourceRoot>true</addCompileSourceRoot>
-                </configuration>
-            </plugin>
+			<plugin>
+				<groupId>com.evolvedbinary.maven.jvnet</groupId>
+				<artifactId>jaxb30-maven-plugin</artifactId>
+				<version>0.15.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<schemaLanguage>WSDL</schemaLanguage>
+					<generatePackage>org.springframework.ws.samples.mtom.client.sws</generatePackage>
+					<schemas>
+						<schema>
+							<url>${wsdl}</url>
+						</schema>
+					</schemas>
+					<addCompileSourceRoot>true</addCompileSourceRoot>
+				</configuration>
+			</plugin>
 
-<!--            <plugin>-->
-<!--				<groupId>org.codehaus.mojo</groupId>-->
-<!--				<artifactId>jaxb2-maven-plugin</artifactId>-->
-<!--				<version>3.1.0</version>-->
-<!--				<executions>-->
-<!--					<execution>-->
-<!--						<id>xjc</id>-->
-<!--						<goals>-->
-<!--							<goal>xjc</goal>-->
-<!--						</goals>-->
-<!--					</execution>-->
-<!--				</executions>-->
-<!--				<configuration>-->
-<!--					<sourceType>WSDL</sourceType>-->
-<!--					<sources>${project.basedir}/../../server/src/main/resources/contentStore.wsdl</sources>-->
-<!--					<packageName>org.springframework.ws.samples.mtom.client.sws</packageName>-->
-<!--					<target>3.0</target>-->
-<!--				</configuration>-->
-<!--			</plugin>-->
+			<!--            <plugin>-->
+			<!--				<groupId>org.codehaus.mojo</groupId>-->
+			<!--				<artifactId>jaxb2-maven-plugin</artifactId>-->
+			<!--				<version>3.1.0</version>-->
+			<!--				<executions>-->
+			<!--					<execution>-->
+			<!--						<id>xjc</id>-->
+			<!--						<goals>-->
+			<!--							<goal>xjc</goal>-->
+			<!--						</goals>-->
+			<!--					</execution>-->
+			<!--				</executions>-->
+			<!--				<configuration>-->
+			<!--					<sourceType>WSDL</sourceType>-->
+			<!--					<sources>${project.basedir}/../../server/src/main/resources/contentStore.wsdl</sources>-->
+			<!--					<packageName>org.springframework.ws.samples.mtom.client.sws</packageName>-->
+			<!--					<target>3.0</target>-->
+			<!--				</configuration>-->
+			<!--			</plugin>-->
 
 
-<!--			<plugin>-->
-<!--				<groupId>org.jvnet.jaxb2.maven2</groupId>-->
-<!--				<artifactId>maven-jaxb2-plugin</artifactId>-->
-<!--				<version>0.14.0</version>-->
-<!--				<executions>-->
-<!--					<execution>-->
-<!--						<goals>-->
-<!--							<goal>generate</goal>-->
-<!--						</goals>-->
-<!--					</execution>-->
-<!--				</executions>-->
-<!--				<configuration>-->
-<!--					<generatePackage>org.springframework.ws.samples.mtom.client.sws</generatePackage>-->
-<!--					<schemas>-->
-<!--						<schema>-->
-<!--							<url>${wsdl}</url>-->
-<!--						</schema>-->
-<!--					</schemas>-->
-<!--					<addCompileSourceRoot>true</addCompileSourceRoot>-->
-<!--				</configuration>-->
-<!--			</plugin>-->
+			<!--			<plugin>-->
+			<!--				<groupId>org.jvnet.jaxb2.maven2</groupId>-->
+			<!--				<artifactId>maven-jaxb2-plugin</artifactId>-->
+			<!--				<version>0.14.0</version>-->
+			<!--				<executions>-->
+			<!--					<execution>-->
+			<!--						<goals>-->
+			<!--							<goal>generate</goal>-->
+			<!--						</goals>-->
+			<!--					</execution>-->
+			<!--				</executions>-->
+			<!--				<configuration>-->
+			<!--					<generatePackage>org.springframework.ws.samples.mtom.client.sws</generatePackage>-->
+			<!--					<schemas>-->
+			<!--						<schema>-->
+			<!--							<url>${wsdl}</url>-->
+			<!--						</schema>-->
+			<!--					</schemas>-->
+			<!--					<addCompileSourceRoot>true</addCompileSourceRoot>-->
+			<!--				</configuration>-->
+			<!--			</plugin>-->
 
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -65,7 +66,7 @@
 						<configuration>
 							<tasks>
 								<taskdef name="axis-wsdl2java"
-								         classname="org.apache.axis.tools.ant.wsdl.Wsdl2javaAntTask">
+										 classname="org.apache.axis.tools.ant.wsdl.Wsdl2javaAntTask">
 									<classpath refid="maven.compile.classpath"/>
 								</taskdef>
 
@@ -87,9 +88,9 @@
 								</axis-wsdl2java>
 
 								<javac fork="true"
-								       destdir="${classesDir}"
-								       source="8" target="8" debug="true"
-								       debugLevel="lines,vars,source">
+									   destdir="${classesDir}"
+									   source="8" target="8" debug="true"
+									   debugLevel="lines,vars,source">
 									<classpath refid="maven.compile.classpath"/>
 									<src path="${sourcesDir}"/>
 									<include name="**/*.java"/>
@@ -97,7 +98,8 @@
 								</javac>
 
 								<copy todir="${classesDir}">
-									<fileset dir="${sourcesDir}" erroronmissingdir="false">
+									<fileset dir="${sourcesDir}"
+											 erroronmissingdir="false">
 										<exclude name="**/*.java"/>
 									</fileset>
 								</copy>

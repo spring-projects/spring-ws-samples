@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -42,14 +43,14 @@
 		</license>
 	</licenses>
 
-    <properties>
-        <java.version>17</java.version>
-        <jaxws-tools.version>3.0.1</jaxws-tools.version>
-        <jws-api.version>3.0.0</jws-api.version>
-        <sourcesDir>${project.basedir}/target/generated-sources/jaxws</sourcesDir>
-        <classesDir>${project.basedir}/target/classes</classesDir>
-        <wsdl>${project.basedir}/airline/client/airline.wsdl</wsdl>
-    </properties>
+	<properties>
+		<java.version>17</java.version>
+		<jaxws-tools.version>3.0.1</jaxws-tools.version>
+		<jws-api.version>3.0.0</jws-api.version>
+		<sourcesDir>${project.basedir}/target/generated-sources/jaxws</sourcesDir>
+		<classesDir>${project.basedir}/target/classes</classesDir>
+		<wsdl>${project.basedir}/airline/client/airline.wsdl</wsdl>
+	</properties>
 
 	<modules>
 		<module>airline/client/axis1</module>
@@ -85,16 +86,16 @@
 		</plugins>
 	</build>
 
-    <profiles>
-        <profile>
-            <id>snapshots</id>
-            <properties>
-                <spring-data-bom.version>2022.0.1-SNAPSHOT</spring-data-bom.version>
-                <spring-framework.version>6.0.3-SNAPSHOT</spring-framework.version>
-                <spring-ws.version>4.0.1-SNAPSHOT</spring-ws.version>
-            </properties>
-        </profile>
-    </profiles>
+	<profiles>
+		<profile>
+			<id>snapshots</id>
+			<properties>
+				<spring-data-bom.version>2022.0.1-SNAPSHOT</spring-data-bom.version>
+				<spring-framework.version>6.0.3-SNAPSHOT</spring-framework.version>
+				<spring-ws.version>4.0.1-SNAPSHOT</spring-ws.version>
+			</properties>
+		</profile>
+	</profiles>
 
 	<repositories>
 		<repository>
