@@ -4,9 +4,10 @@ https://spring.io/projects/spring-ws[Spring Web Services] is a product of the Sp
 document-driven, contract-first Web services. This repository contains sample
 projects illustrating usage of Spring Web Services.
 
-== Spring Boot 3.0.x + Spring WS 4.0.x
+== Spring Boot 3.5.x + Spring WS 4.1.x
 
-This version of the samples focuses on Spring WS 4.0.x, the generation provided by Spring Boot 3 up to Spring Boot 3.4.
+This version of the samples focuses on Spring WS 4.1.x, the generation provided by Spring Boot 3.5
+For samples on Spring WS 4.0.x, check the `2.0.x` branch.
 
 == Sample Applications
 
