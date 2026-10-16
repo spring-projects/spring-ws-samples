@@ -35,7 +35,7 @@
 		<axis.version>2.0.0</axis.version>
 		<axis2-wsdl2code-maven-plugin>1.7.9</axis2-wsdl2code-maven-plugin>
 		<jaxb2-maven-plugin.version>3.2.0</jaxb2-maven-plugin.version>
-		<jaxb30-maven-plugin.version>0.15.0</jaxb30-maven-plugin.version>
+		<jaxb-maven-plugin.version>4.0.16</jaxb-maven-plugin.version>
 		<jaxws-maven-plugin.version>3.0.0</jaxws-maven-plugin.version>
 		<jaxws-tools.version>3.0.2</jaxws-tools.version>
 		<jws-api.version>3.0.0</jws-api.version>
@@ -97,9 +97,9 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
-					<groupId>com.evolvedbinary.maven.jvnet</groupId>
-					<artifactId>jaxb30-maven-plugin</artifactId>
-					<version>${jaxb30-maven-plugin.version}</version>
+					<groupId>org.jvnet.jaxb</groupId>
+					<artifactId>jaxb-maven-plugin</artifactId>
+					<version>${jaxb-maven-plugin.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>com.sun.xml.ws</groupId>

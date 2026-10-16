@@ -44,8 +44,8 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>com.evolvedbinary.maven.jvnet</groupId>
-				<artifactId>jaxb30-maven-plugin</artifactId>
+				<groupId>org.jvnet.jaxb</groupId>
+				<artifactId>jaxb-maven-plugin</artifactId>
 				<executions>
 					<execution>
 						<goals>
