@@ -41,26 +41,26 @@
 					<execution>
 						<id>wsdl2code</id>
 						<goals>
-							<goal>wsdl2code</goal>
+							<goal>generate-sources</goal>
 						</goals>
 					</execution>
 				</executions>
 				<configuration>
 					<generateServerSideInterface>true</generateServerSideInterface>
-					<namespaceURIs>
-						<namespaceURI>
+					<namespaceMappings>
+						<namespaceMapping>
 							<uri>http://www.springframework.org/spring-ws/samples/airline/definitions</uri>
 							<packageName>org.springframework.ws.samples.airline.client.axis</packageName>
-						</namespaceURI>
-						<namespaceURI>
+						</namespaceMapping>
+						<namespaceMapping>
 							<uri>http://www.springframework.org/spring-ws/samples/airline/schemas/messages</uri>
 							<packageName>org.springframework.ws.samples.airline.client.axis</packageName>
-						</namespaceURI>
-						<namespaceURI>
+						</namespaceMapping>
+						<namespaceMapping>
 							<uri>http://www.springframework.org/spring-ws/samples/airline/schemas/types</uri>
 							<packageName>org.springframework.ws.samples.airline.client.axis</packageName>
-						</namespaceURI>
-					</namespaceURIs>
+						</namespaceMapping>
+					</namespaceMappings>
 					<outputDirectory>${generated-sources}</outputDirectory>
 					<wsdlFile>${wsdl}</wsdlFile>
 				</configuration>
