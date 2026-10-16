@@ -1,0 +1,18 @@
+plugins {
+	id "samples.xjc"
+}
+
+xjc {
+	source = file("../airline.wsdl")
+	referencedFiles.from(fileTree("../../server/src/main/resources") { include "*.xsd" })
+	packageName = "org.springframework.springWs.samples.airline.schemas"
+	wsdl = true
+}
+
+dependencies {
+	implementation("org.springframework.ws:spring-ws-core")
+	implementation("org.springframework.ws:spring-ws-security")
+
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.ws:spring-ws-test")
+}

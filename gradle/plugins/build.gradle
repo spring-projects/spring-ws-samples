@@ -1,0 +1,36 @@
+plugins {
+	id "java-gradle-plugin"
+}
+
+repositories {
+	gradlePluginPortal()
+	mavenCentral()
+}
+
+dependencies {
+	implementation "org.springframework.boot:spring-boot-gradle-plugin:3.5.16"
+	implementation "io.spring.gradle:dependency-management-plugin:1.1.7"
+	implementation "io.spring.javaformat:spring-javaformat-gradle-plugin:0.0.48"
+}
+
+tasks.withType(JavaCompile).configureEach {
+	options.release = 17
+	options.encoding = "UTF-8"
+}
+
+gradlePlugin {
+	plugins {
+		conventions {
+			id = "samples.conventions"
+			implementationClass = "org.springframework.ws.samples.gradle.ConventionsPlugin"
+		}
+		xjc {
+			id = "samples.xjc"
+			implementationClass = "org.springframework.ws.samples.gradle.XjcPlugin"
+		}
+		wsimport {
+			id = "samples.wsimport"
+			implementationClass = "org.springframework.ws.samples.gradle.WsImportPlugin"
+		}
+	}
+}

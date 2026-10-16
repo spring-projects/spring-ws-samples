@@ -1,0 +1,9 @@
+plugins {
+	id "samples.conventions"
+}
+
+dependencies {
+	implementation("org.springframework.boot:spring-boot-starter-artemis")
+	implementation("org.springframework.ws:spring-ws-core")
+	implementation("org.springframework.ws:spring-ws-support")
+}

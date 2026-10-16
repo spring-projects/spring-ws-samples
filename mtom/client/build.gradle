@@ -1,0 +1,19 @@
+plugins {
+	id "samples.xjc"
+}
+
+xjc {
+	source = file("../server/src/main/resources/contentStore.wsdl")
+	packageName = "org.springframework.ws.samples.mtom.client.sws"
+	wsdl = true
+}
+
+dependencies {
+	implementation("org.springframework.boot:spring-boot-starter")
+	implementation("org.springframework.boot:spring-boot-starter-web-services") {
+		exclude module: "spring-boot-starter-tomcat"
+	}
+
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.ws:spring-ws-test")
+}

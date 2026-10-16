@@ -1,0 +1,32 @@
+pluginManagement {
+	includeBuild "gradle/plugins"
+}
+
+dependencyResolutionManagement {
+	repositories {
+		mavenCentral()
+		// Not on Maven Central, and Gradle ignores the repositories that POMs declare
+		maven {
+			url = "https://build.shibboleth.net/maven/releases/"
+			content {
+				includeGroupAndSubgroups("org.opensaml")
+				includeGroupAndSubgroups("net.shibboleth")
+			}
+		}
+	}
+}
+
+rootProject.name = "spring-ws-samples"
+
+include "airline:client:axis"
+include "airline:client:jax-ws"
+include "airline:client:jms"
+include "airline:client:saaj"
+include "airline:client:spring-ws"
+include "airline:server"
+include "echo:client:saaj"
+include "echo:client:spring-ws"
+include "echo:server"
+include "mtom:client"
+include "mtom:server"
+include "tutorial"

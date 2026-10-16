@@ -1,0 +1,18 @@
+plugins {
+	id "samples.xjc"
+}
+
+xjc {
+	source = file("src/main/resources/contentStore.wsdl")
+	packageName = "org.springframework.ws.samples.mtom.schema"
+	wsdl = true
+}
+
+dependencies {
+	implementation("org.springframework.boot:spring-boot-starter-web-services")
+	implementation("wsdl4j:wsdl4j")
+
+	runtimeOnly("org.apache.ws.xmlschema:xmlschema-core")
+
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+}

@@ -21,6 +21,10 @@ O/X Mapping functionality in a complete application
 * link:./mtom[mtom] - shows how to use MTOM and JAXB2 marshalling
 * link:./tutorial[tutorial] - contains the code from the Spring-WS tutorial
 
+== Building with Maven or Gradle
+
+The samples can be built with either Maven (`./mvnw`) or Gradle (`./gradlew`).
+
 == Running the Server
 
 Most of the sample apps can be built and run using the following commands from
@@ -30,10 +34,22 @@ within the `server` folder.
 $ ./mvnw spring-boot:run
 ----
 
+or, with Gradle:
+
+----
+$ ./gradlew bootRun
+----
+
 Or alternatively, run the following to create runnable JAR file that will run anywhere there's a JDK:
 
 ----
 $ ./mvnw package
+----
+
+or, with Gradle (the JAR is in `build/libs`):
+
+----
+$ ./gradlew bootJar
 ----
 
 == Running the Client(s)
@@ -44,6 +60,12 @@ command from within each of client subdirectories:
 
 ----
 $ ./mvnw spring-boot:run
+----
+
+or, with Gradle:
+
+----
+$ ./gradlew bootRun
 ----
 
 == License

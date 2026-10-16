@@ -1,0 +1,27 @@
+plugins {
+	id "samples.xjc"
+}
+
+xjc {
+	source = file("src/main/resources/messages.xsd")
+	referencedFiles.from(file("src/main/resources/types.xsd"))
+	packageName = "org.springframework.ws.samples.airline.schema"
+}
+
+dependencies {
+	implementation("org.springframework.boot:spring-boot-starter-artemis")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-web-services")
+	implementation("org.springframework.ws:spring-ws-security")
+	implementation("org.springframework.ws:spring-ws-support")
+	implementation("org.apache.activemq:artemis-jakarta-server")
+	implementation("wsdl4j:wsdl4j")
+
+	runtimeOnly("com.h2database:h2")
+	runtimeOnly("org.apache.ws.xmlschema:xmlschema-core")
+
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+}
