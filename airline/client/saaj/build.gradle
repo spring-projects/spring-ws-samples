@@ -1,0 +1,8 @@
+plugins {
+	id "samples.conventions"
+}
+
+dependencies {
+	implementation("org.springframework.boot:spring-boot-starter")
+	implementation("com.sun.xml.messaging.saaj:saaj-impl")
+}

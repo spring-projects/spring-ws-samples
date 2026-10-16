@@ -1,0 +1,36 @@
+plugins {
+	id "samples.conventions"
+}
+
+configurations {
+	axis2Codegen
+}
+
+dependencies {
+	axis2Codegen("org.apache.axis2:axis2-codegen:${axis2CodegenVersion}")
+	axis2Codegen("org.apache.axis2:axis2-adb-codegen:${axis2CodegenVersion}")
+
+	implementation("org.apache.axis2:axis2-adb")
+	implementation("org.apache.axis2:axis2-transport-local")
+	implementation("org.apache.axis2:axis2-transport-http")
+}
+
+def wsdl = file("../airline.wsdl")
+def generatedSources = layout.buildDirectory.dir("generated/sources/axis2")
+def packageName = "org.springframework.ws.samples.airline.client.axis"
+
+def generateClient = tasks.register("generateClient", JavaExec) {
+	inputs.files(wsdl, fileTree("../../server/src/main/resources") { include "*.xsd" })
+	outputs.dir(generatedSources)
+	classpath = configurations.axis2Codegen
+	mainClass = "org.apache.axis2.wsdl.WSDL2Java"
+	args("-uri", wsdl, "-o", generatedSources.get().asFile, "-d", "adb", "-ssi", "-ns2p",
+			["definitions", "schemas/messages", "schemas/types"].collect {
+				"http://www.springframework.org/spring-ws/samples/airline/${it}=${packageName}"
+			}.join(","))
+	doFirst {
+		delete(generatedSources)
+	}
+}
+
+sourceSets.main.java.srcDir(generateClient.map { generatedSources.get().dir("src") })

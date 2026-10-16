@@ -1,0 +1,10 @@
+plugins {
+	id "samples.conventions"
+}
+
+dependencies {
+	implementation("org.springframework.boot:spring-boot-starter")
+	implementation("org.springframework.boot:spring-boot-starter-web-services") {
+		exclude module: "spring-boot-starter-tomcat"
+	}
+}

@@ -1,0 +1,22 @@
+plugins {
+	id "samples.wsimport"
+}
+
+wsimport {
+	source = file("../airline.wsdl")
+	referencedFiles.from(fileTree("../../server/src/main/resources") { include "*.xsd" })
+	packageName = "org.springframework.ws.samples.airline.client.jaxws"
+}
+
+dependencies {
+	implementation("org.springframework.ws:spring-ws-core")
+	implementation("com.sun.xml.ws:jaxws-tools")
+	implementation("jakarta.jws:jakarta.jws-api")
+
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+}
+
+tasks.named("bootJar") {
+	// jaxws-tools and Spring Boot both bring jaxb-core, under different coordinates
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
