@@ -13,7 +13,7 @@
 	<name>Spring Web Services Samples - MTOM - Client - Spring WS</name>
 
 	<properties>
-		<wsdl>${project.basedir}/../../server/src/main/resources/contentStore.wsdl</wsdl>
+		<wsdl>file://${project.basedir}/../../server/src/main/resources/contentStore.wsdl</wsdl>
 	</properties>
 
 	<dependencies>
@@ -40,8 +40,8 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
-				<groupId>com.evolvedbinary.maven.jvnet</groupId>
-				<artifactId>jaxb30-maven-plugin</artifactId>
+				<groupId>org.jvnet.jaxb</groupId>
+				<artifactId>jaxb-maven-plugin</artifactId>
 				<executions>
 					<execution>
 						<goals>
