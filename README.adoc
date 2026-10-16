@@ -7,7 +7,7 @@ projects illustrating usage of Spring Web Services.
 == Spring Boot 3.5.x + Spring WS 4.1.x
 
 This version of the samples focuses on Spring WS 4.1.x, the generation provided by Spring Boot 3.5
-For samples on Spring WS 4.0.x, check the `2.0.x` branch.
+For samples on Spring WS 5.0.x, check the `main` branch.
 
 == Sample Applications
 

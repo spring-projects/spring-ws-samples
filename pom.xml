@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.0-SNAPSHOT</version>
+		<version>3.5.16</version>
 		<relativePath/>
 	</parent>
 	<groupId>org.springframework.ws</groupId>
 	<artifactId>spring-ws-samples</artifactId>
-	<version>2.1.0-SNAPSHOT</version>
+	<version>4.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Spring Web Services Samples</name>
 	<organization>
@@ -41,7 +41,7 @@
 		<jaxws-tools.version>3.0.2</jaxws-tools.version>
 		<jdom.version>2.0.6.1</jdom.version>
 		<jws-api.version>3.0.0</jws-api.version>
-		<spring-javaformat.version>0.0.43</spring-javaformat.version>
+		<spring-javaformat.version>0.0.48</spring-javaformat.version>
 		<wsdl4j.version>1.6.3</wsdl4j.version>
 		<xmlschema.version>2.3.1</xmlschema.version>
 	</properties>
@@ -156,42 +156,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<repositories>
-		<repository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/milestone</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>spring-snapshots</id>
-			<name>Spring Snapshots</name>
-			<url>https://repo.spring.io/snapshot</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-		</repository>
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/milestone</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
-		<pluginRepository>
-			<id>spring-snapshots</id>
-			<name>Spring Snapshots</name>
-			<url>https://repo.spring.io/snapshot</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-		</pluginRepository>
-	</pluginRepositories>
 
 </project>
