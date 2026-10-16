@@ -18,9 +18,10 @@ package org.springframework.ws.samples.airline;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.security.autoconfigure.SecurityAutoConfiguration;
+import org.springframework.boot.security.autoconfigure.web.servlet.ServletWebSecurityAutoConfiguration;
 
-@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
+@SpringBootApplication(exclude = { SecurityAutoConfiguration.class, ServletWebSecurityAutoConfiguration.class })
 public class AirlineServerApplication {
 
 	public static void main(String[] args) {

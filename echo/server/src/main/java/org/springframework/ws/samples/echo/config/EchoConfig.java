@@ -21,7 +21,7 @@ import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.ws.config.annotation.WsConfigurerAdapter;
+import org.springframework.ws.config.annotation.WsConfigurer;
 import org.springframework.ws.server.EndpointInterceptor;
 import org.springframework.ws.server.endpoint.interceptor.PayloadLoggingInterceptor;
 import org.springframework.ws.soap.server.endpoint.interceptor.PayloadValidatingInterceptor;
@@ -34,7 +34,7 @@ import org.springframework.xml.xsd.SimpleXsdSchema;
  * @author Arjen Poutsma
  */
 @Configuration
-public class EchoConfig extends WsConfigurerAdapter {
+public class EchoConfig implements WsConfigurer {
 
 	@Bean
 	public SimpleXsdSchema echoXsd() {
