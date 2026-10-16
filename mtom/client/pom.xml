@@ -7,13 +7,13 @@
 		<groupId>org.springframework.ws</groupId>
 		<artifactId>spring-ws-samples</artifactId>
 		<version>5.0.0-SNAPSHOT</version>
-		<relativePath>../../../pom.xml</relativePath>
+		<relativePath>../../pom.xml</relativePath>
 	</parent>
-	<artifactId>mtom-client-spring-ws</artifactId>
-	<name>Spring Web Services Samples - MTOM - Client - Spring WS</name>
+	<artifactId>mtom-client</artifactId>
+	<name>Spring Web Services Samples - MTOM - Client</name>
 
 	<properties>
-		<wsdl>file://${project.basedir}/../../server/src/main/resources/contentStore.wsdl</wsdl>
+		<wsdl>file://${project.basedir}/../server/src/main/resources/contentStore.wsdl</wsdl>
 	</properties>
 
 	<dependencies>
@@ -30,6 +30,12 @@
 					<artifactId>spring-boot-starter-tomcat</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webservices-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 

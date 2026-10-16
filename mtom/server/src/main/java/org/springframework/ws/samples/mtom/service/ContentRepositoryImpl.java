@@ -17,15 +17,21 @@
 package org.springframework.ws.samples.mtom.service;
 
 import jakarta.activation.DataHandler;
-
-import java.io.*;
-
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.stereotype.Service;
+import org.springframework.ws.samples.mtom.config.MtomServerProperties;
 
 /**
+ * A {@link ContentRepository} that keeps the content in files of a local directory.
+ *
  * @author Arjen Poutsma
  */
 @Service
@@ -33,30 +39,45 @@ class ContentRepositoryImpl implements ContentRepository {
 
 	private static final Logger logger = LoggerFactory.getLogger(ContentRepositoryImpl.class);
 
-	@Value(value = "#{ systemProperties['java.io.tmpdir'] }") //
-	private String fileStorePath;
+	private final Path storageDirectory;
+
+	ContentRepositoryImpl(MtomServerProperties mtomServerProperties) {
+		this.storageDirectory = mtomServerProperties.getStorageDirectory().toAbsolutePath().normalize();
+	}
 
 	@Override
 	public File loadContent(String name) {
-		return new File(this.fileStorePath, name + ".tmp");
+		Path file = resolve(name);
+		if (!Files.isRegularFile(file)) {
+			throw new ContentNotFoundException(name);
+		}
+		return file.toFile();
 	}
 
 	@Override
 	public void storeContent(String name, DataHandler content) throws IOException {
+		Path file = resolve(name);
+		logger.info("Storing content in file: {}", file);
 
-		File outFile = new File(this.fileStorePath, name + ".tmp");
-		logger.info("Storing content in file: {}", outFile.getAbsolutePath());
-
-		int i = 0;
-		byte[] buffer = new byte[1024];
 		try (InputStream in = content.getInputStream()) {
-			try (OutputStream out = new FileOutputStream(outFile)) {
-				while ((i = in.read(buffer, 0, buffer.length)) > 0) {
-					out.write(buffer, 0, i);
-				}
-			}
+			Files.copy(in, file, StandardCopyOption.REPLACE_EXISTING);
 		}
 		logger.info("Content stored.");
+	}
+
+	/**
+	 * Resolve the file for the given name, making sure it cannot point outside the
+	 * storage directory.
+	 */
+	private Path resolve(String name) {
+		if (name == null || name.isBlank()) {
+			throw new InvalidContentNameException(name);
+		}
+		Path file = this.storageDirectory.resolve(name + ".tmp").normalize();
+		if (!this.storageDirectory.equals(file.getParent())) {
+			throw new InvalidContentNameException(name);
+		}
+		return file;
 	}
 
 }
