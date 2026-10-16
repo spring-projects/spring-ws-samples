@@ -33,7 +33,7 @@
 		<wsdl>${project.basedir}/airline/client/airline.wsdl</wsdl>
 
 		<axis.version>2.0.0</axis.version>
-		<axis2-wsdl2code-maven-plugin>1.7.9</axis2-wsdl2code-maven-plugin>
+		<axis2-wsdl2code-maven-plugin.version>2.0.1</axis2-wsdl2code-maven-plugin.version>
 		<jaxb2-maven-plugin.version>3.2.0</jaxb2-maven-plugin.version>
 		<jaxb-maven-plugin.version>4.0.16</jaxb-maven-plugin.version>
 		<jaxws-maven-plugin.version>3.0.0</jaxws-maven-plugin.version>
@@ -109,7 +109,7 @@
 				<plugin>
 					<groupId>org.apache.axis2</groupId>
 					<artifactId>axis2-wsdl2code-maven-plugin</artifactId>
-					<version>${axis2-wsdl2code-maven-plugin}</version>
+					<version>${axis2-wsdl2code-maven-plugin.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
