@@ -2,6 +2,16 @@
 
 This sample shows how to use marshal and unmarshal MTOM attachments using JAXB2.
 
+The server stores and loads binary content, exchanged as MTOM attachments.
+`MtomServerConfiguration` registers a `MarshallingPayloadMethodProcessor` that uses a `Jaxb2Marshaller` with MTOM enabled, ahead of the default ones.
+The client uses the same marshaller configuration.
+
+== Run the sample
+
+Start the server (`mtom/server`), then run the client (`mtom/client/spring-ws`).
+The client stores an image on the server, loads it back and logs the size of what it received.
+The server stores the content in the directory configured with `mtom.storage-directory` (the temporary directory of the system by default).
+
 == Build and deploy
 
 See the main link:../README.adoc[README] for build instructions.

@@ -16,14 +16,18 @@
 
 package org.springframework.ws.samples.mtom.ws;
 
-import jakarta.activation.DataHandler;
-import jakarta.activation.FileDataSource;
-
 import java.io.File;
 import java.io.IOException;
 
+import jakarta.activation.DataHandler;
+import jakarta.activation.FileDataSource;
+
 import org.springframework.util.Assert;
-import org.springframework.ws.samples.mtom.schema.*;
+import org.springframework.ws.samples.mtom.schema.LoadContentRequest;
+import org.springframework.ws.samples.mtom.schema.LoadContentResponse;
+import org.springframework.ws.samples.mtom.schema.ObjectFactory;
+import org.springframework.ws.samples.mtom.schema.StoreContentRequest;
+import org.springframework.ws.samples.mtom.schema.StoreContentResponse;
 import org.springframework.ws.samples.mtom.service.ContentRepository;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -36,14 +40,12 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 @Endpoint
 public class ContentRepositoryEndpoint {
 
-	private ContentRepository contentRepository;
+	private final ContentRepository contentRepository;
 
-	private ObjectFactory objectFactory;
+	private final ObjectFactory objectFactory;
 
 	public ContentRepositoryEndpoint(ContentRepository contentRepository) {
-
-		Assert.notNull(contentRepository, "'imageRepository' must not be null");
-
+		Assert.notNull(contentRepository, "'contentRepository' must not be null");
 		this.contentRepository = contentRepository;
 		this.objectFactory = new ObjectFactory();
 	}
@@ -51,7 +53,6 @@ public class ContentRepositoryEndpoint {
 	@PayloadRoot(localPart = "StoreContentRequest", namespace = "http://www.springframework.org/spring-ws/samples/mtom")
 	@ResponsePayload
 	public StoreContentResponse store(@RequestPayload StoreContentRequest storeContentRequest) throws IOException {
-
 		this.contentRepository.storeContent(storeContentRequest.getName(), storeContentRequest.getContent());
 		StoreContentResponse response = this.objectFactory.createStoreContentResponse();
 		response.setMessage("Success");
@@ -60,10 +61,8 @@ public class ContentRepositoryEndpoint {
 
 	@PayloadRoot(localPart = "LoadContentRequest", namespace = "http://www.springframework.org/spring-ws/samples/mtom")
 	@ResponsePayload
-	public LoadContentResponse load(@RequestPayload LoadContentRequest loadContentRequest) throws IOException {
-
+	public LoadContentResponse load(@RequestPayload LoadContentRequest loadContentRequest) {
 		LoadContentResponse response = this.objectFactory.createLoadContentResponse();
-
 		File contentFile = this.contentRepository.loadContent(loadContentRequest.getName());
 		DataHandler dataHandler = new DataHandler(new FileDataSource(contentFile));
 		response.setName(loadContentRequest.getName());

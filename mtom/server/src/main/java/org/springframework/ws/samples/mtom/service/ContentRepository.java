@@ -16,18 +16,34 @@
 
 package org.springframework.ws.samples.mtom.service;
 
-import jakarta.activation.DataHandler;
-
 import java.io.File;
 import java.io.IOException;
 
+import jakarta.activation.DataHandler;
+
 /**
+ * A repository for binary content, identified by name.
+ *
  * @author Arjen Poutsma
  */
 public interface ContentRepository {
 
+	/**
+	 * Return the file that holds the content with the given name.
+	 * @param name the name of the content
+	 * @return the file with the content
+	 * @throws InvalidContentNameException if the name is not valid
+	 * @throws ContentNotFoundException if no content exists with that name
+	 */
 	File loadContent(String name);
 
+	/**
+	 * Store the content with the given name, replacing any previous content.
+	 * @param name the name of the content
+	 * @param content the content to store
+	 * @throws InvalidContentNameException if the name is not valid
+	 * @throws IOException if the content cannot be stored
+	 */
 	void storeContent(String name, DataHandler content) throws IOException;
 
 }

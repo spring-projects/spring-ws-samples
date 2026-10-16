@@ -56,7 +56,7 @@
 		<module>echo/client/saaj</module>
 		<module>echo/client/spring-ws</module>
 		<module>echo/server</module>
-		<module>mtom/client/spring-ws</module>
+		<module>mtom/client</module>
 		<module>mtom/server</module>
 		<module>tutorial</module>
 	</modules>

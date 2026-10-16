@@ -16,61 +16,61 @@
 
 package org.springframework.ws.samples.mtom.config;
 
-import java.util.Collections;
+import java.util.List;
 
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
-import org.springframework.ws.server.endpoint.adapter.DefaultMethodEndpointAdapter;
+import org.springframework.ws.config.annotation.WsConfigurer;
 import org.springframework.ws.server.endpoint.adapter.method.MarshallingPayloadMethodProcessor;
+import org.springframework.ws.server.endpoint.adapter.method.MethodArgumentResolver;
+import org.springframework.ws.server.endpoint.adapter.method.MethodReturnValueHandler;
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
 import org.springframework.ws.wsdl.wsdl11.SimpleWsdl11Definition;
 
 /**
+ * Configuration of the MTOM server. The JAXB support that is registered by default does
+ * not handle MTOM attachments, so a {@link MarshallingPayloadMethodProcessor} that uses a
+ * {@link Jaxb2Marshaller} with MTOM enabled is registered ahead of the default ones.
+ *
  * @author Arjen Poutsma
  */
 @Configuration
-public class MtomServerConfiguration {
+@EnableConfigurationProperties(MtomServerProperties.class)
+public class MtomServerConfiguration implements WsConfigurer {
 
 	@Bean
 	ServletRegistrationBean<?> webServicesRegistration(ApplicationContext ctx) {
-
 		MessageDispatcherServlet messageDispatcherServlet = new MessageDispatcherServlet();
 		messageDispatcherServlet.setApplicationContext(ctx);
 		messageDispatcherServlet.setTransformWsdlLocations(true);
-
 		return new ServletRegistrationBean<>(messageDispatcherServlet, "/mtom-server/*", "*.wsdl");
 	}
 
 	@Bean
 	public Jaxb2Marshaller marshaller() {
-
 		Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
 		marshaller.setContextPath("org.springframework.ws.samples.mtom.schema");
 		marshaller.setMtomEnabled(true);
 		return marshaller;
 	}
 
-	@Bean
-	public MarshallingPayloadMethodProcessor methodProcessor(Jaxb2Marshaller marshaller) {
-		return new MarshallingPayloadMethodProcessor(marshaller);
+	@Override
+	public void addArgumentResolvers(List<MethodArgumentResolver> argumentResolvers) {
+		argumentResolvers.add(0, new MarshallingPayloadMethodProcessor(marshaller()));
 	}
 
-	@Bean
-	DefaultMethodEndpointAdapter endpointAdapter(MarshallingPayloadMethodProcessor methodProcessor) {
-
-		DefaultMethodEndpointAdapter adapter = new DefaultMethodEndpointAdapter();
-		adapter.setMethodArgumentResolvers(Collections.singletonList(methodProcessor));
-		adapter.setMethodReturnValueHandlers(Collections.singletonList(methodProcessor));
-		return adapter;
+	@Override
+	public void addReturnValueHandlers(List<MethodReturnValueHandler> returnValueHandlers) {
+		returnValueHandlers.add(0, new MarshallingPayloadMethodProcessor(marshaller()));
 	}
 
 	@Bean
 	public SimpleWsdl11Definition contentStore() {
-
 		SimpleWsdl11Definition definition = new SimpleWsdl11Definition();
 		definition.setWsdl(new ClassPathResource("/contentStore.wsdl"));
 		return definition;
